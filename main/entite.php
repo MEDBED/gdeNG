@@ -138,9 +138,9 @@ function affTab(tab){
 			<tr><td>Tél</td><td><input name="tel" value="<?php echo $row['tel'];?>"></td></tr>
 			<tr><td>Fax</td><td><input name="fax" value="<?php echo $row['fax'];?>"></td></tr>
 			<tr><td>Email</td><td><input name="email" value="<?php echo $row['email'];?>"></td></tr>
-			<tr><td>Directeur</td><td><input name="directeur" value="<?php echo $row['directeur'];?>"></td></tr>
+			<!--<tr><td>Directeur</td><td><input name="directeur" value="<?php echo $row['directeur'];?>"></td></tr>
 			<tr><td>Adjoint</td><td><input name="adjoint" value="<?php echo $row['adjoint'];?>"></td></tr>
-			<tr><td>Gestionnaire</td><td><input name="gestionnaire" value="<?php echo $row['gestionnaire'];?>"></td></tr>						
+			<tr><td>Gestionnaire</td><td><input name="gestionnaire" value="<?php echo $row['gestionnaire'];?>"></td></tr>-->
 			</table>
 		</div>
 		<div class="formRight">
@@ -217,7 +217,8 @@ function affTab(tab){
                                 list:false
                             },
                              tel1: {                           
-                                title: 'Tél Pro',	                                
+                                title: 'Tél Pro',	
+                                width: '10%'
                             },
                              tel2: {                           
                                 title: 'Tél Autre',							                                                           
