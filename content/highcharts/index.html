@@ -1,0 +1,442 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr" >
+<head>
+<meta name="google-site-verification" content="zZKyRH04K4AUb2UxcOHTsR6GLNNAt-OzZ296_tEfalo" />
+
+<!-- Start website specific code -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script -->
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<script type="text/javascript" src="js/highcharts.js"></script>
+<!--[if IE]>
+<script type="text/javascript" src="/js/excanvas.compiled.js"></script>
+<![endif]-->
+<script type="text/javascript" src="http://www.highcharts.com/templates/general/frontpage.js"></script>
+<!-- End website specific code -->
+
+<!-- Highslide code -->
+<script type="text/javascript" src="highslide/highslide-with-html.packed.js"></script>
+<script type="text/javascript" src="highslide/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="highslide/highslide.css" />
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
+<![endif]-->
+<!-- End Highslide code -->
+
+
+  <base href="" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="highcharts, charts, javascript charts, ajax charts, plots, line charts, bar charts, pie charts, javascript plots, ajax plots" />
+  <meta name="description" content="Highcharts - Interactive JavaScript charts for your web pages." />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Highcharts - Interactive JavaScript charts for your webpage</title>
+  <link href="index.php?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0" />
+  <link href="index.php?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0" />
+  <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/template.css" type="text/css" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/variations/brown.css" type="text/css" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/custom.css" type="text/css" />
+  <style type="text/css">
+    <!--
+.wrapper { width: 880px; }
+#main-shift { margin-right: 200px; }
+#right { width: 200px; margin-left: -200px; }
+#menu .dropdown { width: 250px; }
+#menu .columns2 { width: 500px; }
+#menu .columns3 { width: 750px; }
+#menu .columns4 { width: 1000px; }
+
+    -->
+  </style>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/mootools.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/base.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/accordionmenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/fancymenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/dropdownmenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/template.js"></script>
+  <script type="text/javascript">
+var YtSettings = { tplurl: '/templates/yoo_symphony', color: 'brown' };
+  </script>
+  <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/modules/mod_minifrontpage/css/style.css" title="default" />
+
+<link rel="apple-touch-icon" href="http://www.highcharts.com/templates/yoo_symphony/apple_touch_icon.png" />
+
+
+
+<link type="text/css" rel="stylesheet" href="http://www.highcharts.com/templates/general/styles.css"/>
+</head>
+
+<body id="page" class="yoopage  column-right  ">
+
+	
+	<div id="page-header">
+		<div class="page-header-1">
+			<div class="page-header-2">
+				<div class="page-header-3">
+					<div class="wrapper">
+
+						<div id="header">
+			
+							<div id="toolbar">
+							
+																<div id="date">
+									Monday, 29 November 2010								</div>
+															
+																
+																
+							</div>
+							
+							<div id="headerbar">
+							
+																<div class="left">
+									<div class="module mod-blank   first last">
+
+	
+		
+	<p><a class="correct-png" href="index.html" title="Highcharts Home Page"><img class="correct-png" src="http://www.highcharts.com/images/stories/logohighcharts.png" border="0" /></a></p>		
+</div>
+								</div>
+																
+																
+							</div>
+			
+										
+														<div id="menu">
+								<ul class="menu menu-dropdown"><li class="level1 item1 first active current"><a href="index.html" class="level1 item1 first active current"><span class="bg ">Home</span></a></li><li class="level1 item2"><a href="demo.1" class="level1 item2"><span class="bg ">Demo Gallery</span></a></li><li class="level1 item3 parent separator"><span class="separator level1 item3 parent separator"><span class="bg ">Documentation</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="documentation/how-to-use" class="level2 item1 first"><span class="bg ">How To Use</span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="ref" class="level2 item2"><span class="bg ">Options Reference</span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item3 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="documentation/changelog" class="level2 item3 last"><span class="bg ">Changelog</span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li><li class="level1 item4 parent separator"><span class="separator level1 item4 parent separator"><span class="bg ">Support</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highslide.com/forum/viewforum.php?f=9" class="level2 item1 first"><span class="bg "><span class="title">Support forum</span><span class="subtitle">Questions answered every working day</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highcharts.uservoice.com/forums/55896-general" class="level2 item2"><span class="bg "><span class="title">Feature requests</span><span class="subtitle">Suggest and vote for new features</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item3 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="support/contact" class="level2 item3 last"><span class="bg ">Contact</span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li><li class="level1 item5 last parent separator"><span class="separator level1 item5 last parent separator"><span class="bg ">Products</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="index.html" class="level2 item1 first"><span class="bg "><span class="title">Highcharts</span><span class="subtitle">JavaScript Charting Library</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highslide.com" class="level2 item2 last"><span class="bg "><span class="title">Highslide JS</span><span class="subtitle">JavaScript Image and Gallery Viewer</span></span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li></ul>
+							</div>
+										
+											
+										
+						</div>
+						<!-- header end -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div id="page-top">
+		<div class="page-top-1">
+			<div class="wrapper">
+
+				<div id="top">
+			
+							
+											<div class="topbox float-left width100"><div class="module mod-rounded   first last">
+
+	
+	
+	<div class="box-t1">
+		<div class="box-t2">
+			<div class="box-t3"></div>
+		</div>
+	</div>
+
+	<div class="box-1">
+		<div class="box-2 deepest ">
+					</div>
+	</div>
+
+	<div class="box-b1">
+		<div class="box-b2">
+			<div class="box-b3"></div>
+		</div>
+	</div>
+		
+</div></div>
+																
+				</div>
+				<!-- top end -->
+
+			</div>
+		</div>
+	</div>
+	
+	<div id="page-middle">
+		<div class="page-middle-1">
+			<div class="page-middle-2">
+				<div class="wrapper">
+
+					<div id="middle">
+						<div id="middle-expand">
+						
+							<div id="main">
+								<div id="main-shift">
+								
+									<div class="main-wrapper-t1">
+										<div class="main-wrapper-t2">
+											<div class="main-wrapper-t3"></div>
+										</div>
+									</div>
+								
+									<div class="main-wrapper-1 ">
+								
+																		
+										
+										<div id="mainmiddle">
+											<div id="mainmiddle-expand">
+											
+												<div id="content">
+													<div id="content-shift">
+													
+															
+														<div class="floatbox">
+															
+															
+<div class="joomla ">
+	<div class="blog">
+
+		
+				<div class="leadingarticles">
+										
+<div class="item ">
+	<div class="item-bg">
+	
+			
+				
+			
+				<p class="articleinfo">
+		
+					
+					
+					
+		
+			
+		</p>
+			
+				
+		<div class="intro">
+<h2>What is Highcharts?</h2>
+<p>Highcharts is a charting library written in pure JavaScript, offering an easy way of adding interactive charts to your web site or web application. Highcharts currently supports line, spline, area, areaspline, column, bar, pie and scatter chart types.</p>
+  
+
+  
+  
+<h2>Features</h2>
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/browsers.png" mce_src="/images/stories/features/browsers.png" alt="browsers" border="0" height="124" width="164">Compatible</h4>
+<p>It works in all modern browsers including the iPhone/iPad and Internet Explorer from version 6. Standard browsers use SVG for the graphics rendering. In Internet Explorer graphics are drawn using VML.</p>
+
+  <h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/free.png" mce_src="/images/stories/features/free.png" alt="free" border="0" height="124" width="164">Free for Non-commercial</h4>
+<p>Do you want to use Highcharts for a personal website, a school site or a non-profit organisation? Then you don't need the author's permission, just go on and use Highcharts. For commercial websites and projects, see <a href="license" mce_href="http://www.highcharts.com/license">License and Pricing</a>.</p>
+
+  <h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/no-backend.png" mce_src="/images/stories/features/no-backend.png" alt="no-backend" border="0" height="124" width="164">Pure JavaScript</h4>
+<p>Highcharts is solely based on native browser technologies and doesn't require client side plugins like Flash or Java. Furthermore you don't need to install anything on your server. No PHP or ASP.NET. Highcharts needs only two JS files to run: The highcharts.js core and either the jQuery or the MooTools framework. One of these frameworks is most likely already in use in your web page.</p>
+
+  <h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/chart-types.png" mce_src="/images/stories/features/chart-types.png" alt="chart-types" border="0" height="124" width="164">Numerous Chart Types</h4>
+<p>Highcharts supports line, spline, area, areaspline, column, bar, pie and scatter chart types. Any of these can be combined in one chart.</p>
+<br />
+  
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/config-syntax.png" mce_src="/images/stories/features/config-syntax.png" alt="config-syntax" border="0" height="124" width="164">Simple Configuration Syntax</h4>
+<p>Setting the Highcharts configuration options requires no special programming skills. The options are given in a JavaScript object notation structure, which is basically a set of keys and values connected by colons, separated by commas and grouped by curly brackets.</p>
+  
+<h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/events.png" mce_src="/images/stories/features/events.png" border="0">Dynamic</h4>
+<p>Through a full API you can add, remove and modify series, axes or points at any time after chart creation. Numerous events supply hooks for programming agains the chart. In combination with jQuery's or MooTools' Ajax API, this opens for solutions like live charts constantly updating with values from the server, user supplied data and more.</p>
+  
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/multiaxes.png" mce_src="/images/stories/features/multiaxes.png" border="0">Multiple Axes</h4>
+<p>Sometimes you want to compare variables that are not the same scale - for example temperature versus rainfall and air pressure. Highcharts lets you assign an y axis for each series - or an x axis if you want to compare data sets of different categories. Each axis can be placed to the right or left, top or bottom of the chart. All options can be set individually, including reversing, styling and position.</p>
+  
+<h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/tooltip.png" mce_src="/images/stories/features/tooltip.png" alt="tooltip" style="float: right;" mce_style="float: right;" border="0" height="124" width="164">Tooltip Labels</h4>
+<p>On hovering the chart Highcharts can display a tooltip text with information on each point and series. The tooltip follows as the user moves the mouse over the graph, and great efforts have been taken to make it stick to the nearest point as well as making it easy to read a point that is below another point.</p>
+  
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/datetime.png"  mce_src="/images/stories/features/datetime.png"  alt="datetime" style="float: left;" mce_style="float:  left;" border="0" height="124" width="164">Datetime Axis</h4>
+<p>75% of all charts with an X and Y axis have a  date-time X axis. Therefore Highchart is very intelligent about time  values. With milliseconds axis units, Highcharts determines where to  place the ticks so that they always mark the start of the month or the  week, midnight and midday, the full hour etc.</p>
+  
+<h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/exporting.png"  mce_src="/images/stories/features/datetime.png"  alt="exporting" border="0" height="124" width="164">Export and print</h4>
+<p>With the exporting module enabled, your users can export the chart to PNG, JPG, PDF or SVG format
+  at the click of a button, or print the chart directly from the web page.</p>
+  
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/zooming.png" mce_src="/images/stories/features/zooming.png" alt="zooming" border="0" height="124" width="164">Zooming</h4>
+<p>By zooming in on a chart you can examine an especially interesting part of the data more closely. Zooming can be in the X or Y dimension, or both.</p>
+  
+<h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/ajax.png" mce_src="/images/stories/features/ajax.png" alt="ajax" border="0" height="124" width="164">External Data Loading</h4>
+<p>Highcharts takes the data in a JavaScript array, which can be defined in the local configuration object, in a separate file or even on a different site. Furthermore, the data can be handled over to Highcharts in any form, and a callback function used to parse the data into an array.</p>
+  
+<h4><img class="float-left" src="http://www.highcharts.com/images/stories/features/inverted.png" mce_src="/images/stories/features/inverted.png" alt="inverted" border="0" height="124" width="164">Inverted Chart or Reversed Axis</h4>
+<p>Sometimes you need to flip over your chart and make the X axis appear vertical, like for example in a bar chart. Reversing the axis, with the highest values appearing closest to origo, is also supported.</p>
+  
+<h4><img class="float-right" src="http://www.highcharts.com/images/stories/features/rotation.png" mce_src="/images/stories/features/rotation.png" alt="rotation" border="0" height="124" width="164">Text Rotation for Labels</h4>
+<p>All text labels, including axis labels, data labels for the point and axis titles, can be rotated in any angle.</p>
+<p><br /></p>
+</div>	
+			
+		
+	</div>
+</div>				</div>
+		
+		
+		
+		
+	</div>
+</div>
+														</div>
+							
+																											
+													</div>
+												</div>
+												<!-- content end -->
+												
+																								
+																								
+											</div>
+										</div>
+										<!-- mainmiddle end -->
+
+																		
+									</div>
+								
+									<div class="main-wrapper-b1">
+										<div class="main-wrapper-b2">
+											<div class="main-wrapper-b3"></div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+							
+														
+														<div id="right">
+								<div class="module mod-rider mod-rider-templatecolor mod-menu mod-menu-rider   first ">
+
+		<h3 class="header"><span class="header-2"><span class="header-3">Get Highcharts</span></span></h3>
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest with-header">
+		<ul class="menu"><li class="level1 item1 first"><a href="download" class="level1 item1 first"><span class="bg ">Download</span></a></li><li class="level1 item2 last"><a href="license" class="level1 item2 last"><span class="bg ">License and Pricing</span></a></li></ul>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div><div class="module mod-rider mod-rider-templatecolor   ">
+
+		<h3 class="header"><span class="header-2"><span class="header-3">News</span></span></h3>
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest with-header">
+		
+<table width="100%" class="minifp"><tr> 
+		<td valign="top" width="100%" class="minifp"><span class="minifp-introtitle"><a href="component/content/article/2-news/23-version-21-released">Version 2.1 released!</a></span><br class="minifp-seperator" /><span class="minifp-date">2010-11-23</span><br class="minifp-seperator" /></a><p>While  version 2.0 mainly focused  on an internal rewrite as well as export  options, version 2.1 comes packed with new features. The greatest news  are resizing logic and automatic  adjustments of margins to let the  library itself handle different sizes  of axis labels and titles, but  included are also lots of smaller news as  requested at our Uservoice page.
+</p><br class="minifp-seperator" /> 
+			<div class="minifp-full-link-wrp"><a class="minifp-full-link" href="component/content/article/2-news/23-version-21-released">Read more</a></div></td></tr><tr> 
+		<td valign="top" width="100%" class="minifp"><span class="minifp-introtitle"><a href="component/content/article/2-news/22-21-beta-released">2.1 beta released</a></span><br class="minifp-seperator" /><span class="minifp-date">2010-10-18</span><br class="minifp-seperator" /></a><p>An early version of Highcharts 2.1 is now out for testing. There are still some known bugs, but we are ready to let users test it and report back any bug findings.
+</p><br class="minifp-seperator" /> 
+			<div class="minifp-full-link-wrp"><a class="minifp-full-link" href="component/content/article/2-news/22-21-beta-released">Read more</a></div></td></tr><tr> 
+		<td valign="top" width="100%" class="minifp"><span class="minifp-introtitle"><a href="component/content/article/2-news/21-version-20-released">Version 2.0 released</a></span><br class="minifp-seperator" /><span class="minifp-date">2010-07-14</span><br class="minifp-seperator" /></a><p>Version 2.0 has been released with the most frequently asked feature of Highcharts, chart saving and exporting. With the new version you can add export buttons on your chart and let your users download PNGs, JPGs, PDFs or SVGs of your charts.
+</p><br class="minifp-seperator" /> 
+			<div class="minifp-full-link-wrp"><a class="minifp-full-link" href="component/content/article/2-news/21-version-20-released">Read more</a></div></td></tr></table>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div><div class="module mod-rider mod-rider-templatecolor   ">
+
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest ">
+		<a href="http://highcharts.com/component/content/category/2-news/">All news items</a>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div><div class="module mod-rider mod-rider-templatecolor   last">
+
+		<h3 class="header"><span class="header-2"><span class="header-3">Testimonials</span></span></h3>
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest with-header">
+		<p>I'm writing on behalf of TellApart to thank you for your diligence in  making the Highcharts library a success.  TellApart is a small startup  and I'm the developer who tried out the Highcharts library and used the  charting library to make a dashboard for internal use.  I found the  library to be very well written, documented, and your advice on the  support forums to be super useful.  Though a single developer license  would be sufficient for our small team, we bought the 5 developer  license as we really appreciate your work, and in anticipation of future  work and developers.</p>
+
+<p style="text-align:right;font-style: italic">Sanjay Jeyakumar, TellApart</p>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div>
+							</div>
+														
+						</div>
+					</div>
+		
+										<div id="bottom">
+							
+													<div class="bottombox float-left width100"><div class="module mod-rounded mod-rounded-templatecolor  first last">
+
+	
+	
+	<div class="box-t1">
+		<div class="box-t2">
+			<div class="box-t3"></div>
+		</div>
+	</div>
+
+	<div class="box-1">
+		<div class="box-2">
+			<div class="box-3 deepest ">
+				<ul class="menu"><li class="level1 item1 first"><a href="about-us" class="level1 item1 first"><span class="bg ">About us</span></a></li><li class="level1 item2 last"><a href="log-in" class="level1 item2 last"><span class="bg ">Log in</span></a></li></ul>			</div>
+		</div>
+	</div>
+
+	<div class="box-b1">
+		<div class="box-b2">
+			<div class="box-b3"></div>
+		</div>
+	</div>
+		
+</div></div>
+												
+															
+					</div>
+					<!-- bottom end -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="page-footer">
+		<div class="wrapper">
+
+			<div id="footer">
+				<a class="anchor" href="index.html#page"></a>
+				
+				
+			</div>
+			<!-- footer end -->
+
+		</div>
+	</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2995052-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>

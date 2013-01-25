@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- generator="Joomla! 1.5 - Open Source Content Management" -->
+<feed xmlns="http://www.w3.org/2005/Atom"  xml:lang="en-gb">
+	<title type="text">Interactive JavaScript charts for your webpage</title>
+	<subtitle type="text">Highcharts - Interactive JavaScript charts for your web pages.</subtitle>
+	<link rel="alternate" type="text/html" href="http://www.highcharts.com"/>
+	<id>http://www.highcharts.com/index.php</id>
+	<updated>2010-11-29T08:46:41Z</updated>
+	<generator uri="http://joomla.org" version="1.5">Joomla! 1.5 - Open Source Content Management</generator>
+<link rel="self" type="application/atom+xml" href="http://www.highcharts.com/index.php?format=feed&amp;type=atom" />
+	<entry>
+		<title>Intro</title>
+		<link rel="alternate" type="text/html" href="http://www.highcharts.com/component/content/article/1-intro"/>
+		<published>2009-11-11T12:14:41Z</published>
+		<updated>2009-11-11T12:14:41Z</updated>
+		<id>http://www.highcharts.com/component/content/article/1-intro</id>
+		<author>
+			<name>Administrator</name>
+		<email>torstein.hoensi@gmail.com</email>
+		</author>
+		<summary type="html">&lt;div class=&quot;intro&quot;&gt;
+&lt;h2&gt;What is Highcharts?&lt;/h2&gt;
+&lt;p&gt;Highcharts is a charting library written in pure JavaScript, offering an easy way of adding interactive charts to your web site or web application. Highcharts currently supports line, spline, area, areaspline, column, bar, pie and scatter chart types.&lt;/p&gt;
+  
+
+  
+  
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/browsers.png&quot; mce_src=&quot;images/stories/features/browsers.png&quot; alt=&quot;browsers&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Compatible&lt;/h4&gt;
+&lt;p&gt;It works in all modern browsers including the iPhone/iPad and Internet Explorer from version 6. Standard browsers use SVG for the graphics rendering. In Internet Explorer graphics are drawn using VML.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/free.png&quot; mce_src=&quot;images/stories/features/free.png&quot; alt=&quot;free&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Free for Non-commercial&lt;/h4&gt;
+&lt;p&gt;Do you want to use Highcharts for a personal website, a school site or a non-profit organisation? Then you don't need the author's permission, just go on and use Highcharts. For commercial websites and projects, see &lt;a href=&quot;http://www.highcharts.com/license&quot; mce_href=&quot;http://www.highcharts.com/license&quot;&gt;License and Pricing&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/no-backend.png&quot; mce_src=&quot;images/stories/features/no-backend.png&quot; alt=&quot;no-backend&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Pure JavaScript&lt;/h4&gt;
+&lt;p&gt;Highcharts is solely based on native browser technologies and doesn't require client side plugins like Flash or Java. Furthermore you don't need to install anything on your server. No PHP or ASP.NET. Highcharts needs only two JS files to run: The highcharts.js core and either the jQuery or the MooTools framework. One of these frameworks is most likely already in use in your web page.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/chart-types.png&quot; mce_src=&quot;images/stories/features/chart-types.png&quot; alt=&quot;chart-types&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Numerous Chart Types&lt;/h4&gt;
+&lt;p&gt;Highcharts supports line, spline, area, areaspline, column, bar, pie and scatter chart types. Any of these can be combined in one chart.&lt;/p&gt;
+&lt;br /&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/config-syntax.png&quot; mce_src=&quot;images/stories/features/config-syntax.png&quot; alt=&quot;config-syntax&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Simple Configuration Syntax&lt;/h4&gt;
+&lt;p&gt;Setting the Highcharts configuration options requires no special programming skills. The options are given in a JavaScript object notation structure, which is basically a set of keys and values connected by colons, separated by commas and grouped by curly brackets.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/events.png&quot; mce_src=&quot;images/stories/features/events.png&quot; border=&quot;0&quot;&gt;Dynamic&lt;/h4&gt;
+&lt;p&gt;Through a full API you can add, remove and modify series, axes or points at any time after chart creation. Numerous events supply hooks for programming agains the chart. In combination with jQuery's or MooTools' Ajax API, this opens for solutions like live charts constantly updating with values from the server, user supplied data and more.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/multiaxes.png&quot; mce_src=&quot;images/stories/features/multiaxes.png&quot; border=&quot;0&quot;&gt;Multiple Axes&lt;/h4&gt;
+&lt;p&gt;Sometimes you want to compare variables that are not the same scale - for example temperature versus rainfall and air pressure. Highcharts lets you assign an y axis for each series - or an x axis if you want to compare data sets of different categories. Each axis can be placed to the right or left, top or bottom of the chart. All options can be set individually, including reversing, styling and position.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/tooltip.png&quot; mce_src=&quot;images/stories/features/tooltip.png&quot; alt=&quot;tooltip&quot; style=&quot;float: right;&quot; mce_style=&quot;float: right;&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Tooltip Labels&lt;/h4&gt;
+&lt;p&gt;On hovering the chart Highcharts can display a tooltip text with information on each point and series. The tooltip follows as the user moves the mouse over the graph, and great efforts have been taken to make it stick to the nearest point as well as making it easy to read a point that is below another point.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/datetime.png&quot;  mce_src=&quot;images/stories/features/datetime.png&quot;  alt=&quot;datetime&quot; style=&quot;float: left;&quot; mce_style=&quot;float:  left;&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Datetime Axis&lt;/h4&gt;
+&lt;p&gt;75% of all charts with an X and Y axis have a  date-time X axis. Therefore Highchart is very intelligent about time  values. With milliseconds axis units, Highcharts determines where to  place the ticks so that they always mark the start of the month or the  week, midnight and midday, the full hour etc.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/exporting.png&quot;  mce_src=&quot;images/stories/features/datetime.png&quot;  alt=&quot;exporting&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Export and print&lt;/h4&gt;
+&lt;p&gt;With the exporting module enabled, your users can export the chart to PNG, JPG, PDF or SVG format
+  at the click of a button, or print the chart directly from the web page.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/zooming.png&quot; mce_src=&quot;images/stories/features/zooming.png&quot; alt=&quot;zooming&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Zooming&lt;/h4&gt;
+&lt;p&gt;By zooming in on a chart you can examine an especially interesting part of the data more closely. Zooming can be in the X or Y dimension, or both.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/ajax.png&quot; mce_src=&quot;images/stories/features/ajax.png&quot; alt=&quot;ajax&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;External Data Loading&lt;/h4&gt;
+&lt;p&gt;Highcharts takes the data in a JavaScript array, which can be defined in the local configuration object, in a separate file or even on a different site. Furthermore, the data can be handled over to Highcharts in any form, and a callback function used to parse the data into an array.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/inverted.png&quot; mce_src=&quot;images/stories/features/inverted.png&quot; alt=&quot;inverted&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Inverted Chart or Reversed Axis&lt;/h4&gt;
+&lt;p&gt;Sometimes you need to flip over your chart and make the X axis appear vertical, like for example in a bar chart. Reversing the axis, with the highest values appearing closest to origo, is also supported.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/rotation.png&quot; mce_src=&quot;images/stories/features/rotation.png&quot; alt=&quot;rotation&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Text Rotation for Labels&lt;/h4&gt;
+&lt;p&gt;All text labels, including axis labels, data labels for the point and axis titles, can be rotated in any angle.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/div&gt;</summary>
+		<content type="html">&lt;div class=&quot;intro&quot;&gt;
+&lt;h2&gt;What is Highcharts?&lt;/h2&gt;
+&lt;p&gt;Highcharts is a charting library written in pure JavaScript, offering an easy way of adding interactive charts to your web site or web application. Highcharts currently supports line, spline, area, areaspline, column, bar, pie and scatter chart types.&lt;/p&gt;
+  
+
+  
+  
+&lt;h2&gt;Features&lt;/h2&gt;
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/browsers.png&quot; mce_src=&quot;images/stories/features/browsers.png&quot; alt=&quot;browsers&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Compatible&lt;/h4&gt;
+&lt;p&gt;It works in all modern browsers including the iPhone/iPad and Internet Explorer from version 6. Standard browsers use SVG for the graphics rendering. In Internet Explorer graphics are drawn using VML.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/free.png&quot; mce_src=&quot;images/stories/features/free.png&quot; alt=&quot;free&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Free for Non-commercial&lt;/h4&gt;
+&lt;p&gt;Do you want to use Highcharts for a personal website, a school site or a non-profit organisation? Then you don't need the author's permission, just go on and use Highcharts. For commercial websites and projects, see &lt;a href=&quot;http://www.highcharts.com/license&quot; mce_href=&quot;http://www.highcharts.com/license&quot;&gt;License and Pricing&lt;/a&gt;.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/no-backend.png&quot; mce_src=&quot;images/stories/features/no-backend.png&quot; alt=&quot;no-backend&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Pure JavaScript&lt;/h4&gt;
+&lt;p&gt;Highcharts is solely based on native browser technologies and doesn't require client side plugins like Flash or Java. Furthermore you don't need to install anything on your server. No PHP or ASP.NET. Highcharts needs only two JS files to run: The highcharts.js core and either the jQuery or the MooTools framework. One of these frameworks is most likely already in use in your web page.&lt;/p&gt;
+
+  &lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/chart-types.png&quot; mce_src=&quot;images/stories/features/chart-types.png&quot; alt=&quot;chart-types&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Numerous Chart Types&lt;/h4&gt;
+&lt;p&gt;Highcharts supports line, spline, area, areaspline, column, bar, pie and scatter chart types. Any of these can be combined in one chart.&lt;/p&gt;
+&lt;br /&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/config-syntax.png&quot; mce_src=&quot;images/stories/features/config-syntax.png&quot; alt=&quot;config-syntax&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Simple Configuration Syntax&lt;/h4&gt;
+&lt;p&gt;Setting the Highcharts configuration options requires no special programming skills. The options are given in a JavaScript object notation structure, which is basically a set of keys and values connected by colons, separated by commas and grouped by curly brackets.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/events.png&quot; mce_src=&quot;images/stories/features/events.png&quot; border=&quot;0&quot;&gt;Dynamic&lt;/h4&gt;
+&lt;p&gt;Through a full API you can add, remove and modify series, axes or points at any time after chart creation. Numerous events supply hooks for programming agains the chart. In combination with jQuery's or MooTools' Ajax API, this opens for solutions like live charts constantly updating with values from the server, user supplied data and more.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/multiaxes.png&quot; mce_src=&quot;images/stories/features/multiaxes.png&quot; border=&quot;0&quot;&gt;Multiple Axes&lt;/h4&gt;
+&lt;p&gt;Sometimes you want to compare variables that are not the same scale - for example temperature versus rainfall and air pressure. Highcharts lets you assign an y axis for each series - or an x axis if you want to compare data sets of different categories. Each axis can be placed to the right or left, top or bottom of the chart. All options can be set individually, including reversing, styling and position.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/tooltip.png&quot; mce_src=&quot;images/stories/features/tooltip.png&quot; alt=&quot;tooltip&quot; style=&quot;float: right;&quot; mce_style=&quot;float: right;&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Tooltip Labels&lt;/h4&gt;
+&lt;p&gt;On hovering the chart Highcharts can display a tooltip text with information on each point and series. The tooltip follows as the user moves the mouse over the graph, and great efforts have been taken to make it stick to the nearest point as well as making it easy to read a point that is below another point.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/datetime.png&quot;  mce_src=&quot;images/stories/features/datetime.png&quot;  alt=&quot;datetime&quot; style=&quot;float: left;&quot; mce_style=&quot;float:  left;&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Datetime Axis&lt;/h4&gt;
+&lt;p&gt;75% of all charts with an X and Y axis have a  date-time X axis. Therefore Highchart is very intelligent about time  values. With milliseconds axis units, Highcharts determines where to  place the ticks so that they always mark the start of the month or the  week, midnight and midday, the full hour etc.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/exporting.png&quot;  mce_src=&quot;images/stories/features/datetime.png&quot;  alt=&quot;exporting&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Export and print&lt;/h4&gt;
+&lt;p&gt;With the exporting module enabled, your users can export the chart to PNG, JPG, PDF or SVG format
+  at the click of a button, or print the chart directly from the web page.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/zooming.png&quot; mce_src=&quot;images/stories/features/zooming.png&quot; alt=&quot;zooming&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Zooming&lt;/h4&gt;
+&lt;p&gt;By zooming in on a chart you can examine an especially interesting part of the data more closely. Zooming can be in the X or Y dimension, or both.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/ajax.png&quot; mce_src=&quot;images/stories/features/ajax.png&quot; alt=&quot;ajax&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;External Data Loading&lt;/h4&gt;
+&lt;p&gt;Highcharts takes the data in a JavaScript array, which can be defined in the local configuration object, in a separate file or even on a different site. Furthermore, the data can be handled over to Highcharts in any form, and a callback function used to parse the data into an array.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-left&quot; src=&quot;images/stories/features/inverted.png&quot; mce_src=&quot;images/stories/features/inverted.png&quot; alt=&quot;inverted&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Inverted Chart or Reversed Axis&lt;/h4&gt;
+&lt;p&gt;Sometimes you need to flip over your chart and make the X axis appear vertical, like for example in a bar chart. Reversing the axis, with the highest values appearing closest to origo, is also supported.&lt;/p&gt;
+  
+&lt;h4&gt;&lt;img class=&quot;float-right&quot; src=&quot;images/stories/features/rotation.png&quot; mce_src=&quot;images/stories/features/rotation.png&quot; alt=&quot;rotation&quot; border=&quot;0&quot; height=&quot;124&quot; width=&quot;164&quot;&gt;Text Rotation for Labels&lt;/h4&gt;
+&lt;p&gt;All text labels, including axis labels, data labels for the point and axis titles, can be rotated in any angle.&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;/div&gt;</content>
+	</entry>
+</feed>

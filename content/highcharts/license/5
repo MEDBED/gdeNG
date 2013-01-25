@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr" >
+<head>
+<meta name="google-site-verification" content="zZKyRH04K4AUb2UxcOHTsR6GLNNAt-OzZ296_tEfalo" />
+
+<!-- Start website specific code -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script -->
+<script type="text/javascript">
+jQuery.noConflict();
+</script>
+<script type="text/javascript" src="../js/highcharts.js"></script>
+<!--[if IE]>
+<script type="text/javascript" src="/js/excanvas.compiled.js"></script>
+<![endif]-->
+<script type="text/javascript" src="http://www.highcharts.com/templates/general/frontpage.js"></script>
+<!-- End website specific code -->
+
+<!-- Highslide code -->
+<script type="text/javascript" src="../highslide/highslide-with-html.packed.js"></script>
+<script type="text/javascript" src="../highslide/highslide.config.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="../highslide/highslide.css" />
+<!--[if lt IE 7]>
+<link rel="stylesheet" type="text/css" href="/highslide/highslide-ie6.css" />
+<![endif]-->
+<!-- End Highslide code -->
+
+
+  <base href="" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="highcharts, charts, javascript charts, ajax charts, plots, line charts, bar charts, pie charts, javascript plots, ajax plots" />
+  <meta name="title" content="Buy Now - Single Website License" />
+  <meta name="author" content="Administrator" />
+  <meta name="description" content="Highcharts - Interactive JavaScript charts for your web pages." />
+  <meta name="generator" content="Joomla! 1.5 - Open Source Content Management" />
+  <title>Highcharts - Buy Now - Single Website License</title>
+  <link href="../favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/template.css" type="text/css" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/variations/brown.css" type="text/css" />
+  <link rel="stylesheet" href="http://www.highcharts.com/templates/yoo_symphony/css/custom.css" type="text/css" />
+  <style type="text/css">
+    <!--
+.wrapper { width: 880px; }
+#main-shift { margin-right: 200px; }
+#right { width: 200px; margin-left: -200px; }
+#menu .dropdown { width: 250px; }
+#menu .columns2 { width: 500px; }
+#menu .columns3 { width: 750px; }
+#menu .columns4 { width: 1000px; }
+
+    -->
+  </style>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/mootools.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/media/system/js/caption.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/base.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/accordionmenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/fancymenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/addons/dropdownmenu.js"></script>
+  <script type="text/javascript" src="http://www.highcharts.com/templates/yoo_symphony/lib/js/template.js"></script>
+  <script type="text/javascript">
+var YtSettings = { tplurl: '/templates/yoo_symphony', color: 'brown' };
+  </script>
+
+<link rel="apple-touch-icon" href="http://www.highcharts.com/templates/yoo_symphony/apple_touch_icon.png" />
+
+
+
+<link type="text/css" rel="stylesheet" href="http://www.highcharts.com/templates/general/styles.css"/>
+</head>
+
+<body id="page" class="yoopage  column-right  ">
+
+	
+	<div id="page-header">
+		<div class="page-header-1">
+			<div class="page-header-2">
+				<div class="page-header-3">
+					<div class="wrapper">
+
+						<div id="header">
+			
+							<div id="toolbar">
+							
+																<div id="date">
+									Monday, 29 November 2010								</div>
+															
+																
+																
+							</div>
+							
+							<div id="headerbar">
+							
+																<div class="left">
+									<div class="module mod-blank   first last">
+
+	
+		
+	<p><a class="correct-png" href="../index.html" title="Highcharts Home Page"><img class="correct-png" src="http://www.highcharts.com/images/stories/logohighcharts.png" border="0" /></a></p>		
+</div>
+								</div>
+																
+																
+							</div>
+			
+										
+														<div id="menu">
+								<ul class="menu menu-dropdown"><li class="level1 item1 first"><a href="../index.html" class="level1 item1 first"><span class="bg ">Home</span></a></li><li class="level1 item2"><a href="../demo.1" class="level1 item2"><span class="bg ">Demo Gallery</span></a></li><li class="level1 item3 parent separator"><span class="separator level1 item3 parent separator"><span class="bg ">Documentation</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="../documentation/how-to-use" class="level2 item1 first"><span class="bg ">How To Use</span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="../ref" class="level2 item2"><span class="bg ">Options Reference</span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item3 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="../documentation/changelog" class="level2 item3 last"><span class="bg ">Changelog</span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li><li class="level1 item4 parent separator"><span class="separator level1 item4 parent separator"><span class="bg ">Support</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highslide.com/forum/viewforum.php?f=9" class="level2 item1 first"><span class="bg "><span class="title">Support forum</span><span class="subtitle">Questions answered every working day</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highcharts.uservoice.com/forums/55896-general" class="level2 item2"><span class="bg "><span class="title">Feature requests</span><span class="subtitle">Suggest and vote for new features</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item3 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="../support/contact" class="level2 item3 last"><span class="bg ">Contact</span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li><li class="level1 item5 last parent separator"><span class="separator level1 item5 last parent separator"><span class="bg ">Products</span></span><div class="dropdown columns1"><div class="dropdown-t1"><div class="dropdown-t2"><div class="dropdown-t3"></div></div></div><div class="dropdown-1"><div class="dropdown-2"><div class="dropdown-3"><ul class="col1 level2 first last"><li class="level2 item1 first"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="../index.html" class="level2 item1 first"><span class="bg "><span class="title">Highcharts</span><span class="subtitle">JavaScript Charting Library</span></span></a></div></div></div></div></div></div></div></div></div></li><li class="level2 item2 last"><div class="group-box1"><div class="group-box2"><div class="group-box3"><div class="group-box4"><div class="group-box5"><div class="hover-box1"><div class="hover-box2"><div class="hover-box3"><div class="hover-box4"><a href="http://highslide.com" class="level2 item2 last"><span class="bg "><span class="title">Highslide JS</span><span class="subtitle">JavaScript Image and Gallery Viewer</span></span></a></div></div></div></div></div></div></div></div></div></li></ul></div></div></div><div class="dropdown-b1"><div class="dropdown-b2"><div class="dropdown-b3"></div></div></div></div></li></ul>
+							</div>
+										
+											
+										
+						</div>
+						<!-- header end -->
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	<div id="page-middle">
+		<div class="page-middle-1">
+			<div class="page-middle-2">
+				<div class="wrapper">
+
+					<div id="middle">
+						<div id="middle-expand">
+						
+							<div id="main">
+								<div id="main-shift">
+								
+									<div class="main-wrapper-t1">
+										<div class="main-wrapper-t2">
+											<div class="main-wrapper-t3"></div>
+										</div>
+									</div>
+								
+									<div class="main-wrapper-1 ">
+								
+																		
+										
+										<div id="mainmiddle">
+											<div id="mainmiddle-expand">
+											
+												<div id="content">
+													<div id="content-shift">
+													
+															
+														<div class="floatbox">
+															
+															
+<div class="joomla ">
+	
+	<div class="article">
+	
+				
+				<div class="headline">
+		
+						<h1 class="title">
+									Buy Now - Single Website License							</h1>
+						
+						
+								
+							
+						
+		</div>
+			
+				
+			
+				
+				
+		<form id="frmPaypal" style="margin: 0;" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<div class="section">
+<div class="section-inner">
+<p>Please enter your domain name below and click the button to pay by PayPal. Use commas to separate aliases or multiple websites. PayPal supports payments through Visa, MasterCard, Discover and Amex. For any questions, <a href="../support/contact">contact the author</a>.</p>
+<input name="cmd" value="_xclick" type="hidden" /> <input name="business" value="sales@highslide.com" type="hidden" /> <input name="undefined_quantity" value="1" type="hidden" /> <input name="item_name" value="Highcharts Single Website License" type="hidden" /> <input name="item_number" value="11" type="hidden" /> <input name="amount" value="80.00" type="hidden" /> <input name="no_shipping" value="1" type="hidden" /> <input name="no_note" value="1" type="hidden" /> <input name="currency_code" value="USD" type="hidden" /><input type="hidden" name="lc" value="GB" /> <input name="bn" value="PP-BuyNowBF" type="hidden" /> <input name="on0" value="Your domain name" type="hidden" /><em>Licensed domain name:</em><br /> <input style="margin: 3px 1px; width: 144px;" maxlength="200" name="os0" type="text" /><br /> <input style="border: medium none; width: 150px; height: 52px;" alt="Make payments with PayPal - it's fast, free and secure!" name="submit" src="http://highslide.com/design/x-click-but6.gif" type="image" /></div>
+</div>
+</form>		
+		
+	</div>
+	
+</div>
+														</div>
+							
+																											
+													</div>
+												</div>
+												<!-- content end -->
+												
+																								
+																								
+											</div>
+										</div>
+										<!-- mainmiddle end -->
+
+																		
+									</div>
+								
+									<div class="main-wrapper-b1">
+										<div class="main-wrapper-b2">
+											<div class="main-wrapper-b3"></div>
+										</div>
+									</div>
+								
+								</div>
+							</div>
+							
+														
+														<div id="right">
+								<div class="module mod-rider mod-rider-templatecolor mod-menu mod-menu-rider   first ">
+
+		<h3 class="header"><span class="header-2"><span class="header-3">Get Highcharts</span></span></h3>
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest with-header">
+		<ul class="menu"><li class="level1 item1 first"><a href="../download" class="level1 item1 first"><span class="bg ">Download</span></a></li><li class="level1 item2 last active current"><a href="../license" class="level1 item2 last active current"><span class="bg ">License and Pricing</span></a></li></ul>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div><div class="module mod-rider mod-rider-templatecolor   ">
+
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest ">
+		<a href="http://highcharts.com/component/content/category/2-news/">All news items</a>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div><div class="module mod-rider mod-rider-templatecolor   last">
+
+		<h3 class="header"><span class="header-2"><span class="header-3">Testimonials</span></span></h3>
+		
+		
+	<div class="box-t1">
+		<div class="box-t2"></div>
+	</div>
+	
+	<div class="box-1 deepest with-header">
+		<p>I'm writing on behalf of TellApart to thank you for your diligence in  making the Highcharts library a success.  TellApart is a small startup  and I'm the developer who tried out the Highcharts library and used the  charting library to make a dashboard for internal use.  I found the  library to be very well written, documented, and your advice on the  support forums to be super useful.  Though a single developer license  would be sufficient for our small team, we bought the 5 developer  license as we really appreciate your work, and in anticipation of future  work and developers.</p>
+
+<p style="text-align:right;font-style: italic">Sanjay Jeyakumar, TellApart</p>	</div>
+
+	<div class="box-b1">
+		<div class="box-b2"></div>
+	</div>
+
+</div>
+							</div>
+														
+						</div>
+					</div>
+		
+										<div id="bottom">
+							
+													<div class="bottombox float-left width100"><div class="module mod-rounded mod-rounded-templatecolor  first last">
+
+	
+	
+	<div class="box-t1">
+		<div class="box-t2">
+			<div class="box-t3"></div>
+		</div>
+	</div>
+
+	<div class="box-1">
+		<div class="box-2">
+			<div class="box-3 deepest ">
+				<ul class="menu"><li class="level1 item1 first"><a href="../about-us" class="level1 item1 first"><span class="bg ">About us</span></a></li><li class="level1 item2 last"><a href="../log-in" class="level1 item2 last"><span class="bg ">Log in</span></a></li></ul>			</div>
+		</div>
+	</div>
+
+	<div class="box-b1">
+		<div class="box-b2">
+			<div class="box-b3"></div>
+		</div>
+	</div>
+		
+</div></div>
+												
+															
+					</div>
+					<!-- bottom end -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="page-footer">
+		<div class="wrapper">
+
+			<div id="footer">
+				<a class="anchor" href="5#page"></a>
+				
+				
+			</div>
+			<!-- footer end -->
+
+		</div>
+	</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2995052-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
