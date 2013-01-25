@@ -14,13 +14,35 @@ try
 	//Getting records (listAction)
 	if($_GET["action"] == "list")
 	{
+                //Total
+                $requete="SELECT count(id) as CountModele FROM modele WHERE id_marque=:id_marque";
+                if (!empty($_GET['id_type'])){
+                    $requete.=" AND id_type=:id_type";
+                }
+                $requete.=" AND id_zone IN ($_SESSION[id_zone_pere]) ;";
+                $prep=$db->prepare($requete);
+		$prep->bindParam(":id_marque",$_GET[id_marque],PDO::PARAM_INT);
+                if (!empty($_GET['id_type'])){
+                    $prep->bindParam(":id_type",$_GET[id_type],PDO::PARAM_INT);
+                }     
+                $prep->execute();		
+                $row = $prep->fetch(PDO::FETCH_ASSOC);
+                $recordCount=$row['CountModele'];
+		$prep->closeCursor();
+		$prep = NULL;
 		//Get records from database
 		$limHaute=$_GET["jtStartIndex"]+$_GET["jtPageSize"];
-		$requete="SELECT detail as modele2, id as id_modele2, id_marque as id_marque2 FROM modele WHERE id_marque=:id_marque ORDER BY ".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";;";
+		$requete="SELECT detail as modele2, id as id_modele2, id_marque as id_marque2, id_zone FROM modele WHERE id_marque=:id_marque";
+                if (!empty($_GET['id_type'])){
+                    $requete.=" AND id_type=:id_type";
+                }
+                $requete.=" AND id_zone IN ($_SESSION[id_zone_pere]) ORDER BY ".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";";
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id_marque",$_GET[id_marque],PDO::PARAM_INT);
-		$prep->execute();
-		$recordCount=$prep->rowCount();
+                if (!empty($_GET['id_type'])){
+                    $prep->bindParam(":id_type",$_GET[id_type],PDO::PARAM_INT);
+                }               
+		$prep->execute();	
 		$rows = array();
 		$rows = $prep->fetchAll();
 		$prep->closeCursor();
@@ -36,10 +58,12 @@ try
 else if($_GET["action"] == "create")
 	{
 		//Insert record into database
-		$requete="INSERT INTO modele(id_marque,detail) VALUES(:id_marque,:modele)";		
+		$requete="INSERT INTO modele(id_marque,detail,id_type) VALUES(:id_marque,:modele,:id_type,:id_zone)";		
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id_marque",$_POST["id_marque"],PDO::PARAM_INT);
 		$prep->bindParam(":modele", $_POST["modele2"],PDO::PARAM_INT);
+                $prep->bindParam(":id_type", $_POST["id_type"],PDO::PARAM_INT);
+                $prep->bindParam(":id_zone", $_SESSION[id_zone],PDO::PARAM_INT);                
 		$prep->execute();
 		$id_nouveau = $db->lastInsertId();
 		//Get last inserted record (to return to jTable)
@@ -60,9 +84,10 @@ else if($_GET["action"] == "create")
 	else if($_GET["action"] == "update")
 	{
 		//Update record in database
-		$requete="UPDATE modele SET detail=:detail WHERE id= :id;";
+		$requete="UPDATE modele SET detail=:detail,id_type=:id_type WHERE id= :id;";
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id",$_POST["id_modele2"],PDO::PARAM_INT);
+                $prep->bindParam(":id_type",$_POST["id_type"],PDO::PARAM_INT);
 		$prep->bindParam(":detail",$_POST["modele2"],PDO::PARAM_STR);
 		$prep->execute();
 		$prep->closeCursor();

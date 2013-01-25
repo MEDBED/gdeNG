@@ -21,11 +21,11 @@ try
 	{			
 		//Get records from database
 		$limHaute=$_GET["jtStartIndex"]+$_GET["jtPageSize"];
-		$requete="SELECT *,a.id as id_net,b.id as id_marque,b.detail as marque,c.detail as modele FROM net a, marque b, modele c WHERE a.id_modele=c.id AND c.id_marque=b.id";// 
+		$requete="SELECT *,a.id as id_net,b.id as id_marque,b.detail as marque,c.detail as modele,a.id_type as id_type_net FROM net a, marque b, modele c WHERE a.id_modele=c.id AND c.id_marque=b.id";// 
 		foreach ($tabFiltre as $search=>$champ){
 			if (!empty($_POST[$champ])){$requete.=" AND $search LIKE :$champ";}
 		}
-		$requete.=" AND id_materiel=:id_materiel ORDER BY ".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";";		
+		$requete.=" AND id_materiel=:id_materiel ORDER BY marque,modele LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";";		
 		$prep=$db->prepare($requete);
 		foreach ($tabFiltre as $search=>$champ){
 			if (!empty($_POST[$champ])){			
@@ -61,11 +61,11 @@ else if($_GET["action"] == "create")
 		$prep->execute();		
 		$resMarque = $prep->fetch(PDO::FETCH_ASSOC);		
 		$prep = NULL;
-		$requete = "INSERT INTO net(id_materiel,id_modele,ip,mac,mask,gw,sn,net,description";
+		$requete = "INSERT INTO net(id_materiel,id_modele,ip,mac,mask,gw,sn,subnet,speed,dhcp,status,type,description";
 		if (!empty($_POST["date_installe"])){
 			$requete.=",date_installe";
 		}
-		$requete.=",createOn,updateOn) VALUES(:id_materiel,:id_modele,:ip,:mac,:mask,:gw,:sn,:net,:description";
+		$requete.=",createOn,updateOn) VALUES(:id_materiel,:id_modele,:ip,:mac,:mask,:gw,:sn,:subnet,:speed,:dhcp,:status,:type,:description";
 		if (!empty($_POST["date_installe"])){			
 			$requete.=",:date_installe";
 		}
@@ -78,7 +78,11 @@ else if($_GET["action"] == "create")
 		$prep->bindParam(":mask",$_POST["mask"],PDO::PARAM_STR);
 		$prep->bindParam(":gw",$_POST["gw"],PDO::PARAM_STR);
 		$prep->bindParam(":sn",$_POST["sn"],PDO::PARAM_STR);
-		$prep->bindParam(":net",$_POST["net"],PDO::PARAM_STR);
+		$prep->bindParam(":subnet",$_POST["subnet"],PDO::PARAM_STR);
+                $prep->bindParam(":speed",$_POST["speed"],PDO::PARAM_STR);
+                $prep->bindParam(":dhcp",$_POST["dhcp"],PDO::PARAM_STR);
+                $prep->bindParam(":status",$_POST["status"],PDO::PARAM_STR);
+                $prep->bindParam(":type",$_POST["type"],PDO::PARAM_STR);
 		$prep->bindParam(":description",$_POST["description"],PDO::PARAM_STR);
 		if (!empty($_POST["date_installe"])){
 			$tmpDate=explode('-',$_POST["date_installe"]);
@@ -86,8 +90,8 @@ else if($_GET["action"] == "create")
 			$prep->bindParam(":date_installe",$_POST["date_installe"],PDO::PARAM_STR);
 		}			
 		$prep->execute();
-		$id_nouveau = $db->lastInsertId();
-		$prep = NULL;		
+		$id_nouveau = $db->lastInsertId();                
+		$prep = NULL;	               
 		//Get last inserted record (to return to jTable)		
 		$requete = "SELECT * FROM net WHERE id = :id";
 		$prep=$db->prepare($requete);
@@ -106,7 +110,7 @@ else if($_GET["action"] == "create")
 	else if($_GET["action"] == "update")
 	{		
 		//Update record in database
-		$requete = "UPDATE net SET id_modele=:id_modele,ip=:ip, mac=:mac, mask=:mask, gw=:gw, sn=:sn, net=:net, description=:description";
+		$requete = "UPDATE net SET id_modele=:id_modele,ip=:ip, mac=:mac, mask=:mask, gw=:gw, sn=:sn, subnet=:subnet,speed=:speed,dhcp=:dhcp,status=:status,type=:type, description=:description";
 		if (!empty($_POST["date_installe"])){
 			$tmpDate=explode('-',$_POST["date_installe"]);
 			$_POST["date_installe"]="$tmpDate[2]-$tmpDate[1]-$tmpDate[0]";
@@ -116,12 +120,16 @@ else if($_GET["action"] == "create")
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id",$_POST["id_net"],PDO::PARAM_INT);
 		$prep->bindParam(":id_modele",$_POST["id_modele"],PDO::PARAM_INT);
-	    $prep->bindParam(":ip",$_POST["ip"],PDO::PARAM_STR);
+                $prep->bindParam(":ip",$_POST["ip"],PDO::PARAM_STR);
 		$prep->bindParam(":mac",$_POST["mac"],PDO::PARAM_STR);
 		$prep->bindParam(":mask",$_POST["mask"],PDO::PARAM_STR);
 		$prep->bindParam(":gw",$_POST["gw"],PDO::PARAM_STR);
 		$prep->bindParam(":sn",$_POST["sn"],PDO::PARAM_STR);
-		$prep->bindParam(":net",$_POST["net"],PDO::PARAM_STR);
+		$prep->bindParam(":subnet",$_POST["subnet"],PDO::PARAM_STR);
+                $prep->bindParam(":speed",$_POST["speed"],PDO::PARAM_STR);
+                $prep->bindParam(":dhcp",$_POST["dhcp"],PDO::PARAM_STR);
+                $prep->bindParam(":status",$_POST["status"],PDO::PARAM_STR);
+                $prep->bindParam(":type",$_POST["type"],PDO::PARAM_STR);
 		$prep->bindParam(":description",$_POST["description"],PDO::PARAM_STR);
 		if (!empty($_POST["date_installe"])){
 			$tmpDate=explode('-',$_POST["date_installe"]);

@@ -112,57 +112,11 @@
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Caractères spéciaux non autorisés"
                 },
-                // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
-                "ajaxUserCall": {
-                    "url": "ajaxValidateFieldUser",
-                    // you may want to pass extra data on the ajax call
-                    "extraData": "name=eric",
-                    "alertText": "* Ce nom d'utilisateur existe déjà",
-                    "alertTextLoad": "* Validation en cours, veuillez patienter..."
-                },
-				"ajaxUserCallPhp": {
-                    "url": "phpajax/ajaxValidateFieldUser.php",
-                    // you may want to pass extra data on the ajax call
-                    "extraData": "name=eric",
-                    // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                    "alertTextOk": "* Ce nom d'utilisateur disponible",
-                    "alertText": "* Ce nom d'utilisateur est déjà utilisé",
-                    "alertTextLoad": "* Validation en cours, veuillez patienter..."
-                },
-                "ajaxNameCall": {
-                    // remote json service location
-                    "url": "ajaxValidateFieldName",
-                    // error
-                    "alertText": "* Ce nom est déjà utilisé",
-                    // if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                    "alertTextOk": "* Ce nom est disponible",
-                    // speaks by itself
-                    "alertTextLoad": "* Validation en cours, veuillez patienter..."
-                },
-				 "ajaxNameCallPhp": {
-	                    // remote json service location
-	                    "url": "phpajax/ajaxValidateFieldName.php",
-	                    // error
-	                    "alertText": "* Ce nom est déjà utilisé",
-	                    // speaks by itself
-	                    "alertTextLoad": "* Validation en cours, veuillez patienter..."
-	                },
-                "validate2fields": {
-                    "alertText": "* Please input HELLO"
-                },
-	            //tls warning:homegrown not fielded 
-                "dateFormat":{
-                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/,
-                    "alertText": "* Date invalide"
-                },
-                //tls warning:homegrown not fielded 
-				"dateTimeFormat": {
-	                "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/,
-                    "alertText": "* Date ou format de date invalide",
-                    "alertText2": "Format attendu : ",
-                    "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM or ", 
-                    "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
-	            }
+                "fileExtension": {//Pensez à modifier le fichier header.inc.php pour la correspondance des extensions autorisées
+                    "regex": /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpeg|.jpg|.gif|.tiff|.png|.bmp|.pdf|.doc|.odt|.xls|.xlt|.pps|.ppt|.txt)$/i,
+                    //"regex": /^[0-9a-zA-Z]+$/,
+                    "alertText": "* Seules les extensions suivantes sont autorisées: gif, jpg, jpeg, tiff, png, bmp"
+                }
             };
             
         }

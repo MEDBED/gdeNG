@@ -20,9 +20,10 @@ try
 	if($_GET["action"] == "list")
 	{			
 		//Get records from database
-		$requete="SELECT id FROM materiel WHERE id=:id_materiel";// 						
+		$requete="SELECT id as id_materiel, id_commande, nom FROM materiel WHERE id=:id_materiel";// 						
+            //$requete="SELECT id FROM materiel";
 		$prep=$db->prepare($requete);			
-		$prep->bindParam(":id_materiel",$_GET['id_materiel'],PDO::PARAM_INT);	
+                $prep->bindParam(":id_materiel",$_GET['id_materiel'],PDO::PARAM_INT);	
 		$prep->execute();
 		$recordCount=$prep->rowCount();				
 		//Add all records to an array
@@ -104,7 +105,7 @@ else if($_GET["action"] == "create")
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id",$_POST["id_net"],PDO::PARAM_INT);
 		$prep->bindParam(":id_modele",$_POST["id_modele"],PDO::PARAM_INT);
-	    $prep->bindParam(":ip",$_POST["ip"],PDO::PARAM_STR);
+                $prep->bindParam(":ip",$_POST["ip"],PDO::PARAM_STR);
 		$prep->bindParam(":mac",$_POST["mac"],PDO::PARAM_STR);
 		$prep->bindParam(":mask",$_POST["mask"],PDO::PARAM_STR);
 		$prep->bindParam(":gw",$_POST["gw"],PDO::PARAM_STR);

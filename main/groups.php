@@ -92,45 +92,45 @@ connectSQL();
 		                                    $img.closest('tr'),
 		                                    {
 		                                        title: 'Permissions du groupe ' + studentData.record.alias,	  
-												paging: true,	
-												sorting: true,					
-												defaultSorting: 'detail ASC',
-												pageSize: <?php echo $_SESSION['pageSize'];?>,												
+                                                        paging: true,	
+                                                        sorting: true,					
+                                                        defaultSorting: 'detail ASC',
+                                                        pageSize: <?php echo $_SESSION['pageSize'];?>,												
 		                                        actions: {
 		                                            listAction: 'scripts/update_perms.php?action=list&type=g&id_user='+studentData.record.id_groupe+'&source2=zone',		                                            
 		                                            updateAction: 'scripts/update_perms.php?action=update&type=g&id_user='+studentData.record.id_groupe+'&source2=zone',
 		                                            //changeAction: 'scripts/update_modele.php?action=change&id_materiel=' + studentData.record.id_materiel
 		                                        },
 		                                        fields: {  		                                        			                                        	
-		                        					id_perm: {
-		                                        		key: true,  	                                        		                                        	                      				
-		                        						create: false,
-		                        						edit: false,
-		                        						list: false
-		                        					}  , 
-		                        					id_user: {		                                        		                                        		                                        	                      			
-		                        						create: false,		                        												                    							
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,  
-		                        					source2: {		                                        		  	                                        		                                        	                      			
-		                        						create: false,		                        						
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,                                   
-		                        					id_source: {		                                        		                                        		                                        	                      			
-		                        						create: false,		                        						
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,    
+                                                            id_perm: {
+                                                                key: true,  	                                        		                                        	                      				
+                                                                create: false,
+                                                                edit: false,
+                                                                list: false
+                                                            }  , 
+                                                            id_user: {		                                        		                                        		                                        	                      			
+                                                                create: false,		                        												                    							
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,  
+                                                            source2: {		                                        		  	                                        		                                        	                      			
+                                                                create: false,		                        						
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,                                   
+                                                            id_source: {		                                        		                                        		                                        	                      			
+                                                                create: false,		                        						
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,    
 		                                            detail: {	 
-														title: 'Zone',
-			                                            edit: false,
-			                    						create: false,			                                            
+                                                                title: 'Zone',
+                                                                edit: false,
+                                                                create: false,			                                            
 		                                            },	 		                                                                                     	                                         
 		                                            lecture: {
 		                                            	setOnTextClick: false,
-														sorting: false,														
+                                                                sorting: false,														
 		                                                title: 'Lecture',
 		                                                width: '10%',
 		                                                type: 'checkbox',
@@ -140,7 +140,7 @@ connectSQL();
 		                                            }, 
 		                                            modification: {
 		                                            	setOnTextClick: false,	
-														sorting: false,														
+                                                                sorting: false,														
 		                                                title: 'Moficiation',
 		                                                width: '10%',
 		                                                type: 'checkbox',
@@ -150,7 +150,7 @@ connectSQL();
 		                                            },
 		                                            creation: {
 		                                            	setOnTextClick: false,	
-														sorting: false,														
+                                                                sorting: false,														
 		                                                title: 'Création',
 		                                                width: '10%',
 		                                                type: 'checkbox',
@@ -160,7 +160,7 @@ connectSQL();
 		                                            }, 
 		                                            suppression: {
 		                                            	setOnTextClick: false,	
-														sorting: false,														
+                                                                sorting: false,														
 		                                                title: 'Suppression',
 		                                                width: '10%',
 		                                                type: 'checkbox',
@@ -176,16 +176,16 @@ connectSQL();
 		                        //Return image to show on the person row	  	                                                    	                                      
 		                        return $img;	                        
 	                    	}
-						},
-						perms_entite: {
-							title: 'Entité',
-							width: '1%',
-							listClass: 'jtableTdCenter',		
-							edit: false,
-							create: true,
-							sorting: false,											
-							//options: 'main/liste/getModele.php',
-							display: function (studentData) {				
+                            },
+                            perms_entite: {
+                                    title: 'Entité',
+                                    width: '1%',
+                                    listClass: 'jtableTdCenter',		
+                                    edit: false,
+                                    create: true,
+                                    sorting: false,											
+                                    //options: 'main/liste/getModele.php',
+                                    display: function (studentData) {				
 		                        //Create an image that will be used to open child table
 		                        var $img = new Array();
 		                        $img = $('<img src="graphs/icons/clef.png" title="Mofifier les permissions" />')	                      
@@ -195,81 +195,81 @@ connectSQL();
 		                                    $img.closest('tr'),
 		                                    {
 		                                        title: 'Permissions du groupe ' + studentData.record.alias,	  
-												paging: true,	
-												sorting: true,					
-												defaultSorting: 'detail ASC',
-												pageSize: <?php echo $_SESSION['pageSize'];?>,												
+                                                        paging: true,	
+                                                        sorting: true,					
+                                                        defaultSorting: 'detail ASC',
+                                                        pageSize: <?php echo $_SESSION['pageSize'];?>,												
 		                                        actions: {
 		                                            listAction: 'scripts/update_perms.php?action=list&type=g&id_user='+studentData.record.id_groupe+'&source2=entite',		                                            
 		                                            updateAction: 'scripts/update_perms.php?action=update&type=g&id_user='+studentData.record.id_groupe+'&source2=entite',		                                           
 		                                        },
 		                                        fields: {  		                                        			                                        	
-		                        					id_perm: {
-		                                        		key: true,  	                                        		                                        	                      				
-		                        						create: false,
-		                        						edit: false,
-		                        						list: false
-		                        					}  , 
-		                        					id_user: {		                                        		                                        		                                        	                      			
-		                        						create: false,		                        												                    							
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,  
-		                        					source2: {		                                        		  	                                        		                                        	                      			
-		                        						create: false,		                        						
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,                                   
-		                        					id_source: {		                                        		                                        		                                        	                      			
-		                        						create: false,		                        						
-		                        						list: false,
-		                        						type: 'hidden',
-		                        					}  ,    
-		                                            detail: {	 
-														title: 'Entité',
-			                                            edit: false,
-			                    						create: false,			                                            
-		                                            },	 		                                                                                     	                                         
-		                                            lecture: {
-		                                            	setOnTextClick: false,
-														sorting: false,														
-		                                                title: 'Lecture',
-		                                                width: '10%',
-		                                                type: 'checkbox',
-		                                                values: { '0':'', '1':'X'},
-		                                                listClass: 'jtableTdCenter',
-		                                                formText: ' '
-		                                            }, 
-		                                            modification: {
-		                                            	setOnTextClick: false,	
-														sorting: false,														
-		                                                title: 'Moficiation',
-		                                                width: '10%',
-		                                                type: 'checkbox',
-		                                                values: { '0':'', '1':'X'},
-		                                                listClass: 'jtableTdCenter',
-		                                                formText: ' '
-		                                            },
-		                                            creation: {
-		                                            	setOnTextClick: false,	
-														sorting: false,														
-		                                                title: 'Création',
-		                                                width: '10%',
-		                                                type: 'checkbox',
-		                                                values: { '0':'', '1':'X'},
-		                                                listClass: 'jtableTdCenter',
-		                                                formText: ' '
-		                                            }, 
-		                                            suppression: {
-		                                            	setOnTextClick: false,	
-														sorting: false,														
-		                                                title: 'Suppression',
-		                                                width: '10%',
-		                                                type: 'checkbox',
-		                                                values: { '0':'', '1':'X'},
-		                                                listClass: 'jtableTdCenter',
-		                                                formText: ' '		                                                
-		                                            },                                                                                 
+                                                            id_perm: {
+                                                            key: true,  	                                        		                                        	                      				
+                                                            create: false,
+                                                            edit: false,
+                                                            list: false
+                                                            }  , 
+                                                            id_user: {		                                        		                                        		                                        	                      			
+                                                                create: false,		                        												                    							
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,  
+                                                            source2: {		                                        		  	                                        		                                        	                      			
+                                                                create: false,		                        						
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,                                   
+                                                            id_source: {		                                        		                                        		                                        	                      			
+                                                                create: false,		                        						
+                                                                list: false,
+                                                                type: 'hidden',
+                                                            }  ,    
+                                                            detail: {	 
+                                                                title: 'Entité',
+                                                                edit: false,
+                                                                create: false,			                                            
+                                                            },	 		                                                                                     	                                         
+                                                            lecture: {
+                                                                setOnTextClick: false,
+                                                                sorting: false,														
+                                                                title: 'Lecture',
+                                                                width: '10%',
+                                                                type: 'checkbox',
+                                                                values: { '0':'', '1':'X'},
+                                                                listClass: 'jtableTdCenter',
+                                                                formText: ' '
+                                                            }, 
+                                                            modification: {
+                                                                setOnTextClick: false,	
+                                                                sorting: false,														
+                                                                title: 'Moficiation',
+                                                                width: '10%',
+                                                                type: 'checkbox',
+                                                                values: { '0':'', '1':'X'},
+                                                                listClass: 'jtableTdCenter',
+                                                                formText: ' '
+                                                            },
+                                                            creation: {
+                                                                setOnTextClick: false,	
+                                                                sorting: false,														
+                                                                title: 'Création',
+                                                                width: '10%',
+                                                                type: 'checkbox',
+                                                                values: { '0':'', '1':'X'},
+                                                                listClass: 'jtableTdCenter',
+                                                                formText: ' '
+                                                            }, 
+                                                            suppression: {
+                                                                setOnTextClick: false,	
+                                                                sorting: false,														
+                                                                title: 'Suppression',
+                                                                width: '10%',
+                                                                type: 'checkbox',
+                                                                values: { '0':'', '1':'X'},
+                                                                listClass: 'jtableTdCenter',
+                                                                formText: ' '		                                                
+                                                            },                                                                                 
 		                                        }
 		                                    }, function (data) { //opened handler		                                   
 		                                        data.childTable.jtable('load');		                                                                          		                                    	
@@ -278,21 +278,21 @@ connectSQL();
 		                        //Return image to show on the person row	  	                                                    	                                      
 		                        return $img;	                        
 	                    	}
-						},
-						user_add: {
-							title: 'Utilisateurs',
-							width: '1%',
-							listClass: 'jtableTdRight',							
-							sorting: false,
-							paging: false,
-							edit: true,
-							create: false,
-							selecting: true,
-							selectingCheckboxes: true,		
-							multiselect: true,
-							selectOnRowClick: false,								
-							//options: 'main/liste/getModele.php',
-							display: function (studentData) {				
+                            },
+                            user_add: {
+                                    title: 'Utilisateurs',
+                                    width: '1%',
+                                    listClass: 'jtableTdRight',							
+                                    sorting: false,
+                                    paging: false,
+                                    edit: true,
+                                    create: false,
+                                    selecting: true,
+                                    selectingCheckboxes: true,		
+                                    multiselect: true,
+                                    selectOnRowClick: false,								
+                                    //options: 'main/liste/getModele.php',
+                                    display: function (studentData) {				
 		                        //Create an image that will be used to open child table
 		                        var $img = new Array();
 		                        $img = $('<img src="graphs/icons/add.png" title="Ajouter des utilisateurs au groupe" />')	                      

@@ -144,106 +144,10 @@ function affTab(tab){
 			</table>
 		</div>
 		<div class="formRight">
-		<table id="parent" <?php if (@mysql_num_rows($recParent)==0){echo " style=\"display: none;\"";}?>>					
-			<tr>
-				<td colspan=2 class="separ">Parent</td>
-			</tr>
-			<tr>
-				<td>N° URSSAF</td><td><input name="num_urssaf" value="<?php if (!empty($resParent[num_urssaf])){echo trim(dechiffre(hex2bin("$resParent[num_urssaf]"), "$GLOBALS[params][appli][key]"));}?>"></td>
-			</tr> 		
-		</table>
-		<table id="asm" <?php if (@mysql_num_rows($recAsm)==0){echo " style=\"display: none;\"";}?>>						
-			<tr>
-				<td colspan=2 class="separ">Assistance maternelle</td>
-			</tr>
-			<tr>
-				<td>N° Sécurité sociale</td><td><input name="num_secu" value="<?php if (!empty($resAsm[num_secu])){echo trim(dechiffre(hex2bin("$resAsm[num_secu]"), "$GLOBALS[params][appli][key]"));}?>"></td>
-			</tr>
-			<tr>
-				<td>Agrément pour</td>
-				<td>
-				<select name="agrement">
-				<?php 
-				for($i=0;$i<=10;$i++){ 
-					echo "<option value=\"$i\"";
-					if ($resAsm['agrement']==$i){echo " selected";}
-					echo ">$i</option>";
-				}
-				?>
-				</select>
-				&nbsp;enfant(s)</td>
-			</tr>
-			<tr>
-				<td>Fin de l'agrément</td>
-				<td align="left" style="vertical-align: middle;">
-					<input style="vertical-align: middle;" readonly type="text" size=5 name="agrement_fin" id="data"  value="<?php echo $resAsm['agrement_fin'];?>">
-                    <img src="graphs/icons/cal.png" id="f_trigger_a"
-                    style="text-align: left;cursor: pointer; vertical-align: middle;"
-					title="Choisissez une date"
-					onmouseover="this.style.background='blue';"
-					onmouseout="this.style.background=''"/>
-						<script type="text/javascript">
-							Calendar.setup({
-                            	inputField     :    "data",
-                                ifFormat       :    "%Y-%m-%d",
-                                button         :    "f_trigger_a",
-                                singleClick    :    true
-                             });
-                        </script>
-				</td>
-			</tr>
-			<tr>
-				<td>Permis B</td><td><input type="checkbox" name="permis" value="1" 
-				<?php 
-				if ($resAsm['permis']==1){echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>
-			<tr>
-				<td colspan=2>J'accepte les moyens de paiement suivant :</td>
-			</tr>
-			<tr>
-				<td>Carte bancaire</td><td><input type="checkbox" name="CB" value="1"
-				<?php
-				if ($resAsm['CB']==1){ echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>				
-			<tr>
-				<td>Chèque</td><td><input type="checkbox" name="CHQ" value="1"
-				<?php
-				if ($resAsm['CHQ']==1){echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>
-			<tr>
-				<td>Viremement bancaire</td><td><input type="checkbox" name="VIR" value="1"
-				<?php
-				if ($resAsm['VIR']==1){echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>
-			<tr>
-				<td>Espèce</td><td><input type="checkbox" name="ESP" value="1"
-				<?php
-				if ($resAsm['ESP']==1){echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>
-			<tr>
-				<td>Tickets CESU</td><td><input type="checkbox" name="CESU" value="1"
-				<?php
-				if ($resAsm['CESU']==1){echo ' checked="checked"';}
-				?>
-				></td>
-			</tr>			
-			</table>
-			<table id= "change_password" style="display: none;">
-				<tr><td colspan=2 class="separ">Modification du mot de passe</td></tr>
-				<tr><td>Ancien mot de passe</td><td><input type="password" name="old_password"></td></tr>
-				<tr><td>Nouveau mot de passe</td><td><input type="password" name="new_password"></td></tr>
-				<tr><td>Confirmer</td><td><input type="password" name="new_password2"></td></tr>
-				</table>
+                    <div id="SelectedRowList"></div>	
+                    <div id="masterContainer" style="width: 100%;padding-top: 0px;">	
+			<div id="childContainer"></div>	
+                    </div>			                    
 		</div>
 		<?php 
 		if ((int)$_SESSION['PERMS']['zone'][$_SESSION['id_zone']] & MODIFICATION &&
@@ -254,7 +158,77 @@ function affTab(tab){
 		}
 		?>
 		<!-- <p id="validButton"><button type="submit" id="submitButton" name="valid" value="Valider" style="cursor: pointer;" class="buttonValid">Valider</button></p> -->	
-		</form>
+		</form>                
+                <script type="text/javascript">	                    
+		$(document).ready(function () {	
+                    //Prepare jTable               
+                    $('#masterContainer').jtable({
+                        title: 'Liste des contacts',
+                        paging: true,	                   												
+                        pageSize: <?php echo $_SESSION['pageSize'];?>,
+                        sorting: true,					
+                        defaultSorting: 'nom ASC',
+                        actions: {
+                            <?php 						
+                            if ((int)$_SESSION['PERMS']['zone'][$_SESSION['id_zone']] & LECTURE &&
+                                            (int)$_SESSION['PERMS']['entite'][ $_SESSION['ENTITE'][$_SESSION['id_entite']]['id_type'] ] & LECTURE){
+                                    echo "listAction: '$script?action=list',";
+                            }
+                            if ((int)$_SESSION['PERMS']['zone'][$_SESSION['id_zone']] & CREATION && 
+                                (int)$_SESSION['PERMS']['entite'][ $_SESSION['ENTITE'][$_SESSION['id_entite']]['id_type'] ] & CREATION){
+                                    echo "createAction: '$script?action=create',";
+                            }
+                            if ((int)$_SESSION['PERMS']['zone'][$_SESSION['id_zone']] & MODIFICATION &&
+				(int)$_SESSION['PERMS']['entite'][ $_SESSION['ENTITE'][$_SESSION['id_entite']]['id_type'] ] & MODIFICATION){
+                                    echo "updateAction: '$script?action=update',";
+                            }
+                            if ((int)$_SESSION['PERMS']['zone'][$_SESSION['id_zone']] & SUPPRESSION && 
+                                            (int)$_SESSION['PERMS']['entite'][ $_SESSION['ENTITE'][$_SESSION['id_entite']]['id_type'] ] & SUPPRESSION){
+                                    echo "deleteAction: '$script?action=delete',";
+                            }
+                            ?>                        
+                        },
+                        fields: {
+                            id_contact: {
+                                key: true,
+                                create: false,
+                                edit: false,
+                                list: false
+                            },
+                            nom: {                           
+                                title: 'Nom',							                            
+                                inputClass: 'validate[required]'
+                            }, 
+                             prenom: {                           
+                                title: 'Prénom',							                            
+                                inputClass: 'validate[required]'
+                            }, 
+                             fonction: {                           
+                                title: 'Fonction',							                            
+                                inputClass: 'validate[required]'
+                            }, 
+                             mail1: {                           
+                                title: 'Mail Pro',							                            
+                                inputClass: 'validate[required,email]'
+                            },
+                             mail2: {                           
+                                title: 'Mail Autre',							                            
+                                inputClass: 'validate[required,email]',
+                                list:false
+                            },
+                             tel1: {                           
+                                title: 'Tél Pro',	
+                                list:false
+                            },
+                             tel2: {                           
+                                title: 'Tél Autre',							                                                           
+                                list:false
+                            },
+                        }
+                    });
+                    $('#masterContainer').jtable('load');
+                });
+                </script>
 	</div>
 </div>
 </body>

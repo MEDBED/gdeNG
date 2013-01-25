@@ -183,9 +183,11 @@ THE SOFTWARE.
             if (!self.options.title) {
                 return;
             }
-
+            if (self.options.titleClass){
+                var titleclass=self.options.titleClass;
+            }else{var titleclass='jtable-title';}
             //TODO: May use caption element instead of a seperated div element?
-            var $titleDiv = $('<div class="jtable-title"></div>')
+            var $titleDiv = $('<div class="'+titleclass+'"></div>')
                 .appendTo(self._$mainContainer);
             $('<div class="jtable-title-text"></div>')
                 .appendTo($titleDiv)
@@ -641,13 +643,17 @@ THE SOFTWARE.
         *  2011-01-01 (YYYY-MM-DD)
         *************************************************************************/
         _parseDate: function (dateString) {
+           
             if (dateString.indexOf('Date') >= 0) { //Format: /Date(1320259705710)/
                 return new Date(parseInt(dateString.substr(6)));
             } else if (dateString.length == 10) { //Format: 2011-01-01
             	return new Date(parseInt(dateString.substr(0, 4)), dateString.substr(5, 2)-1, parseInt(dateString.substr(8, 2)));
                 //return new Date(parseInt(dateString.substr(0, 4)), parseInt(dateString.substr(5, 2)) - 1, parseInt(dateString.substr(8, 2)));
             } else if (dateString.length == 19) { //Format: 2011-01-01 20:32:42
-                return new Date(parseInt(dateString.substr(0, 4)), parseInt(dateString.substr(5, 2)) - 1, parseInt(dateString.substr(8, 2)), parseInt(dateString.substr(11, 2)), parseInt(dateString.substr(14, 2)), parseInt(dateString.substr(17, 2)));
+                 //alert(dateString);
+                 //alert(parseInt(dateString.substr(0, 4))+' * '+(parseInt(dateString.substr(5, 2)))+' ** '+parseInt(dateString.substr(9, 2))+' *** '+parseInt(dateString.substr(11, 2))+' **** '+parseInt(dateString.substr(14, 2))+' ***** '+parseInt(dateString.substr(17, 2)));
+                 return new Date(parseInt(dateString.substr(0, 4)), parseInt(dateString.substr(5, 2))-1, parseInt(dateString.substr(9, 2)), parseInt(dateString.substr(11, 2)), parseInt(dateString.substr(14, 2)), parseInt(dateString.substr(17, 2)));           
+                //return new Date(parseInt(dateString.substr(0, 4)), parseInt(dateString.substr(5, 2)) - 1, parseInt(dateString.substr(8, 2)), parseInt(dateString.substr(11, 2)), parseInt(dateString.substr(14, 2)), parseInt(dateString.substr(17, 2)));
             } else {
                 this._logWarn('Given date is no properly formatted: ' + dateString);
                 return new Date(); //Default value!
@@ -694,20 +700,50 @@ THE SOFTWARE.
 
         /* Performs an AJAX call to specified URL.
         *************************************************************************/
-        _performAjaxCall: function (url, postData, async, success, error) {
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: postData,
-                async: async,
-                success: function (data) {
-                    success(data);
-                },
-                error: function () {
-                    error();
+        _performAjaxCall: function (url, postData, async, success, error) {           
+            
+            if ($('#Edit-fic').length!=0){
+                //alert(postData);
+                recupPost = postData.split('&');
+                newData = new Array();               
+                for(var i=0;i<recupPost.length;i++)
+                {
+                   varPost = recupPost[i].split('=');                                               
+                   newData[varPost[0]]=varPost[1];                   
                 }
-            });
+                //alert(newData.toSource());
+                jQuery.ajaxFileUpload({
+                    url: url,                    
+                    type: 'POST',
+                    dataType: 'json',
+                    //data: newData,                     
+                    data: newData,                     
+                    //async: async,
+                    secureuri:false,
+                    fileElementId:'Edit-fic',
+                    success: function (data) {
+                        //data.Record=false;                        
+                        success(data);
+                    },
+                    error: function () {
+                        error();
+                    }
+                });
+            }else{
+               $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: postData,                                             
+                    async: async,
+                    success: function (data) {                       
+                        success(data);
+                    },
+                    error: function () {
+                        error();
+                    }
+                });
+            }
         },
 
         /* Gets a jQuery row object according to given record key
@@ -947,6 +983,8 @@ THE SOFTWARE.
                 return this._createDateInputForField(field, fieldName, value);
             } else if (field.type == 'textarea') {
                 return this._createTextAreaForField(field, fieldName, value);
+            } else if (field.type == 'file') {
+                return this._createFileInputForField(field, fieldName, value);
             } else if (field.type == 'password') {
                 return this._createPasswordInputForField(field, fieldName, value);
             } else if (field.type == 'checkbox') {
@@ -982,14 +1020,18 @@ THE SOFTWARE.
 
         /* Creates a standart textbox for a field.
         *************************************************************************/
-        _createTextAreaForField: function (field, fieldName, value) {
+        _createTextAreaForField: function (field, fieldName, value) {          
             return $('<div class="jtable-input jtable-textarea-input"><textarea class="' + field.inputClass + '" id="Edit-' + fieldName + '" name="' + fieldName + '">' + (value || '') + '</textarea></div>');
         },
-
+        /* Creates a standart file for a field.
+        *************************************************************************/
+        _createFileInputForField: function (field, fieldName, value) {           
+            return $('<div class="jtable-input jtable-text-input"><input style="height: 25px;" id="Edit-' + fieldName + '" type="file" name="' + fieldName + '"' + (value != undefined ? 'value="' + value + '"' : '') + ' ></input></div>');
+        },
         /* Creates a standart textbox for a field.
         *************************************************************************/
         _createTextInputForField: function (field, fieldName, value) {
-            return $('<div class="jtable-input jtable-text-input"><input class="' + field.inputClass + '" id="Edit-' + fieldName + '" type="text"' + (value != undefined ? 'value="' + value + '"' : '') + ' name="' + fieldName + '"></input></div>');
+            return $('<div class="jtable-input jtable-text-input"><input class="' + field.inputClass + '" id="Edit-' + fieldName + '" type="text" name="' + fieldName + '"' + (value != undefined ? 'value="' + value + '"' : '') + ' ></input></div>');
         },
 
         /* Creates a password input for a field.
@@ -1407,7 +1449,7 @@ THE SOFTWARE.
             var self = this;
 
             //Create add new record form
-            var $addRecordForm = $('<form id="jtable-create-form" class="jtable-dialog-form jtable-create-form" action="' + self.options.actions.createAction + '" method="POST"></form>');
+            var $addRecordForm = $('<form id="jtable-create-form" class="jtable-dialog-form jtable-create-form" action="' + self.options.actions.createAction + '" method="POST" enctype="multipart/form-data"></form>');
 
             //Create input elements
             for (var i = 0; i < self._fieldList.length; i++) {
@@ -1609,8 +1651,9 @@ THE SOFTWARE.
             }
 
             self._submitFormUsingAjax(
-                options.url,
+                options.url,                
                 $.param(options.record),
+                //contentType:attr( "enctype", "multipart/form-data" ),
                 function (data) {
                     //Check for errors
                     if (data.Result != 'OK') {
@@ -1773,7 +1816,9 @@ THE SOFTWARE.
                         record[fieldName] = '/Date(' + date.getTime() + ')/';
                     } catch (e) {
                         //TODO: Handle incorrect/different date formats
-                        record[fieldName] = '/Date(' + (new Date()).getTime() + ')/';
+                        //edit by GV
+                        //record[fieldName] = '/Date(' + (new Date()).getTime() + ')/';
+                        record[fieldName] = '';
                     }
                 } else if (field.options && field.type == 'radiobutton') {
                     var $checkedElement = $inputElement.filter('[checked="true"]');
@@ -2610,7 +2655,7 @@ THE SOFTWARE.
             pageSize: 10,
 
             messages: {
-                pagingInfo: 'Showing {0} to {1} of {2} records'
+                pagingInfo: 'Enregistrements {0} à {1} sur {2}'
             }
         },
 

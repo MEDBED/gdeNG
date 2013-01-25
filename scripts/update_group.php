@@ -100,7 +100,16 @@ else if($_GET["action"] == "create")
 	}
 	else if($_GET["action"] == "listUser")
 	{
-		$limHaute=$_GET["jtStartIndex"]+$_GET["jtPageSize"];
+                $requete="SELECT count(id) as recordCount FROM user WHERE id ";
+		if ($_GET["type"]=='a'){$requete.='NOT ';}
+		$requete.="IN (SELECT id_user FROM user_group WHERE id_group=:id_group);";
+		$prep=$db->prepare($requete);		
+		$prep->bindParam(":id_group",$_GET["id_group"],PDO::PARAM_INT);
+		$prep->execute();
+                $row = $prep->fetch(PDO::FETCH_ASSOC);
+                $recordCount=$row['recordCount'];
+                
+                $limHaute=$_GET["jtStartIndex"]+$_GET["jtPageSize"];
 		$requete="SELECT id as id_user,nom,prenom FROM user WHERE id ";
 		if ($_GET["type"]=='a'){$requete.='NOT ';}
 		$requete.="IN (SELECT id_user FROM user_group WHERE id_group=:id_group) ORDER BY ".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";";
@@ -108,7 +117,7 @@ else if($_GET["action"] == "create")
 		$prep=$db->prepare($requete);		
 		$prep->bindParam(":id_group",$_GET["id_group"],PDO::PARAM_INT);
 		$prep->execute();
-		$recordCount=$prep->rowCount();
+		//$recordCount=$prep->rowCount();
 		//Add all records to an array
 		$rows = array();
 		$rows = $prep->fetchAll();

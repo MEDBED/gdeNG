@@ -23,7 +23,12 @@ div.jtable-title
     color: #FFFFFF;
     border-color: #C6D5E1;
 }
-
+div.jtable-title-child
+{
+    background:url('title-bg-child.png') left;
+    color: #FFFFFF;
+    border-color: #000;    
+}
 /* Main table tag */
 table.jtable
 {

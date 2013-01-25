@@ -7,31 +7,60 @@ session_start();
 include_once("../header.inc.php");
 include_once("../include/functions.php");
 include_once("../include/protect_var.php");
-$dirname = '../graphs/icons/se';
-$dir = opendir($dirname); 
+$dirname = '../graphs/icons/'.$_POST['src'].'/';
+//$dir = opendir($dirname); 
 $fic='';
 //$_POST[nom_fic]=base64_encode("windowsxp");
 //$_POST[nom_fic]=base64_encode('2008');
-
+$_SESSION['PNG']=array();
 //echo $ficCheck=str_replace("/","\\/",base64_decode($_POST[nom_fic]));
-if (!empty($_POST[nom_fic])){
-    if($dossier = opendir('../graphs/icons/se')){
-        while(false !== ($fichier = readdir($dossier))){
-            if($fichier != '.' && $fichier != '..'){    
-               $ficCheck=trim(str_replace("/","",base64_decode($_POST[nom_fic])));
-               //echo '***'.$ficCheck.'*****'.$fichier.'<br/>';
-               // if (preg_match("#$ficCheck#i",$fichier)){                 
-               if (stristr($fichier,$ficCheck)){
-                   $fic=$fichier;
-                   break;
-               }elseif(stristr($ficCheck,str_replace('.png','',$fichier))){
-                   $fic=$fichier;
-                   break;
-               }
+if (!empty($_POST[nom_fic])){    
+    $ficCheck=trim(str_replace("/","",base64_decode($_POST[nom_fic]))).'.png'; 
+    //echo $ficCheck;
+    if (in_array($ficCheck,$_SESSION['PNG'])){
+        $fic=$_SESSION['PNG'][$ficCheck];        
+    }else{
+        if($dossier = opendir($dirname)){       
+            while(false !== ($fichier = readdir($dossier))){
+                if($fichier != '.' && $fichier != '..'){                     
+                   if ($fichier==$ficCheck){                             
+                       $fic=$fichier;
+                       $_SESSION['PNG'][$ficCheck]=$fichier;
+                       break;
+                   }
+                }
+            }
+            closedir($dossier);
+            if (empty($fic)){
+                if($dossier = opendir($dirname)){    
+                    while(false !== ($fichier = readdir($dossier))){
+                        if($fichier != '.' && $fichier != '..'){                           
+                          if (stristr($fichier,$ficCheck)){         
+                               $fic=$fichier;
+                               $_SESSION['PNG'][$ficCheck]=$fichier;
+                               break;
+                          }
+                        }
+                    }
+                }
+                closedir($dossier);
+            }        
+            if (empty($fic)){
+                if($dossier = opendir($dirname)){    
+                    while(false !== ($fichier = readdir($dossier))){
+                        if($fichier != '.' && $fichier != '..'){                      
+                           if(stristr($ficCheck,str_replace('.png','',$fichier))){
+                               $fic=$fichier;  
+                               $_SESSION['PNG'][$ficCheck]=$fichier;
+                               break;
+                           }
+                        }
+                    }
+                }
+                closedir($dossier);
             }
         }
-    }
-    closedir($dossier);
+    }    
 }
 if (!empty($fic)){
     echo $fic;

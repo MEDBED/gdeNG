@@ -5,7 +5,8 @@ if(!isset($_COOKIE["ID_UTILISATEUR"])){
 }
 session_start();
 $_SESSION['id_zone']=$_GET['id_zone'];
-$tabPerm=array('materiel.php','entite.php');
+$_SESSION['id_zone_org']=$_SESSION['id_zone'];
+$tabPerm=array('materiel.php','entite.php','board.php','document.php');//liste des pages sur lesquelles les permissions sont vérifiées
 if (in_array($page,$tabPerm)){	
 	if (empty($_SESSION['id_entite'])){
 		echo "<div id=\"errPerms\">Vous devez sélectionner une entité pour accèder à cette page</div>";exit;

@@ -13,7 +13,7 @@ try
 	include_once("../../include/protect_var.php");	
 			
 		//Get records from database
-		$requete = "SELECT DISTINCT id as Value,detail as DisplayText FROM type WHERE source='materiel' ORDER BY detail";
+		$requete = "SELECT DISTINCT id as Value,detail as DisplayText FROM type WHERE source=:source ORDER BY detail";
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":source",$_GET[source],PDO::PARAM_STR);
 		$prep->execute();		

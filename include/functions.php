@@ -169,7 +169,7 @@ function sessionValide(){
 	$_SESSION["PERMS"]=$tabPerms;
 	//Entit�s	
 	$reqRne="SELECT a.id as id_entite,id_type,alias,nom,ville,adresse,tel,fax,cp,email,detail as type,directeur,adjoint,gestionnaire FROM entite a, type b WHERE a.id_type=b.id and b.source='etab' ORDER BY alias";
-    $recRne=$db->query($reqRne);
+        $recRne=$db->query($reqRne);
 	if ($recRne){
     	while ($resRne=$recRne->fetch(PDO::FETCH_ASSOC)){
     		if ((int)$_SESSION['PERMS']['entite'][$resRne['id_type']] & LECTURE){
@@ -190,6 +190,60 @@ function sessionValide(){
     		}
 		}	
 	}
-	$_SESSION["ENTITE"]=$tabRne;	
+	$_SESSION["ENTITE"]=$tabRne;
+        //Types de config
+	$reqConfig="SELECT * FROM type WHERE source='config'";
+        $recConfig=$db->query($reqConfig);
+	if ($recConfig){
+            while ($resConfig=$recConfig->fetch(PDO::FETCH_ASSOC)){    		
+                $tabConfig[$resConfig['detail']]=$resConfig['id'];    		
+            }	
+	}
+	$_SESSION["CONFIG"]=$tabConfig;
+}
+function in_array_r($needle, $haystack, $strict = true) {
+    foreach ($haystack as $key=>$item) {
+        if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+            //echo "**$key**<br/>";
+            return $key;
+        }
+    }
+
+    return false;
+}
+function removeaccents($fic)
+{
+     $fic= strtr($fic,
+   "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ",
+   "aaaaaaaaaaaaooooooooooooeeeeeeeecciiiiiiiiuuuuuuuuynn");
+     $fic=str_replace(' ','_',$fic);
+     return $fic;
+} ;
+function getExtension($str) {
+        $i = strrpos($str,".");
+        if (!$i) { return ""; } 
+
+        $l = strlen($str) - $i;
+        $ext = substr($str,$i+1,$l);
+        return $ext;
+ }
+ function taille($fichier){
+    global $size_unit,$taille;
+    $taille=@filesize($fichier);
+    $taille = round($taille / 1024 * 100) / 100;$size_unit=" Ko";
+    $taille=number_format($taille, 2, ',', ' ');//séparateur de millier             
+    if($taille==0) {$taille=0;$size_unit=" Ko";}
+    return $taille;
+}
+function imageResize($width, $height, $target) {
+    if ($width > $height) {
+        $percentage = ($target / $width);
+    } else {
+    $percentage = ($target / $height);
+    }
+    //gets the new value and applies the percentage, then rounds the value
+    $width = round($width * $percentage);
+    $height = round($height * $percentage);
+    return "width=\"$width\" height=\"$height\"";
 }
 ?>

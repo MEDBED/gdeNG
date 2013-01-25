@@ -26,20 +26,19 @@ try
                     $_GET["jtSorting"]="INET_ATON(ip) ASC";
                 }
 		//Total records
-		$requete="SELECT count(a.id) as recordCount FROM materiel a LEFT OUTER JOIN net e ON a.id=e.id_materiel, marque b, modele c, type d  WHERE a.id_modele=c.id AND c.id_marque=b.id AND a.id_type=d.id";		
+		$requete="SELECT count(a.id) as recordCount FROM materiel a, marque b, modele c, type d  WHERE a.id_modele=c.id AND c.id_marque=b.id AND a.id_type=d.id";		
 		foreach ($tabFiltre as $search=>$champ){
-			if (!empty($_POST[$champ])){
-				$requete.=" AND $search LIKE :$champ";
-			}
+                    if (!empty($_POST[$champ])){
+                        $requete.=" AND $search LIKE :$champ";
+                    }
 		}                
-		$requete.=" AND id_entite=:id_entite AND id_zone IN ($_SESSION[id_zone]);";
+		$requete.=" AND id_entite=:id_entite AND a.id_zone IN ($_SESSION[id_zone]);";
 		$prep=$db->prepare($requete);
 		foreach ($tabFiltre as $search=>$champ){
-			if (!empty($_POST[$champ])){
-				//$prep->bindParam(":$search",$search,PDO::PARAM_STR);
-				$text="$_POST[$champ]%";
-				$prep->bindParam(":$champ",$text,PDO::PARAM_STR);
-			}
+                    if (!empty($_POST[$champ])){				
+                        $text="$_POST[$champ]%";
+                        $prep->bindParam(":$champ",$text,PDO::PARAM_STR);
+                    }
 		}		
 		$prep->bindParam(":id_entite",$_SESSION['id_entite'],PDO::PARAM_INT);
 		$prep->execute();		
@@ -49,11 +48,11 @@ try
 		$prep = NULL;
 		//Get records from database		
 		//$requete="SELECT *,a.id as id_materiel,b.id as id_marque,b.detail as marque,c.detail as modele,d.detail as type_materiel,ip FROM materiel a LEFT OUTER JOIN net e ON a.id=e.id_materiel, marque b, modele c, type d  WHERE a.id_modele=c.id AND c.id_marque=b.id AND a.id_type=d.id";// 
-		$requete="SELECT a.*,b.*,c.*,d.*,a.id as id_materiel,b.id as id_marque,b.detail as marque,c.detail as modele,d.detail as type_materiel,GROUP_CONCAT(ip SEPARATOR \"<br/>\") as ip FROM materiel a LEFT OUTER JOIN net e ON a.id=e.id_materiel, marque b, modele c, type d  WHERE a.id_modele=c.id AND c.id_marque=b.id AND a.id_type=d.id";//
+		$requete="SELECT a.*,b.*,c.*,d.*,a.id as id_materiel,b.id as id_marque,b.detail as marque,c.detail as modele,d.detail as type_materiel,GROUP_CONCAT(IF(ip='0.0.0.0',ip,'') SEPARATOR \"<br/>\") as ip,GROUP_CONCAT(e.id,'@@',IF(ip!='0.0.0.0',ip,'') SEPARATOR \"<br/>\") as id_net, a.id_type as id_type2,a.id_zone as id_zone2 FROM materiel a LEFT OUTER JOIN net e ON a.id=e.id_materiel, marque b, modele c, type d  WHERE a.id_modele=c.id AND c.id_marque=b.id AND a.id_type=d.id";                
 		foreach ($tabFiltre as $search=>$champ){
 			if (!empty($_POST[$champ])){$requete.=" AND $search LIKE :$champ";}
 		}
-		$requete.=" AND id_entite=:id_entite AND id_zone IN ($_SESSION[id_zone]) GROUP BY a.id ORDER BY id_zone,".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $limHaute . ";";		
+		$requete.=" AND id_entite=:id_entite AND a.id_zone IN ($_SESSION[id_zone]) GROUP BY a.id ORDER BY a.id_zone,".$_GET["jtSorting"]." LIMIT ".$_GET["jtStartIndex"]."," . $_GET["jtPageSize"] . ";";		
 		$prep=$db->prepare($requete);
 		foreach ($tabFiltre as $search=>$champ){
 			if (!empty($_POST[$champ])){
@@ -103,7 +102,7 @@ else if($_GET["action"] == "create")
 		$prep->bindParam(":id_zone",$_POST['id_zonec'],PDO::PARAM_INT);
 		$prep->bindParam(":id_entite",$_SESSION['id_entite'],PDO::PARAM_INT);
 		$prep->bindParam(":id_modele",$resMarque["id"],PDO::PARAM_INT);
-		$prep->bindParam(":id_type",$_POST["id_type"],PDO::PARAM_INT);
+		$prep->bindParam(":id_type",$_POST["id_type2"],PDO::PARAM_INT);
 		$prep->bindParam(":nom",$_POST["nom"],PDO::PARAM_STR);
 		$prep->bindParam(":sn",$_POST["sn"],PDO::PARAM_STR);
 		$prep->bindParam(":systeme",$_POST["systeme"],PDO::PARAM_STR);
@@ -138,7 +137,7 @@ else if($_GET["action"] == "create")
 	else if($_GET["action"] == "update")
 	{		
 		//Update record in database
-		$requete = "UPDATE materiel SET id_modele=:id_modele,id_type=:id_type, nom=:nom, sn=:sn, systeme=:systeme, systeme_version=:systeme_version";
+		$requete = "UPDATE materiel SET id_zone=:id_zone,id_modele=:id_modele,id_type=:id_type, nom=:nom, sn=:sn, systeme=:systeme, systeme_version=:systeme_version";
 		if (!empty($_POST["date_installe"])){
 			$tmpDate=explode('-',$_POST["date_installe"]);
 			$_POST["date_installe"]="$tmpDate[2]-$tmpDate[1]-$tmpDate[0]";
@@ -150,8 +149,9 @@ else if($_GET["action"] == "create")
 		$requete.=",emplacement=:emplacement,description=:description,contact=:contact,updateOn=now() WHERE id = :id;";
 		$prep=$db->prepare($requete);
 		$prep->bindParam(":id",$_POST["id_materiel"],PDO::PARAM_INT);
+                $prep->bindParam(":id_zone",$_POST['id_zone2'],PDO::PARAM_INT);
 		$prep->bindParam(":id_modele",$_POST["id_modele"],PDO::PARAM_INT);
-		$prep->bindParam(":id_type",$_POST["id_type"],PDO::PARAM_INT);
+		$prep->bindParam(":id_type",$_POST["id_type2"],PDO::PARAM_INT);
 	    $prep->bindParam(":nom",$_POST["nom"],PDO::PARAM_STR);
 		$prep->bindParam(":sn",$_POST["sn"],PDO::PARAM_STR);
 		$prep->bindParam(":systeme",$_POST["systeme"],PDO::PARAM_STR);

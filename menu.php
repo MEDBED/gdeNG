@@ -33,6 +33,8 @@ $typeForCal=bin2hex(chiffre("user", "$_SESSION[UNIQID]"));
 <script type="text/javascript" src="include/functions.js"></script>
 <script type="text/javascript" src="content/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="content/jquery.base64.min.js"></script>
+<script type="text/javascript" src="content/ajaxFileUpload/ajaxfileupload.js"></script>
+<!--<script type="text/javascript" src="content/jquery.form.js"></script>-->
 <!-- UI -->
 	<!-- 1.8 -->
 	<!-- <script type="text/javascript" src="content/jquery-ui/js/jquery-ui-1.8.23.custom.min.js"></script>
@@ -49,7 +51,10 @@ $typeForCal=bin2hex(chiffre("user", "$_SESSION[UNIQID]"));
 	<script type="text/javascript" src="content/jquery-ui-1.9/ui/jquery.ui.autocomplete.js"></script>
 	<script type="text/javascript" src="content/jquery-ui-1.9/ui/jquery.bgiframe.js"></script> 	
 	<script type="text/javascript" src="content/jquery-ui-1.9/ui/jquery.ui.tooltip.js"></script>	
-
+<!-- PrettyPhoto -->
+<link rel="stylesheet" href="content/prettyPhoto/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+<script src="content/prettyPhoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+<!-- -->
 <link type="text/css" href="content/jquery-ui/css/start/jquery-ui-1.8.6.custom.css" rel="Stylesheet">
 <script type="text/javascript" src="content/jquery.validate.min.js"></script>
 <!-- Jtable -->
@@ -83,10 +88,13 @@ $typeForCal=bin2hex(chiffre("user", "$_SESSION[UNIQID]"));
 <script type="text/javascript" src="content/winDim.js"></script>
 <script type="text/javascript" src="content/highslide/highslide-full.min.js"></script>
 <script type="text/javascript" src="content/highslide/highslide-with-html.js"></script>
-<script type="text/javascript" src="content/highcharts/highslide/highslide.config.js" charset="utf-8"></script>
+<script type="text/javascript" src="content/highslide/highslide.config.js" charset="utf-8"></script>
 <!-- <script type="text/javascript" src="content/jquery.cookie.js"></script> -->
 <link rel="stylesheet" type="text/css" href="content/highslide/highslide.css" />
 <!-- <link rel="stylesheet" type="text/css" href="content/sliding_panel/style.css" media="screen" /> -->
+<!--showloading-->
+<link rel="stylesheet" type="text/css" href="content/showLoading/css/showLoading.css">
+<script type="text/javascript" src="content/showLoading/js/jquery.showLoading.js"></script>
 <!-- Calendrier -->      
 <link rel="stylesheet" type="text/css" href="content/calendar/calendar-blue2.css">
 <script type="text/javascript" src="content/calendar/calendar.js"></script>
@@ -195,78 +203,110 @@ $typeForCal=bin2hex(chiffre("user", "$_SESSION[UNIQID]"));
 <script type="text/javascript">
 jQuery(document).ready( function() {
 	jQuery("img").tooltip({
-		position: {
-			my: "center bottom-20",
-			at: "center top",
-			width: '100px',
-			using: function( position, feedback ) {
-				$( this ).css( position );
-				$( "<div>" )
-					.addClass( "arrow" )
-					.addClass( feedback.vertical )
-					.addClass( feedback.horizontal )
-					.appendTo( this );
-			}
-		}
+            position: {
+                my: "center bottom-20",
+                at: "center top",
+                width: '100px',
+                using: function( position, feedback ) {
+                    $( this ).css( position );
+                    $( "<div>" )
+                        .addClass( "arrow" )
+                        .addClass( feedback.vertical )
+                        .addClass( feedback.horizontal )
+                        .appendTo( this );
+                }
+            }
 	});	
 	jQuery("input").tooltip({
-		position: {
-			my: "center bottom-20",
-			at: "center top",
-			width: '100px',
-			using: function( position, feedback ) {
-				$( this ).css( position );
-				$( "<div>" )
-					.addClass( "arrow" )
-					.addClass( feedback.vertical )
-					.addClass( feedback.horizontal )
-					.appendTo( this );
-			}				
-		}		
+            position: {
+                my: "center bottom-20",
+                at: "center top",
+                width: '100px',
+                using: function( position, feedback ) {
+                    $( this ).css( position );
+                    $( "<div>" )
+                        .addClass( "arrow" )
+                        .addClass( feedback.vertical )
+                        .addClass( feedback.horizontal )
+                        .appendTo( this );
+                }				
+            }		
 	});					
 });
 </script>
 <script type="text/javascript">
-jQuery(document).ready(function(){
-	jQuery(".trigger").click(function(){
-		jQuery(".panel").toggle("fast");
-		jQuery(this).toggleClass("active");
-		return false;
-	});	
-	jQuery(".link").click(function(){
-		jQuery(".panel").toggle("fast");
-		jQuery(".trigger").toggleClass("active");
-		return false;
-	});
-	jQuery("#listeEntite").change(changeEntite);
-	$(function(){		
-		//$('select#listeEntite').selectmenu();	
-		$('select#listeEntite').selectmenu({
-			style:'dropdown',
-			width: 178,
-			menuWidth: 400,
-			format: addressFormatting
-		});	
-	});	
-	//a custom format option callback
-	var addressFormatting = function(text){
-		var newText = text;
-		//array of find replaces
-		var findreps = [
-			{find:/^([^\-]+) \- /g, rep: '<span class="ui-selectmenu-item-header" style="font-weight: bold;">$1</span>'},
-			/*{find:/([^\|><]+) \| /g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
-			{find:/([^\|><\(\)]+) (\()/g, rep: '<span class="ui-selectmenu-item-content">$1</span>$2'},
-			{find:/([^\|><\(\)]+)$/g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
-			{find:/(\([^\|><]+\))$/g, rep: '<span class="ui-selectmenu-item-footer">$1</span>'}*/
-		];
-		
-		for(var i in findreps){
-			newText = newText.replace(findreps[i].find, findreps[i].rep);
-		}
-		return newText;
-	}	
-	
+jQuery(document).ready(function(){    
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    jQuery(".trigger").click(function(){
+            jQuery(".panel").toggle("fast");
+            jQuery(this).toggleClass("active");
+            return false;
+    });	
+    jQuery(".link").click(function(){
+            jQuery(".panel").toggle("fast");
+            jQuery(".trigger").toggleClass("active");
+            return false;
+    });
+    jQuery("#listeEntite").change(changeEntite);
+    $(function(){		
+            //$('select#listeEntite').selectmenu();	
+            $('select#listeEntite').selectmenu({
+                style:'dropdown',
+                width: 178,
+                menuWidth: 400,
+                format: addressFormatting
+            });	
+    });	
+    //a custom format option callback
+    var addressFormatting = function(text){
+            var newText = text;
+            //array of find replaces
+            var findreps = [
+                {find:/^([^\-]+) \- /g, rep: '<span class="ui-selectmenu-item-header" style="font-weight: bold;">$1</span>'},
+                /*{find:/([^\|><]+) \| /g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
+                {find:/([^\|><\(\)]+) (\()/g, rep: '<span class="ui-selectmenu-item-content">$1</span>$2'},
+                {find:/([^\|><\(\)]+)$/g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
+                {find:/(\([^\|><]+\))$/g, rep: '<span class="ui-selectmenu-item-footer">$1</span>'}*/
+            ];
+
+            for(var i in findreps){
+                newText = newText.replace(findreps[i].find, findreps[i].rep);
+            }
+            return newText;
+    }	
+    jQuery( "#dialog-form" ).dialog({
+        autoOpen: false,
+        height: 290,
+        width: 220,
+        modal: true,
+        buttons: {
+            "Importer": function() { 
+               jQuery('div#container').showLoading(); 
+               jQuery.ajax( {                                                                  
+                    data: jQuery('#formOCS :input').serialize(), // get the form data
+                    type: jQuery('#formOCS').attr('method'), // GET or POST
+                    url: jQuery('#formOCS').attr('action'), // the file to call
+                    beforeSubmit: function(){
+                        
+                    },
+                    success: function(response) { // on success..
+                        jQuery('div#container').html(response); // update the DIV
+                        jQuery('div#container').hideLoading();
+                    }                                                                                                
+                });
+                jQuery( this ).dialog( "close" );            
+            },
+            Annuler: function() {
+                $( this ).dialog( "close" );
+            }
+        }/*,
+        close: function() {
+            allFields.val( "" ).removeClass( "ui-state-error" );
+        }*/
+    });
 });
+
+
 function affiche(element,element2){
 	jQuery("#"+element).toggle();
 	if (element2!=''){
@@ -283,22 +323,33 @@ function execPHP(page) {
     /*return false;*/
 }
 function SwitchToContent(contentName)
-{	
-	jQuery("div#container").load(contentName);	
+{
+    if (contentName!='ocs.php'){
+        jQuery('div#container').showLoading();
+        jQuery("div#container").load(contentName, function() {
+            jQuery('div#container').hideLoading();
+        });	
+    }else{
+        jQuery( "#dialog-form" ).dialog( "open" );        
+        /*jQuery('div#container').showLoading();
+        jQuery("div#container").load(contentName, function() {
+            jQuery('div#container').hideLoading();
+        });*/
+    }        
 }
 
 function changeEntite() {
 	 var entite = jQuery("#listeEntite").val();
 	 //jQuery("#listeEntite option[value='".entite."']").attr('selected','selected');
 	 jQuery.post('resources/backend.php?entite=', { entite: entite}, function(ret){	
-		 //alert(ret);	
-		    if(ret==0){		
-			    var tabAlias = jQuery("#listeEntite option:selected").text();
-			    var alias = tabAlias.split('-');			   
-			    jQuery("#alias").val(jQuery.trim( alias[0] ));    
-			    changeEntiteInfo();    		        
-		    }
-		});			 		
+            //alert(ret);	
+            if(ret==0){		
+                var tabAlias = jQuery("#listeEntite option:selected").text();
+                var alias = tabAlias.split('-');			   
+                jQuery("#alias").val(jQuery.trim( alias[0] ));    
+                changeEntiteInfo();    		        
+            }
+        });			 		
 }
 <!-- Autocomplete -->
 jQuery(function() {	
@@ -306,36 +357,36 @@ jQuery(function() {
 		 propAttr: $.fn.prop || $.fn.attr
 		});	
 	jQuery("#alias").autocomplete({
-		source: function( request, response ) {
-			var objData = {};
-			objData = { alias_startsWith: request.term, maxRows: 10, featureClass: "P" };
-			$.ajax({
-				url: "resources/backend.php?autocomplete=",
-				dataType: "json",//jsonp
-				data: objData,
-				//type: 'POST',
-				success: function( data ) {					
-					response( $.map( data, function( item ) {
-						//alert(item.alias+' *** '+item.id_entite);						
-						return {
-							label: item.alias + ' - ' + item.type + ' ' + item.nom + ' de ' + item.ville,
-							labelCourt: item.alias,							
-							value: function ()
-							{								
-								$('#alias').val(item.id_entite);
-								return item.alias;								
-							},
-							retour: item.id_entite
-						}
-						return data;
-					}));
-				}
-			});
-		},
-		minLength: 2,		
+            source: function( request, response ) {
+                var objData = {};
+                objData = { alias_startsWith: request.term, maxRows: 10, featureClass: "P" };
+                $.ajax({
+                    url: "resources/backend.php?autocomplete=",
+                    dataType: "json",//jsonp
+                    data: objData,
+                    //type: 'POST',
+                    success: function( data ) {					
+                        response( $.map( data, function( item ) {
+                            //alert(item.alias+' *** '+item.id_entite);						
+                            return {
+                                label: item.alias + ' - ' + item.type + ' ' + item.nom + ' de ' + item.ville,
+                                labelCourt: item.alias,							
+                                value: function ()
+                                {								
+                                        $('#alias').val(item.id_entite);
+                                        return item.alias;								
+                                },
+                                retour: item.id_entite
+                            }
+                            return data;
+                        }));
+                    }
+                });
+            },
+            minLength: 2,		
          //define select handler  
         select: function( event, ui ) {								      
-        	jQuery.post('resources/backend.php?entite=', { entite: ui.item.retour}, function(ret){	            	
+        	jQuery.post('resources/backend.php?entite=', { entite: ui.item.retour, alias: ui.item.labelCourt}, function(ret){	            	
         		if(ret==0 && ui.item){	
         			var entite = ui.item.retour;
         			var alias = ui.item.labelCourt;        			        		
@@ -408,37 +459,42 @@ function closeTooltip() {
         </div>
     </div>
 </div>
-<div style="position: absolute;top: 0;left: 0;margin: 0; padding: 0;" title="">		
-	<img src="<?php  echo $GLOBALS['params']['appli']['image_appli_min']?>" alt="Aide" border="0"/>	
+<div class="connexionMenu">
+    <div style="position: absolute;top: 0;left: 0;margin: 0; padding: 0;" title="">		
+            <img src="<?php  echo $GLOBALS['params']['appli']['image_appli_min']?>" alt="Aide" border="0"/>	
+    </div>
+
+    <div class="affichIdent">
+        <table>
+        <tr><td style="width: 16px;"><img title="Se déconnecter" style="cursor: pointer; display: inline;" onclick="execPHP('logout.php');" src="graphs/icons/logout.png" ></td>
+        <td style="padding-left: 5px;"><?php echo "$resUser->prenom $resUser->nom";?></td></tr>
+        <!--<tr><td colspan=2>
+                <select name='identite' id="listeEntite" style="cursor: pointer; display: inline;padding-left: 5px;color: #fff;" title="">
+                <option></option>
+                <?php 
+                /*foreach ($_SESSION['ENTITE'] as $tabEtab){
+                        echo "<option value=\"$tabEtab[id_entite]\"";
+                        if ($_SESSION['id_entite']==$tabEtab[id_entite]){echo " selected";}
+                        echo ">$tabEtab[alias] - $tabEtab[type] $tabEtab[nom] de $tabEtab[ville]</option>";
+                }*/
+                ?>
+                </select>
+        </tr>-->
+        <tr><td colspan="2">
+                <div class="ui-widget">                    
+                        <input id="alias" value="<?php echo $_SESSION["ENTITE"][$_SESSION['id_entite']][alias];?>" title="Saisissez les premières lettres ou chiffres de la ville, du nom ou de l'identifiant de l'entité" onClick="closeTooltip();"/>	
+                </div>	
+        </td></tr>
+        </table>
+    </div>
 </div>
-<div class="affichIdent">
-<table>
-<tr><td style="width: 16px;"><img title="Se déconnecter" style="cursor: pointer; display: inline;" onclick="execPHP('logout.php');" src="graphs/icons/logout.png" ></td>
-<td style="padding-left: 5px;"><?php echo "$resUser->prenom $resUser->nom";?></td></tr>
-<tr><td colspan=2>
-	<select name='identite' id="listeEntite" style="cursor: pointer; display: inline;padding-left: 5px;color: #fff;" title="">
-	<option></option>
-	<?php 
-	foreach ($_SESSION['ENTITE'] as $tabEtab){
-		echo "<option value=\"$tabEtab[id_entite]\"";
-		if ($_SESSION['id_entite']==$tabEtab[id_entite]){echo " selected";}
-		echo ">$tabEtab[alias] - $tabEtab[type] $tabEtab[nom] de $tabEtab[ville]</option>";
-	}
-	?>
-	</select>
-	<div class="ui-widget">
-		<!-- <label for="alias">Alias: </label> -->
-		<input id="alias" value="<?php echo $_SESSION["ENTITE"][$_SESSION['id_entite']][alias];?>" title="Saisissez les premières lettres ou chiffres de la ville, du nom ou de l'identifiant de l'entité" onClick="closeTooltip();"/>	
-	</div>	
-</div>
-</td></tr>
-</table></div>
 <div class="contentEntite" style="<?php if (empty($_SESSION[titre]) || empty($_SESSION['id_entite'])){echo "display: none;";}?>" id="contentEntite">
 	<div id="imgEntite"><img style=" padding-top: 10px;display: inline; margin:0; padding:0;" id="titreAdresse" src="graphs/icons/event20.png" title="<?php echo $_SESSION[titre_adresse];?>"></div>
 	<div id="personnelEntite"><img style=" padding-top: 10px;display: inline; margin:0; padding:0;" id="titrePersonnel" src="graphs/icons/infoUser20.png" title="<?php echo $_SESSION[titre_personnel];?>"></div>	
+        <div id="Network"><img style=" padding-top: 10px;display: inline; margin:0; padding:0;" id="titreNetwork" src="graphs/icons/infoUser20.png" title="<?php echo $_SESSION[titre_network];?>"></div>	
 	<div  id="textEntite" style="display: inline; margin:0; padding:0;font-weight:bold;font-size: 12px;"><?php echo $_SESSION[titre];?></div>
 </div>
-<div id="container">	
+<div id="container" name="container">	
 	<h1><?php  echo $titre;?></h1>
 		<h2><?php  echo $pageDescription;?></h2>	
 		<?php if (!empty($_SESSION['message'])){echo "<p id=\"mess_err\">".$_SESSION['message']."</p>";};?>	
@@ -483,6 +539,7 @@ function closeTooltip() {
 	<div class="navig">
 		<ul>
 			<li><a href="menu.php" title="Accueil">Accueil</a></li>
+                        <li><a href="#" title="Mon compte" onclick="javascript:SwitchToContent('main/account.php');" class="link">Mon compte</a></li>
 			<li><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html-ml',headingText: 'Mentions Légales' } )" title="Mentions Légales">Mentions Légales</a></li>				
 			<li><a href="logout.php" title="Se déconnecter">Déconnexion</a></li>	
 						
@@ -492,16 +549,19 @@ function closeTooltip() {
 	<div class="columns">
 		<div class="colleft">
 			<h3>Outils</h3>
-			<ul>
-				<li><a href="#" title="Mon compte" onclick="javascript:SwitchToContent('main/account.php');" class="link">Mon compte</a></li>
-				<?php 
-				if ($_SESSION['isAdmin']==1){
-					echo '<li><a href="#" title="Modifier les utilisateurs, leurs permissions" onclick="javascript:SwitchToContent(\'main/users.php\');" class="link">Utilisateurs</a></li>';
-					echo '<li><a href="#" title="Modifier les groupes, leurs permissions" onclick="javascript:SwitchToContent(\'main/groups.php\');" class="link">Groupes</a></li>';
-				}
-				?>							
-				<li class="sub"><a href="#" title="Agenda" onclick="return hs.htmlExpand(this, { src: 'content/wdCalendar/wdCalendar/calendar.php?awq=<?php echo $idForCal;?>&amp;zxs=<?php echo $typeForCal;?>',objectType: 'iframe', headingText: 'Mon agenda',width: 640,preserveContent: false });">Mon agenda</a></li>
-				<li class="sub"><a href="#" title="Calculatrice" onclick="return hs.htmlExpand(this, { src: 'content/calc/index.html',objectType: 'iframe', headingText: 'Calculatrice',width: 330,preserveContent: false });">Calculatrice</a></li>										
+			<ul>		
+                            <li><a href="#" title="Mon compte" onclick="javascript:SwitchToContent('ocs.php');" class="link">Mise à jour OCS</a></li>
+                            <?php 
+                            if ($_SESSION['isAdmin']==1){
+                                    echo '<li><a href="#" title="Modifier les utilisateurs, leurs permissions" onclick="javascript:SwitchToContent(\'main/users.php\');" class="link">Utilisateurs</a></li>';
+                                    echo '<li><a href="#" title="Modifier les groupes, leurs permissions" onclick="javascript:SwitchToContent(\'main/groups.php\');" class="link">Groupes</a></li>';
+                                    echo '<li><a href="#" title="Créer les alertes" onclick="javascript:SwitchToContent(\'main/alertes.php\');" class="link">Logiciels sans alerte</a></li>';                                        
+                                    echo '<li><a href="#" title="Modifier les alertes" onclick="javascript:SwitchToContent(\'main/alertes.php?a=1\');" class="link">Logiciels</a></li>';
+                                    echo '<li><a href="#" title="Gérer les sercies accessibles par l\'IP" onclick="javascript:SwitchToContent(\'main/serviceIP.php\');" class="link">Services IP</a></li>';
+                            }
+                            ?>							
+                            <li class="sub"><a href="#" title="Agenda" onclick="return hs.htmlExpand(this, { src: 'content/wdCalendar/wdCalendar/calendar.php?awq=<?php echo $idForCal;?>&amp;zxs=<?php echo $typeForCal;?>',objectType: 'iframe', headingText: 'Mon agenda',width: 640,preserveContent: false });">Mon agenda</a></li>
+                            <li class="sub"><a href="#" title="Calculatrice" onclick="return hs.htmlExpand(this, { src: 'content/calc/index.html',objectType: 'iframe', headingText: 'Calculatrice',width: 330,preserveContent: false });">Calculatrice</a></li>										
 			</ul>
 		</div>	
 		<div class="colright">
@@ -512,36 +572,62 @@ function closeTooltip() {
 				$requete="SELECT id,detail,file,isDefault FROM zone WHERE affMenu=1 ORDER BY orderMenu;";
 				$rec=$db->query($requete);
 				while ($res=$rec->fetch(PDO::FETCH_ASSOC)){										
-					if ((int)$_SESSION['PERMS']['zone'][$res['id']] & LECTURE)
-					{
-						if($res['isDefault']==1){$_SESSION['ZONE_DEFAULT']=$res[id];$_SESSION['PAGE_DEFAULT']=$res[file];}
-						echo "<li><a href=\"#\" title=\"Liste des matériels\" onclick=\"javascript:SwitchToContent('main/$res[file]?id_zone=$res[id]&detail=".base64_encode($res[detail])."');\" class=\"link\">$res[detail]</a></li>";
-					}
-					/*if ((int)$_SESSION['PERMS']['zone'][$res['id']] & MODIFICATION)
-					{
-						echo "****$res[detail] MODIFICATION<br/>";
-					}
-					if ((int)$_SESSION['PERMS']['zone'][$res['id']] & CREATION)
-					{
-						echo "****$res[detail] CREATION<br/>";
-					}
-					if ((int)$_SESSION['PERMS']['zone'][$res['id']] & SUPPRESSION)
-					{
-						echo "****$res[detail] SUPRESSION<br/>";
-					}*/					
+                                    if ((int)$_SESSION['PERMS']['zone'][$res['id']] & LECTURE)
+                                    {
+                                        if($res['isDefault']==1){$_SESSION['ZONE_DEFAULT']=$res[id];$_SESSION['PAGE_DEFAULT']=$res[file];}
+                                        echo "<li><a href=\"#\" title=\"Liste des matériels\" onclick=\"javascript:SwitchToContent('main/$res[file]?id_zone=$res[id]&detail=".base64_encode($res[detail])."');\" class=\"link\">$res[detail]</a></li>";
+                                    }
+                                    /*if ((int)$_SESSION['PERMS']['zone'][$res['id']] & MODIFICATION)
+                                    {
+                                            echo "****$res[detail] MODIFICATION<br/>";
+                                    }
+                                    if ((int)$_SESSION['PERMS']['zone'][$res['id']] & CREATION)
+                                    {
+                                            echo "****$res[detail] CREATION<br/>";
+                                    }
+                                    if ((int)$_SESSION['PERMS']['zone'][$res['id']] & SUPPRESSION)
+                                    {
+                                            echo "****$res[detail] SUPRESSION<br/>";
+                                    }*/					
 				}						
+                                //echo '<li><a href="#" title="Tableau de bord" onclick="javascript:SwitchToContent(\'main/board.php\');" class="link">Tableau de bord</a></li>';
 				?>
+                                
 			</ul>			
 		</div>
 	</div>
 	<div style="clear:both;"></div>
+</div>
+<div id="dialog-form" title="Choisissez les éléments à importer" style="display: none;">
+    <!--<p class="validateTips">All form fields are required.</p>--> 
+    <form id="formOCS" method="post" action="ocs.php">
+        <input type="checkbox" name="storage" id="storage" checked/>       
+        <label for="drive">Disque</label><br/>        
+        <input type="checkbox" name="monitor" id="monitor" checked/>       
+        <label for="monitor">Ecran</label><br/>
+        <input type="checkbox" name="printer" id="printer" checked/>       
+        <label for="printer">Impression</label><br/>
+        <input type="checkbox" name="soft" id="soft" />
+        <label for="soft">Logiciels</label><br/>
+        <input type="checkbox" name="memory" id="memory" checked/>       
+        <label for="memory">Mémoire</label><br/>
+        <input type="checkbox" name="drive" id="drive" checked/>               
+        <label for="storage">Partition</label><br/>
+        <input type="checkbox" name="net" id="net" checked/>       
+        <label for="net">Réseau</label><br/>
+        <input type="checkbox" name="sound" id="sound" checked/>       
+        <label for="sound">Son</label><br/>                                
+        <input type="checkbox" name="video" id="video" checked/>       
+        <label for="video">Vidéo</label>               
+    
+    </form>
 </div>
 <a class="trigger" href="#">Menu</a>	
 <script src="content/timeout/src/jquery.idletimer.js" type="text/javascript"></script>
 <script src="content/timeout/src/jquery.idletimeout.js" type="text/javascript"></script>
 <script type="text/javascript">
 $.idleTimeout('#idletimeout', '#idletimeout a', {
-	idleAfter: 900,	
+	idleAfter: 3000,	
 	pollingInterval: 30,
 	keepAliveURL: 'content/timeout/keepalive.php',
 	serverResponseEquals: 'OK',
@@ -569,6 +655,7 @@ function changeEntiteInfo(){
 		    jQuery('#textEntite').html(tabData[0]);				
 		    jQuery('#titreAdresse').attr("title",tabData[1]);
 		    jQuery('#titrePersonnel').attr("title",tabData[2]);
+                    jQuery('#titreNetwork').attr("title",tabData[3]);
 		    //jQuery('#titreAdresse').attr("title","aaa");
 		}        				       			
 	});

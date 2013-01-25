@@ -126,9 +126,9 @@ else if($_GET["action"] == "create")
 	else if($_GET["action"] == "delete")
 	{
 		//Delete from database
-		$requete="DELETE FROM net WHERE id = :id;";		
+		$requete="DELETE FROM suivi WHERE id = :id;";		
 		$prep=$db->prepare($requete);
-		$prep->bindParam(":id",$_POST["id_net"],PDO::PARAM_INT);
+		$prep->bindParam(":id",$_POST["id_suivi"],PDO::PARAM_INT);
 		$prep->execute();
 		$prep->closeCursor();
 		$prep = NULL;		
