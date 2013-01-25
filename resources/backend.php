@@ -30,6 +30,7 @@ if (isset($_GET[entite])){
 	echo json_encode($arr);
 	//echo "0";//Code de retour OK
 }elseif (isset($_GET[titre])){
+        $titre_personnel='';
 	$_SESSION[titre]=$_SESSION['ENTITE'][$_SESSION['id_entite']][type].' '.$_SESSION['ENTITE'][$_SESSION['id_entite']][nom].' - '.$_SESSION['ENTITE'][$_SESSION['id_entite']][alias].'<br/>'.$_SESSION['ENTITE'][$_SESSION['id_entite']][tel];	
 	$_SESSION[titre_adresse]='Adresse : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][adresse].'<br/>'
 	.'CP : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][cp].'<br/>'
@@ -37,11 +38,16 @@ if (isset($_GET[entite])){
 	.'Tél : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][tel].'<br/>'
 	.'Fax : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][fax].'<br/>'
 	.'Email : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][email];
-	$_SESSION[titre_personnel]='Directeur : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][directeur].'<br/>'
-	.'Adjoint : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][adjoint].'<br/>'
-	.'Gestionnaire : '.$_SESSION['ENTITE'][$_SESSION['id_entite']][gestionnaire];
-         connectSQL();
-        //$requete="SELECT a.id_materiel, a.ip, a.mask, a.subnet,b.id_zone,c.detail as zone, d.detail as marque, e.detail as modele FROM net a , materiel b, zone c, marque d, modele e WHERE a.id_materiel=b.id AND b.id_modele=e.id AND d.id=e.id_marque AND b.id_zone=c.id AND c.id_pere=3 AND id_entite=:id_entite ORDER BY b.id_zone,INET_ATON(ip);";
+        connectSQL();
+        //Contacts de l'entité
+        $requete="SELECT nom, prenom, fonction FROM contact WHERE id_entite=:id_entite ORDER BY id;";
+        $prep=$db->prepare($requete);
+        $prep->bindParam(":id_entite",$_SESSION['id_entite'],PDO::PARAM_INT);	
+        $prep->execute(); 
+        while ($res=$prep->fetch(PDO::FETCH_ASSOC)){
+            $titre_personnel.=''.$res[fonction].' : '.$res[nom].' '.$res[prenom].'<br/>';
+        }
+        $_SESSION[titre_personnel]=$titre_personnel;	
         $requete="SELECT DISTINCT a.mask, a.subnet FROM net a, materiel b WHERE a.id_materiel=b.id AND b.id_zone=9 AND id_entite=:id_entite AND a.subnet!='' ORDER BY b.id_zone,INET_ATON(ip);";
         $prep=$db->prepare($requete);
         $prep->bindParam(":id_entite",$_SESSION['id_entite'],PDO::PARAM_INT);	

@@ -217,8 +217,7 @@ function affTab(tab){
                                 list:false
                             },
                              tel1: {                           
-                                title: 'Tél Pro',	
-                                list:false
+                                title: 'Tél Pro',	                                
                             },
                              tel2: {                           
                                 title: 'Tél Autre',							                                                           
