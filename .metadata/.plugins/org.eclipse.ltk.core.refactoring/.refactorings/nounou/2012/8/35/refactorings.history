@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename source module &apos;include.header.inc.php&apos; to &apos;textes.php&apos;&#x0A;- Original element: &apos;include\header.inc.php&apos;&#x0A;- Renamed element: &apos;include\textes.php&apos;" description="Rename source module &apos;header.inc.php&apos;" flags="589830" id="org.eclipse.dltk.ui.rename.sourcemodule" input="/&lt;include{header.inc.php" name="textes.php" stamp="1346225932869" version="1.0"/>
+</session>

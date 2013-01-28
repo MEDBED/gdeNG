@@ -1,0 +1,371 @@
+<?PHP
+session_start();
+$titre="Menu Principal";
+$pageDescription="";
+
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: logout.php");
+	exit;
+}
+include_once("header.inc.php");
+include_once("include/functions.php");
+include_once("include/protect_var.php");
+connectSQL();
+$reqAsm="SELECT id FROM asm WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+$recAsm=mysql_query($reqAsm);
+if (mysql_num_rows($recAsm)>0){
+	$asm=1;
+}else{$asm=0;
+}
+$_SESSION['asm']=$asm;
+$reqParent="SELECT id FROM parent WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+$recParent=mysql_query($reqParent);
+if (mysql_num_rows($recParent)>0){
+	$parent=1;
+}else{$parent=0;
+}
+$_SESSION['parent']=$asm;
+$reqUser="SELECT nom, prenom, genre FROM user WHERE id=$_COOKIE[ID_UTILISATEUR];";
+$resUser=mysql_fetch_array(mysql_query($reqUser));
+setcookie("NOM", $resUser["nom"], time()+3600, "/");
+setcookie("PRENOM", $resUser["prenom"], time()+3600, "/");
+setcookie("GENRE", $resUser["genre"], time()+3600, "/");
+entete_page($GLOBALS['params']['appli']['title_appli']." - ".$titre,'');
+if (isset($_GET['message']) && stristr($_GET['message'],'merci')){	
+	$message=clean_var($_GET['message']);	
+}else{
+	$message = ' ';
+}
+setlocale (LC_TIME, 'fr_FR.utf8');
+$dateFormat = date('Y-m-d');
+$dateFR = strftime("%A %d %B %Y",strtotime("$dateFormat"));
+$idForCal=rawurlencode(chiffre("$_COOKIE[ID_UTILISATEUR]", "$_COOKIE[UNIQID]"));
+$typeForCal=rawurlencode(chiffre("user", "$_COOKIE[UNIQID]"));
+?>
+<script type="text/javascript" src="content/jquery-1.7.2.min.js"></script> 
+<script type="text/javascript" src="content/jquery.validate.min.js"></script>
+<!-- <script type="text/javascript" src="content/jquery-ui/js/jquery-1.4.2.min.js"></script>-->
+<script type="text/javascript" src="content/tooltip/jquery.tools.min.js"></script>
+<script type="text/javascript" src="content/winDim.js"></script>
+<script type="text/javascript" src="content/highslide/highslide-full.min.js"></script>
+<script type="text/javascript" src="content/highslide/highslide-with-html.js"></script>
+<script type="text/javascript" src="content/highcharts/highslide/highslide.config.js" charset="utf-8"></script>
+<!-- <script type="text/javascript" src="content/jquery.cookie.js"></script> -->
+<link rel="stylesheet" type="text/css" href="content/highslide/highslide.css" />
+<link type="text/css" href="content/jquery-ui/css/start/jquery-ui-1.8.6.custom.css" rel="Stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="content/sliding_panel/style.css" media="screen" /> -->
+<!-- Calendrier -->      
+<link rel="stylesheet" type="text/css" href="content/calendar/calendar-blue2.css">
+<script type="text/javascript" src="content/calendar/calendar.js"></script>
+<script type="text/javascript" src="content/calendar/lang/calendar-fr.js"></script>
+<script type="text/javascript" src="content/calendar/calendar-setup.js"></script>
+<script type="text/javascript">
+	var normalLeft = 0;
+	var normalRight = 0;		
+	var normalWidth = 0;
+	var normalHeight = 0;	
+    hs.graphicsDir = 'content/highslide/graphics/';
+    hs.outlineType = 'rounded-white';
+	hs.registerOverlay({
+		//html: '<div class="highslide-header"><ul><li class="highslide-restore"><a href="#" title="Restaurer" onclick="return hs.restore(this)"></a></li><li class="highslide-maximize"><a href="#" title="Agrandir" onclick="return hs.maximize(this)"></a></li></ul></div><div class="closebutton" onclick="return hs.close(this)" title="Fermer"></div>',
+		html: '<div class="moveMenu"><div class="highslide-maximize" title="Agrandir" onclick="return hs.maximize(this)"></div><div class="highslide-space"></div><div class="highslide-restore" title="Restaurer" onclick="return hs.restore(this)"></div></div><div class="closebutton" onclick="return hs.close(this)" title="Fermer"></div>',
+		position: 'top right',
+		fade: 2,
+		useOnHtml: true
+	});	
+	hs.maximize = function(el) {
+		var exp = hs.getExpander(el);		
+		normalWidth = exp.x.size;
+		normalHeight = exp.y.size;		
+		hs.getPageSize();	
+		 for (i = 0; i < hs.expanders.length; i++) {
+		      exp = hs.expanders[i];
+		      if (exp) {
+		         var x = exp.x,
+		            y = exp.y;
+
+		         // get new thumb positions
+		         exp.tpos = hs.getPosition(exp.el);
+		         x.calcThumb();
+		         y.calcThumb();
+
+		         // calculate new popup position
+		         x.pos = x.tpos - x.cb + x.tb;
+		         x.scroll = hs.page.scrollLeft;
+		         x.clientSize = hs.page.width;
+		         y.pos = y.tpos - y.cb + y.tb;
+		         y.scroll = hs.page.scrollTop;
+		         y.clientSize = hs.page.height;
+		         exp.justify(x, true);
+		         exp.justify(y, true);
+
+		         // set new left and top to wrapper and outline
+		         //exp.moveTo(x.pos, y.pos);
+		         normalLeft = x.pos;
+		         normalRight = y.pos;
+		      }
+		   }		
+		exp.moveTo (0, 14);
+		exp.resizeTo(hs.page.width - 15, hs.page.height - 25);	
+		return false;
+	}
+	hs.restore = function(el) {		
+		var exp = hs.getExpander(el);				
+		hs.getPageSize();		
+		exp.moveTo (normalLeft, normalRight);	
+		exp.resizeTo(normalWidth, normalHeight);
+		hs.align = 'center';		
+		return false;
+	}
+	//hs.Expander.prototype.onBeforeClose = function (sender) {}								
+	hs.Expander.prototype.printIframe = function () {
+	   var name = this.iframe.name;
+	   frames[name].focus();
+	   frames[name].print();
+	   return false;
+	}
+	hs.Expander.prototype.printHtml = function ()
+	{
+	    var pw = window.open("about:blank", "_new");
+	    pw.document.open();
+	    pw.document.write(this.getHtmlPrintPage());
+	    pw.document.close();
+	    return false;
+	};
+	hs.Expander.prototype.getHtmlPrintPage = function()
+	{
+	    // We break the closing script tag in half to prevent
+	    // the HTML parser from seeing it as a part of
+	    // the *main* page.
+	    var body = hs.getElementByClass(this.innerContent, 'DIV', 'highslide-body')
+	        || this.innerContent;
+
+	    return "<html>\n" +
+	        "<head>\n" +
+	        "<title>Temporary Printing Window</title>\n" +
+	        "<script>\n" +"function step1() {\n" +
+	        "  setTimeout('step2()', 10);\n" +
+	        "}\n" +
+	        "function step2() {\n" +
+	        "  window.print();\n" +
+	        "  window.close();\n" +
+	        "}\n" +
+	        "</scr" + "ipt>\n" +
+	        "</head>\n" +
+	        "<body onLoad='step1()'>\n"
+	        +body.innerHTML +
+	        "</body>\n" +
+	        "</html>\n";
+	};
+</script>
+<script type="text/javascript">
+function SwitchToContent(contentName)
+{	
+	jQuery("div#container").load(contentName);	
+}
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(".trigger").click(function(){
+		jQuery(".panel").toggle("fast");
+		jQuery(this).toggleClass("active");
+		return false;
+	});	
+	jQuery(".link").click(function(){
+		jQuery(".panel").toggle("fast");
+		jQuery(".trigger").toggleClass("active");
+		return false;
+	});
+});
+jQuery(document).ready( function() {
+    jQuery("img[title]").tooltip({
+		// tweak the position
+        offset: [0, 0],
+        // use the "slide" effect
+        effect: 'slide',
+        position: 'bottom right'               
+        // add dynamic plugin with optional configuration for bottom edge
+    }).dynamic({ bottom: { direction: 'down', bounce: true } });    
+    jQuery("input[title]").tooltip({
+		// tweak the position
+        offset: [0, 0],
+        // use the "slide" effect
+        effect: 'slide',
+        position: 'bottom right'               
+        // add dynamic plugin with optional configuration for bottom edge
+    }).dynamic({ bottom: { direction: 'down', bounce: true } });    
+});
+function affiche(element,element2){
+	jQuery("#"+element).toggle();
+	if (element2!=''){
+		jQuery("#"+element2).toggle();
+	}
+}
+function afficheSi(element,si){
+	if (jQuery("#"+si).val()==0){
+		jQuery("#"+element).toggle();
+	}
+}
+function execPHP(page) {
+	window.location.href=page;
+    /*return false;*/
+}
+
+</script>
+<style type="text/css">
+.highslide-maximize {	
+	position: absolute;	
+	margin-left: 16px;		
+	width: 12px;
+	height: 8px;
+	border: 2px solid #aaaaaa;
+}
+.highslide-restore {	
+	position: absolute;		
+	width: 5px;
+	height: 8px;
+	border: 2px solid #aaaaaa;
+	/*border: 2px solid #ff0000;*/
+}
+.highslide-space {	
+	position: absolute;	
+	margin-left: 14px;
+	width: 15px;
+	height: 4px;	
+	/*border: 2px solid #ff0000;*/
+}
+</style>
+</head>
+<body>
+<div id="idletimeout">
+	En raison de votre inactivité, vous allez être déconnecté dans <span><!-- countdown place holder --></span>&nbsp;secondes. 
+	<a id="idletimeout-resume" href="#">Cliquez ici pour continuer à naviguer sur ce site</a>.
+</div>
+<div class="highslide-html-content" id="highslide-html<?php echo $page;?>">
+	<div class="highslide-header"></div>
+	<div class="highslide-body">
+		<?php echo $pageHelp;?>		 
+	</div>
+    <div class="highslide-footer">
+        <div>
+            <span class="highslide-resize" title="Resize">
+                <span></span>
+            </span>
+        </div>
+    </div>
+</div>
+<div style="position: absolute;top: 0;left: 0;margin: 0; padding: 0;" title="">		
+	<img src="graphs/logo/image_appli_64.jpg" alt="Aide" border="0"/>	
+</div>
+<div class="affichIdent"><table><tr><td><?php echo "$resUser[prenom] $resUser[nom]";?></td><td><p onclick="execPHP('logout.php');" style="cursor: pointer; display: inline;padding-left: 5px;" title="Se déconnecter"><img src="graphs/icons/logout.png" style="padding-top: 8px;"></p></td></tr></table></div>
+<!-- <div style="width:20px;float:right;margin-right:0px;margin-top:0px;" title="Aide">	
+	<a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html',headingText: 'Aide à la connexion' } )">
+		<img src="graphs/icons/info.png" alt="Aide" border="0"/>
+	</a>
+</div> -->
+<div id="container" class="1">
+	<h1><?php  echo $titre;?></h1>
+		<h2><?php  echo $pageDescription;?></h2>	
+		<?php if (!empty($_SESSION['message'])){echo "<p id=\"mess_err\">".$_SESSION['message']."</p>";};?>	
+		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html<?php echo $page;?>',headingText: 'Aide',preserveContent: false } )"></a></div>
+	<div class="content">
+		<p style="padding: 0;">Bienvenue !
+		<br/>Nous sommes le <?php  echo $dateFR;?>
+		<br/>Dernière connexion le <?php echo $_COOKIE[LAST_CO];?>
+		</p>
+		Liste de vos rappels en cours :
+		<table style="margin: 0;padding:0;" cellspacing=0 cellpadding=0 width=100%>
+		<tr><th class="barreTitre">Rappel</th><th style="padding-left:5px;" class="barreTitre">Description du rappel</th></tr>
+		<?php 
+		$nbPb=0;
+		connectSQL();
+		$req="SELECT a.id as id_salaire,a.salaire_net,date_format(a.date, '%M %Y') AS date_salaire_fr,a.date,a.date_reglement,b.jour_reglement
+		FROM salaire a, contrat b, user c, enfant d WHERE a.id_contrat=b.id AND b.id_asm=c.id AND b.id_enfant=d.id AND (d.id_parent1='$_COOKIE[ID_UTILISATEUR]' OR d.id_parent2='$_COOKIE[ID_UTILISATEUR]' OR c.id='$_COOKIE[ID_UTILISATEUR]') ORDER BY a.date DESC;";
+		@mysql_query("SET lc_time_names = 'fr_FR';");
+		$rec=mysql_query($req);
+		while ($res=mysql_fetch_array($rec)){			
+			$date=explode('-',$res['date']);
+			$Annee = $date[0];
+			$Mois = $date[1];
+			$jouReglement=mktime(0,0,0,$Mois,$res['jour_reglement'],$Annee);			
+			if (date('Y-m-d')>date('Y-m-d',$jouReglement)){
+				if ($nbPb%2 == 0){
+					$color='#f7f7f7';
+				}else{$color='#c7c7c7';
+				}
+				echo "<tr bgcolor=\"$color\" style=\"color: #000;\" onMouseOver=\"this.bgColor='#f4d99e'\" onMouseOut=\"this.bgColor='$color'\"><td>Non réglé</td>";
+				echo "<td style=\"padding-left:5px;\">Bulletin de salaire n° $res[id_salaire] de $res[date_salaire_fr] ($res[salaire_net])</td>";
+				echo "<tr>";
+				$nbPb++;
+			}
+			
+		}
+		?>
+		</table>	
+	</div>
+</div>
+
+<div class="panel">	
+	<div class="navig">
+		<ul>
+			<li><a href="menu.php" title="Accueil">Accueil</a></li>			
+			<li><a href="logout.php" title="Se déconnecter">Déconnexion</a></li>					
+		</ul>
+	</div>
+	<div style="clear:both;"></div>	
+	<div class="columns">
+		<div class="colleft">
+			<h3>Outils</h3>
+			<ul>
+				<li class="sub"><a href="#" title="Calculatrice" onclick="return hs.htmlExpand(this, { src: 'content/calc/index.html',objectType: 'iframe', headingText: 'Calculatrice',width: 330,preserveContent: false });">Calculatrice</a></li>
+				<li class="sub"><a href="#" title="Agenda" onclick="return hs.htmlExpand(this, { src: 'content/wdCalendar/wdCalendar/calendar.php?awq=<?php echo $idForCal;?>&amp;zxs=<?php echo $typeForCal;?>',objectType: 'iframe', headingText: 'Mon agenda',width: 640,preserveContent: false });">Mon agenda</a></li>
+				<li><a href="http://travail-emploi.gouv.fr/informations-pratiques,89/foire-aux-questions,543/le-droit-du-travail-en-questions,1716/assistante-maternelle,12931.html" title="Les règles du  contrat" target="_blank">Les règles du contrat</a></li>
+				<li><a href="http://www.legifrance.gouv.fr/affichIDCC.do?idConvention=KALICONT000005635807" title="Convention collective (Legifrance)" target="_blank">Convention collective</a></li>				
+			</ul>
+		</div>	
+		<div class="colright">
+		<h3>Gestion</h3>
+			<ul>				
+				<li><a href="#" title="Mon compte" onclick="javascript:SwitchToContent('main/account.php');" class="link">Mon compte</a></li>												
+				<?php
+				if ($parent==1){
+					echo "<li><a href=\"#\" title=\"Mon compte\" onclick=\"javascript:SwitchToContent('main/enfant.php');\" class=\"link\">Mes enfants</a></li>";					
+				}				
+				if ($asm==1){
+					echo "<li><a href=\"#\" title=\"Mon compte\" onclick=\"javascript:SwitchToContent('main/logement.php');\" class=\"link\">Mon logement</a></li>";
+				}
+				echo "<li><a href=\"#\" title=\"Mes contrats\" onclick=\"javascript:SwitchToContent('main/contrat.php');\" class=\"link\">Mes contrats</a></li>";
+				echo "<li><a href=\"#\" title=\"Mes salaires\" onclick=\"javascript:SwitchToContent('main/salaire.php');\" class=\"link\">Mes salaires</a></li>";
+				echo "<li><a href=\"#\" title=\"Mon compte\" onclick=\"javascript:SwitchToContent('main/lien.php');\" class=\"link\">Mes liens</a></li>";
+				?>
+			</ul>			
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<a class="trigger" href="#">Menu</a>	
+<script src="content/timeout/src/jquery.idletimer.js" type="text/javascript"></script>
+<script src="content/timeout/src/jquery.idletimeout.js" type="text/javascript"></script>
+<script type="text/javascript">
+$.idleTimeout('#idletimeout', '#idletimeout a', {
+	idleAfter: 900,	
+	pollingInterval: 30,
+	keepAliveURL: 'content/timeout/keepalive.php',
+	serverResponseEquals: 'OK',
+	onTimeout: function(){
+		$(this).slideUp();
+		window.location = "logout.php";
+	},
+	onIdle: function(){
+		$(this).slideDown(); // show the warning bar
+	},
+	onCountdown: function( counter ){
+		$(this).find("span").html( counter ); // update the counter
+	},
+	onResume: function(){
+		$(this).slideUp(); // hide the warning bar
+	}
+});
+</script>
+</body>
+</html>

@@ -83,7 +83,7 @@ $typeForCal=bin2hex(chiffre("user", "$_SESSION[UNIQID]"));
     <script src="content/jtable/syntaxhighligher/shBrushSql.js" type="text/javascript"></script>
     <script src="content/jtable/syntaxhighligher/shBrushPhp.js" type="text/javascript"></script>-->
 <!-- Tooltip -->
-	<!-- <script type="text/javascript" src="content/tooltip/jquery.tools.min.js"></script> -->
+	<script type="text/javascript" src="content/tooltip/jquery.tools.min.js"></script>
 <!-- Highslide -->
 <script type="text/javascript" src="content/winDim.js"></script>
 <script type="text/javascript" src="content/highslide/highslide-full.min.js"></script>

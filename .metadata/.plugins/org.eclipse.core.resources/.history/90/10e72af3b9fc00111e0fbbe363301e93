@@ -1,0 +1,34 @@
+<?php
+mb_internal_encoding("UTF-8");
+$GLOBALS['params']['bdd'] = array(
+		'db_host' => 'localhost',
+		'db_port' => '3306',
+		'db_name' => 'nounou',
+		'db_user' => 'nounou',
+		'db_pass' => 'nounou',
+		'db_type' => 'mysql',		
+);
+$GLOBALS['params']['appli'] = array(
+		'version' => '0.1',
+		'titre_haut' => 'Titre 1',
+		'titre_bas' => 'Titre 2',
+		'image_appli' => 'graphs/logo/image_appli.jpg',
+		'logo_appli' => 'graphs/logo/logo_appli.png',
+		'logo_right' => 'graphs/logo/logo_right.png',
+		'title_appli' => 'inconnu',
+		'root_folder' => '/nounou',
+		'proto'	=> 'https',
+		'exp_mail' => 'perso@vernet-guillaume.com',
+		'exp_name' => 'Appli nounou',
+		'smtp_host' => 'smtp.in.ac-dijon.fr',
+		'url' => 'https://10.71.111.155/nounou'		
+);
+$GLOBALS['MESSAGES'] = array(
+		'sql_ok' => 'Enregistrement effectué',
+		'sql_nok' => 'Erreur pendant l\'enregistrement',		
+);
+$GLOBALS['rules'] = array(
+		'jour_hebdo_max' => 6,
+		'indemnite_entretien_min' => 2.97,
+);
+?>

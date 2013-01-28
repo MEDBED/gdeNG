@@ -1,0 +1,159 @@
+<?PHP
+session_start();
+$page="logement.php";
+$script="scripts/update_logement.php";
+$titre="Mon logement";
+$pageDescription="Description page";
+$pageHelp="Pour vous connecter sur xxxx vous devez disposer d'un compte valide. <br/><br/>
+		<b><i>J'ai déjà un compte</i></b> <br/>						
+		Saisissez le nom d'utilisateur et le mot qui vous ont été fourni et cliquez sur le bouton \"Connexion\".<br/>	<br/>
+		<b><i>Je n'ai pas de compte</i></b> <br/>
+		Cliquez sur le bouton \"Créer un compte\", une nouvelle fenêtre s'ouvre vous demandant des renseignements de base<br/>
+		Saisissez les informations demandées.<br/><br/>
+		Notez que vous devriez utiliser un mot de passe comportant <b>au moins 8 caratères</b> mélangeant des chiffres et des lettres.<br/><br/>
+		Une fois les informations saisies, cliquez sur \"Valider\".
+		<br/><br/>
+		<b><i>J'ai perdu mon mot de passe</i></b>";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");
+include_once("../include/protect_var.php");
+//entete_page($GLOBALS['params']['appli']['title_appli']." - ".$titre,'');
+?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("input").focus(function() {
+		jQuery("#mess").hide();
+	});
+	jQuery("#myForm").validate({
+		debug: false,		
+		submitHandler: function(form) {			
+			var datas = jQuery("#myForm").serialize();		
+            jQuery.ajax({
+                cache: false,
+                type: 'POST',
+                data: datas,
+                url : '<?php echo $script;?>',
+                success: function (response) {                    
+                    jQuery("#mess").attr('class','mess');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html(response);
+                },
+                error: function(data, textStatus, jqXHR) {
+                	jQuery("#mess").attr('class','messErr');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html(data);                	
+                }
+            })
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div class="highslide-html-content" id="highslide-html2">
+	<div class="highslide-header">	
+	</div>
+	<div class="highslide-body">
+		<?php echo $pageHelp;?>			
+	</div>
+    <div class="highslide-footer">
+        <div>
+            <span class="highslide-resize" title="Resize">
+                <span></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="container2">
+	<h1><?php  echo $titre;?></h1>
+		<h2><?php  echo $pageDescription;?></h2>	
+		<div id="mess" style="display: none;"></div>
+		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html2',headingText: 'Aide',preserveContent: false } )"></a></div>
+	<div class="content">
+		<?php 
+		connectSQL();
+		$req="SELECT a.* FROM logement a, asm b WHERE a.id=b.id_logement AND b.id_user='$_COOKIE[ID_UTILISATEUR]';";
+		$res=@mysql_fetch_array(@mysql_query($req)); 				
+		?>
+		<form method="post" id="myForm" action="#">
+		<input type="hidden" name="page" value="<?php echo $page;?>">
+		<div class="formLeft">
+			<table>
+				<tr>
+					<td>Surface du logement</td><td><input size=4 name="superficie_logement" value="<?php echo $res['superficie_logement'];?>">&nbsp;m²</td>
+				</tr>
+				<tr>
+					<td>Nombre de pièces</td>
+					<td>
+					<select name="nb_pieces">
+					<?php 
+					for($i=0;$i<=10;$i++){ 
+						echo "<option value=\"$i\"";
+						if ($res['nb_pieces']==$i){echo " selected";}
+						echo ">$i</option>";
+					}
+					?>
+					</select>
+					</td>
+				</tr>	
+				<tr>
+					<td>Nombre de chambres disponibles</td>
+					<td>
+					<select name="nb_chambres">
+					<?php 
+					for($i=0;$i<=10;$i++){ 
+						echo "<option value=\"$i\"";
+						if ($res['nb_chambres']==$i){echo " selected";}
+						echo ">$i</option>";
+					}
+					?>
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Surface du terrain</td><td><input size=4 name="superficie_jardin" value="<?php echo $res['superficie_jardin'];?>">&nbsp;m²</td>
+				</tr>		
+				<tr>
+					<td>Terrain clos ?</td><td><input type="checkbox" name="clos" value=1
+					<?php
+					if ($res['clos']==1){
+						echo " checked=\"checked\"";
+					} 
+					?>
+					></td>
+				</tr>
+				<tr>
+					<td>Animaux ?</td><td><input type="checkbox" name="animaux" value=1
+					<?php
+					if ($res['animaux']==1){
+						echo " checked=\"checked\"";
+					} 
+					?>
+					></td>
+				</tr>					
+				<tr>
+					<td>Equipement(s)</td>				
+					<td><textarea cols=60 rows=5 name="equipement" value="<?php echo $res['equipement'];?>"></textarea></td>
+				</tr>
+				<tr>
+					<td>Descriptif</td>				
+					<td><textarea cols=60 rows=5 name="descriptif" value="<?php echo $res['descriptif'];?>"></textarea></td>
+				</tr>
+			</table>
+		</div>
+		<div class="formRight">
+			<table>
+			<tr><td></td><td></td></tr>		
+			</table>
+		</div>
+		<p id="validButton"><button type="submit" id="submitButton" name="valid" value="Valider" style="cursor: pointer;">Valider</button></p>
+		</form>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+org.eclipse.php.debug.core.pathMapper=<pathMappers><item2><mapper></mapper><server>Local</server></item2><item3><mapper></mapper><server>GDE-Dev</server></item3><item1><mapper></mapper><server>GDE-Dev</server></item1></pathMappers>
+org.eclipse.php.debug.core.xdebug_idekey=ECLIPSE_DBGP_127.0.0.1
+org.eclipse.php.debug.coreinstalledPHPDebuggers=org.eclipse.php.debug.core.xdebugDebugger
+org.eclipse.php.debug.coreinstalledPHPDefaults=org.eclipse.php.debug.core.xdebugDebugger\=PHP_XDebug
+org.eclipse.php.debug.coreinstalledPHPInis=/etc/php5/apache2/php.ini
+org.eclipse.php.debug.coreinstalledPHPLocations=/usr/bin/php
+org.eclipse.php.debug.coreinstalledPHPNames=PHP_XDebug
+org.eclipse.php.debug.corephp_debugger_id=org.eclipse.php.debug.core.xdebugDebugger
+org.eclipse.php.debug.corephp_versions=null

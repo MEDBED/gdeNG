@@ -1,0 +1,57 @@
+/* 
+    Document   : style
+    Created on : 28 janv. 2013, 09:15:16
+    Author     : guillaume vernet
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#menu{
+	width:250px;
+	border:1px solid #c6d5e1;
+	float:left;
+	background:#fff;
+}
+#menu li{
+	padding:10px;
+	margin:5px;
+	color: #15428B;
+	border: 1px solid #c6d5e1;
+	background:#fff;
+	clear:both;
+}
+#menu li img{float:left;margin-right:10px;}
+#menu > li.item > a, #menu > li.sub > a{
+	line-height:48px;
+	display:block;
+}
+#menu > li > ul > li{
+	border: none;
+	border-left: 2px solid #c6d5e1;
+}
+#menu li.sousitem a{
+	display:block;
+}
+
+#menu li:not(.sub):hover{
+	background:#C1CEDB;
+}
+
+#menu li.selected{
+	background:#4B708D;
+	color:white;
+}
+
+#menu li.selected a{
+	background:#4B708D;
+	color:white;
+}
+
+#menu li.selected:hover{
+	background:#4B708D;
+}
+
+#menu li.sub > a{
+	background:url(../images/fleche.png) no-repeat center right;
+}
+

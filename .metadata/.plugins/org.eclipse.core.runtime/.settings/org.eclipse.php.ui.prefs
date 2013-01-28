@@ -1,0 +1,21 @@
+#Thu Oct 21 15:17:00 CEST 2010
+editorColorKeyword=\#ff0000 | null | false | false | false | false
+cleanup.remove_trailing_whitespaces_all=true
+editorColorComment=\#000000 | \#89c5c5 | false | false | false | false
+useAnnotationsPrefPage=true
+eclipse.preferences.version=1
+editorColorPHPDocComment=\#000000 | \#89c5c5 | false | false | false | false
+org.eclipse.php.core.workspaceDefaultLocale=fr_FR
+cleanup.remove_trailing_whitespaces=false
+editorColorString=\#0000ff | \#ffffff | false | false | false | false
+editorColorNumber=\#ff8000 | null | true | false | false | false
+ChangeOutlineModeAction.selectedMode=1
+org.eclipse.php.uihoverModifierMasks=org.eclipse.php.ui.editor.hover.BestMatchHover;0;org.eclipse.php.debug.ui.hovers.PHPDebugTextHover;0;org.eclipse.php.xdebug.ui.hover.XDebugTextHover;0;org.eclipse.php.ui.editor.hover.ProblemHover;0;org.eclipse.php.ui.editor.hover.PHPDocumentationHover;0;org.eclipse.php.ui.editor.hover.PHPSourceTextHover;262144;org.eclipse.php.ui.editor.hover.PHPAnnotationTextHover;0;
+browsingProjectstoeditor=false
+editorColorVariable=\#00bf00 | null | true | false | false | false
+editorColorBoundarymaker=\#000000 | \#ff00ff | true | false | false | false
+cleanup.remove_trailing_whitespaces_ignore_empty=false
+useQuickDiffPrefPage=true
+org.eclipse.php.uihoverModifiers=org.eclipse.php.ui.editor.hover.BestMatchHover;0;org.eclipse.php.debug.ui.hovers.PHPDebugTextHover;\!0;org.eclipse.php.xdebug.ui.hover.XDebugTextHover;\!0;org.eclipse.php.ui.editor.hover.ProblemHover;\!0;org.eclipse.php.ui.editor.hover.PHPDocumentationHover;\!0;org.eclipse.php.ui.editor.hover.PHPSourceTextHover;Ctrl;org.eclipse.php.ui.editor.hover.PHPAnnotationTextHover;\!0;
+editorColorLineComment=\#000000 | \#89c5c5 | false | false | false | false
+org.eclipse.php.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>

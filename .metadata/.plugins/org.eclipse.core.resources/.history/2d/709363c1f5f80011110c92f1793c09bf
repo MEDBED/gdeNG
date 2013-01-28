@@ -1,0 +1,102 @@
+<?php
+include_once("header.inc.php");
+include_once("include/functions.php");
+// Redirige l'utilisateur s'il est déjà identifié
+if(isset($_COOKIE["ID_UTILISATEUR"])){
+     header("Location: menu.php");
+}else{
+     // Formulaire visible par défaut
+     $masquer_formulaire = false;
+     // Une fois le formulaire envoyé
+     if(isset($_POST["connexion"])){
+          
+          // Vérification de la validité des champs
+          if(!preg_match("/^[A-Za-z0-9_]{2,20}$/", $_POST["login"])){
+               $message = "Votre nom d'utilisateur doit comporter entre 2 et 20 caractères<br />\n";
+               $message .= "L'utilisation de l'underscore est autorisée";
+          }elseif(!preg_match("/^[A-Za-z0-9]{8,}$/", $_POST["pass"])){
+               $message = "Votre mot de passe doit comporter au moins 8 caractères";
+          }else{
+               
+               // Connexion à la base de données
+               // Valeurs à modifier selon vos paramètres configuration
+               //$db=@mysql_connect($GLOBALS['params']['bdd']['db_host'],$GLOBALS['params']['bdd']['db_user'],$GLOBALS['params']['bdd']['db_pass']);
+			   //@mysql_select_db($GLOBALS['params']['bdd']['db_name'],$db);	
+               connectSQL();
+               include_once("include/protect_var.php");
+               // Sélection de l'utilisateur concerné
+               @mysql_query("SET lc_time_names = 'fr_FR';");
+               $result = mysql_query("
+                    SELECT id, login, password, actif, date_format(last_co, '%W %d %M %Y à %hh%i') as last_co_fr
+                    FROM user
+                    WHERE login = '" . $_POST["login"] . "'
+               ");
+               
+               // Si une erreur survient
+               if(!$result){
+                    $message = "Une erreur est survenue lors de la tentative de connexion";
+               }else{
+                    
+                    // Si aucun utilisateur n'a été trouvé
+                    if(mysql_num_rows($result) == 0){
+                         $message = "Le nom d'utilisateur " . $_POST["login"] . " n'existe pas";
+                    }else{
+                         
+                         // Récupération des données
+                         $row = mysql_fetch_array($result);
+                         
+                         // Si le compte n'a pas été activé
+                         if($row["actif"] == 0){
+                              $message = "Votre compte utilisateur n'a pas été activé";
+                         }else{
+                              
+                              // Vérification du mot de passe
+                              if(md5($_POST["pass"]) != $row["password"]){
+                                   $message = "Votre mot de passe est incorrect";
+                              }else{
+                                   
+                                   // Définition du temps d'expiration des cookies
+                                   $expiration =
+                                        empty($_POST["connexion_auto"]) ? time() + 3600 : time() + 90 * 24 * 60 * 60;                                  
+                                   // Création des cookies
+                                   setcookie("ID_UTILISATEUR", $row["id"], $expiration, "/");
+                                   setcookie("NOM_UTILISATEUR", $row["login"], $expiration, "/");   
+                                   setcookie("LAST_CO", $row["last_co_fr"], $expiration, "/");                                   
+                              	   // Génération d'une clef de cryptage
+			                       $caracteres = array("a", "b", "c", "d", "e", "f", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+			                       $caracteres_aleatoires = array_rand($caracteres, 8);
+			                       $clef_activation = "";
+			                         
+			                       foreach($caracteres_aleatoires as $i){
+			                             $clef_activation .= $caracteres[$i];
+			                       }
+                                   setcookie("UNIQID", $clef_activation, $expiration, "/");
+                                   $req="UPDATE user SET last_co=now() WHERE id='$row[id]'";                                   
+                                   mysql_query($req);                                
+                                   session_start();
+                                   // Fermeture de la connexion à la base de données
+                                  // mysql_close();
+                                   
+                                   // Redirection de l'utilisateur
+                                   //header("Location: menu.php");
+                                   
+                              }
+                              
+                         }
+                         
+                    }
+                    
+               }
+               
+               // Fermeture de la connexion à la base de données
+               //mysql_close();
+               
+          }
+          
+     }
+     
+}
+
+//entete_page('',$GLOBALS['params']['appli']['root_folder']);
+?>
+<?php if(isset($message)) { echo $message; } ?>

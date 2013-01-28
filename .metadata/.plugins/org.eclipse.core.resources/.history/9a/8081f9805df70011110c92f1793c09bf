@@ -1,0 +1,449 @@
+<?PHP
+$page="contrat.php";
+$script="scripts/update_contrat.php";
+$titre="Mes contrats";
+$pageDescription="Liste de mes contrats en cours";
+$pageHelp="
+		<b><i>Modifier un contrat</i></b> <br/>						
+		Cliquer sur l'icône à droite du numéro de contrat pour l'éditer (<img style=\"cursor: pointer;\" src=\"graphs/icons/edit.png\">).<br/>
+		Attention, si au moins un des partie a validé le contrat, les données de ce dernier ne sont plus modifiables !
+		<br/>	<br/>
+		";
+$nbContrat=0;
+$nbParent=0;
+$disable="";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");
+include_once("../include/protect_var.php");
+//entete_page($GLOBALS['params']['appli']['title_appli']." - ".$titre,'');
+?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("input").focus(function() {
+		jQuery("#mess").hide();
+	});	
+	jQuery('#myForm').each( function(){
+		jQuery(this).validate({		
+			debug: false,
+			rules: {
+				/*uniqId0: "required",*/
+				enfant0: {
+					required: function(element) {
+						return jQuery("#addContrat").is(":visible");
+					}
+				},
+				asm0: {
+					required: function(element) {
+						return jQuery("#addContrat").is(":visible");
+					}
+				}			
+			},
+			messages: {
+				enfant0: "Vous devez sélectionner un enfant",
+				asm0: "Vous devez sélectionner une assistante maternelle",				
+			},
+			submitHandler: function(form) {			
+				var datas = jQuery(form).serialize();		
+	            jQuery.ajax({
+	                cache: false,
+	                type: 'POST',
+	                data: datas,
+	                url : '<?php echo $script;?>',
+	                success: function (response) {                    
+	                    jQuery("#mess").attr('class','mess');
+	                    jQuery("#mess").show(1500);
+	                    if (response=="Enregistrement effectué"){	                    			                                   
+		                    jQuery("#container").load('main/<?php echo $page;?>');		                    
+	                    }
+	                    jQuery("#mess").html(response);
+	                },
+	                error: function(data, textStatus, jqXHR) {
+	                	jQuery("#mess").attr('class','messErr');
+	                    jQuery("#mess").show(1500);
+	                    jQuery("#mess").html("data");                	
+	                }
+	            })
+			}
+		});
+	});
+	jQuery('.myFormDelete').each( function(){
+		jQuery(this).validate({			
+			debug: false,		
+			submitHandler: function(form) {			
+				var datas = jQuery(form).serialize();		
+	            jQuery.ajax({
+	                cache: false,
+	                type: 'POST',
+	                data: datas,
+	                url : '<?php echo $script;?>',
+	                success: function (response) {                    
+	                    jQuery("#mess").attr('class','mess');
+	                    jQuery("#mess").show(1500);
+	                    if (response=="Suppression effectuée"){	                    			                           
+		                    jQuery("#container").load('main/<?php echo $page;?>');		                    
+	                    }
+	                    jQuery("#mess").html(response);
+	                },
+	                error: function(data, textStatus, jqXHR) {
+	                	jQuery("#mess").attr('class','messErr');
+	                    jQuery("#mess").show(1500);
+	                    jQuery("#mess").html("data");                	
+	                }
+	            })
+			}
+		});
+	});
+	jQuery.extend(jQuery.validator.messages, {
+		required: "Ce champ est obligatoire !",
+		number: "Ce champ ne peut contenir que des chiffres"
+		});
+	jQuery('.editForm').each( function(){
+		jQuery(this).validate({	
+			debug: false,
+			rules: {
+				heures_gardes: {
+					required: true,
+					number: true
+				},
+				salaire_horaire_brut: {
+					required: true,
+					number: true
+				},
+				salaire_horaire_net: {
+					required: true,
+					number: true
+				},			
+				salaire_heure_supp: {				
+					number: true
+				},
+				nb_sem_travail: {
+					required: true,
+					number: true
+				},
+				nb_jour_sem: {
+					required: true,
+					number: true,
+					range: [0, <? echo $GLOBALS['rules']['jour_hebdo_max'];?>]
+				},
+				declenchement_supp: {				
+					number: true
+				},
+				salaire_heure_comp: {				
+					number: true
+				},
+				declenchement_comp: {				
+					number: true
+				},
+				indemnite_entretien: {		
+					number: true,
+					min: <? echo $GLOBALS['rules']['indemnite_entretien_min'];?>
+				},
+				indemnite_repas: {			
+					number: true
+				},
+				indemnite_kilometrique: {			
+					number: true
+				},
+				date_contrat: {				
+					required: true
+				},
+				date_fin_contrat: {				
+					required: true
+				},
+				jour_reglement: {				
+					required: true
+				}			
+			},
+			messages: {
+				nb_jour_sem: {
+					range: "Le nombre de jour de travail ne peut excéder <? echo $GLOBALS['rules']['jour_hebdo_max'];?> jours"					
+				},
+			    indemnite_entretien: {
+					min: "L'indemnité d'entretien ne peut être inférieur à <? echo $GLOBALS['rules']['indemnite_entretien_min'];?> €"					
+				}
+			},	
+			submitHandler: function(form) {
+				var datas = jQuery(form).serialize();		
+	            jQuery.ajax({
+	                cache: false,
+	                type: 'POST',
+	                data: datas,
+	                url : '<?php echo $script;?>',
+	                success: function (response) {                    
+	                    jQuery("#mess").attr('class','mess');
+	                    jQuery("#mess").show(1500);
+	                    jQuery("#mess").html(response);
+	                },
+	                error: function(data, textStatus, jqXHR) {
+	                	jQuery("#mess").attr('class','messErr');
+	                    jQuery("#mess").show(1500);
+	                    jQuery("#mess").html("data");                	
+	                }
+	            })
+			}
+		});
+	});
+});
+jQuery(document).ready( function() {
+    jQuery("img[title]").tooltip({
+		// tweak the position
+        offset: [0, 0],
+        // use the "slide" effect        
+        //position: 'bottom right' ,
+        effect: 'slide'              
+        // add dynamic plugin with optional configuration for bottom edge
+    }).dynamic({ bottom: { direction: 'down', bounce: true } });    
+});
+</script>
+</head>
+<body>
+<div class="highslide-html-content" id="highslide-html2">
+	<div class="highslide-header">	
+	</div>
+	<div class="highslide-body">
+		<?php echo $pageHelp;?>			
+	</div>
+    <div class="highslide-footer">
+        <div>
+            <span class="highslide-resize" title="Resize">
+                <span></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="container2">
+	<h1><?php  echo $titre;?></h1>
+		<h2><?php  echo $pageDescription;?></h2>	
+		<div id="mess" style="display: none;"></div>
+		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html2',headingText: 'Aide',preserveContent: false } )"></a></div>
+	<div class="content">
+		<?php 
+		connectSQL();
+		$req="SELECT a.*,date_format(a.date_modif_contrat, '%d-%m-%Y') AS date_modif_contrat_fr,b.id as id_enfant,b.nom as nom_enfant,b.prenom as prenom_enfant,c.id as id_asm,c.nom as nom_asm,c.prenom as prenom_asm FROM contrat a, enfant b, user c WHERE a.id_enfant=b.id AND a.id_asm=c.id AND (b.id_parent1='$_COOKIE[ID_UTILISATEUR]' OR b.id_parent2='$_COOKIE[ID_UTILISATEUR]' OR c.id='$_COOKIE[ID_UTILISATEUR]');";		
+		$rec=@mysql_query($req); 		
+		//echo $req;
+		$reqParent="SELECT id FROM parent WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+		$recParent=mysql_query($reqParent);
+		if (@mysql_num_rows($recParent)>0){
+			$reqEnfant="SELECT id,nom,prenom FROM enfant WHERE id_parent1='$_COOKIE[ID_UTILISATEUR]' OR id_parent2='$_COOKIE[ID_UTILISATEUR]' ORDER BY date_naissance;";
+			$recEnfant=mysql_query($reqEnfant);			
+			if (@mysql_num_rows($recEnfant)==0){
+				echo "Vous n'avez pas créé d'enfant, la création d'un contrat est impossible !<br/>";
+				$masqueAdd=1;			
+			}		
+			$reqLien="SELECT a.uniqId,b.id,b.nom,b.prenom FROM lien a, user b WHERE a.uniqId=b.uniqId AND a.id_user='$_COOKIE[ID_UTILISATEUR]' AND a.type=3 ORDER BY date_lien;";
+			$recLien=@mysql_query($reqLien);
+			if (@mysql_num_rows($recLien)==0){
+				echo "Vous n'avez pas créé de lien avec une assistante maternelle, la création d'un contrat est impossible !";
+				$masqueAdd=1;
+			}
+		}else{$masqueAdd=1;}		
+		?>		
+		<div <?php if ($masqueAdd==1){echo 'style="display: none;"';}?>>
+		<p style="cursor: pointer;text-decoration: underline;margin:0 ;padding: 0;" onclick="affiche('addContrat','');afficheSi('validButton','nbContrat');"><img src="graphs/icons/add16.png">&nbsp;Ajouter un contrat</p>
+		</div>
+		<div style="display: none" id="addContrat">
+			<form method="post" id="myForm" action="#">
+			<input type="hidden" name="page" value="<?php echo $page;?>">
+			<table style="width: 100%">																				
+				<tr><td style="width:110px;">Enfant</td><td><select name="enfant<?php echo $nbContrat;?>">
+					<option></option>
+					<?php
+					while ($resEnfant= @mysql_fetch_array($recEnfant)){
+						echo "<option value=\"$resEnfant[id]\">$resEnfant[prenom] $resEnfant[nom]</option>";
+					} 
+					?>										
+					</select></td>
+				</tr>	
+				<tr><td>Assistante maternelle</td><td><select name="asm<?php echo $nbContrat;?>">
+					<option></option>
+					<?php
+					while ($resLien=@mysql_fetch_array($recLien)){
+						echo "<option value=\"$resLien[id]\">$resLien[prenom] $resLien[nom]</option>";
+					} 
+					?>										
+					</select></td>
+				</tr>				
+			</table>
+			<p id="validButtonAdd"><button type="submit" id="submitButtonAdd" name="add" value="Valider" style="cursor: pointer;">Valider</button></p>
+			<input type="hidden" name="nbContrat" id="nbContrat" value="<?php echo $nbContrat;?>">
+			</form>
+		</div>
+			<div id="majContrat">			
+			<?php 
+			while ($res=@mysql_fetch_array($rec)){				
+				$nbContrat++;
+				if ($res['valid_asm']>0){
+					$disable=" readonly";
+				}				
+				echo "<table style=\"width: 100%\">	";
+				echo "<tr><td colspan=2 class=\"separ\"><div class=\"identifiant\">Contrat N° : $res[id]</div>
+				<div class=\"infoLien\">";				
+				if (empty($disable)){
+					echo "<form method=\"post\" class=\"myFormDelete\" action=\"#\" style=\"display: inline\">";
+					echo "<input type =\"hidden\" name=\"id\" value=\"$res[id]\">";
+					echo "<input type=\"submit\" name=\"del\" value=\"\" style=\"background-image: url(graphs/icons/supp.png);
+					background-repeat:no-repeat;					
+					background-color: transparent;border: none;
+					cursor: pointer;\" title=\"Supprimer ce contrat\" onclick=\"
+					return(confirm('Voulez-vous vraiment supprimer ce contrat ?'));					
+					\">&nbsp;&nbsp;&nbsp;";
+					echo "</form>";
+				}
+				echo "<img style=\"cursor: pointer;\" src=\"graphs/icons/edit.png\" title=\"Modifier ce contrat\" onclick=\"affiche('contrat$res[id]','');\">
+				</div></td></tr>";				
+				echo "<tr><td style=\"width: 130px;\">Enfant</td><td>:&nbsp;$res[prenom_enfant] $res[nom_enfant]</td></tr>";
+				$reqParent="SELECT b.id,b.nom,b.prenom FROM enfant a, user b WHERE (a.id_parent1=b.id OR a.id_parent2=b.id) AND a.id='$res[id_enfant]' LIMIT 2";
+				$recParent=@mysql_query($reqParent);
+				while ($resParent=@mysql_fetch_array($recParent)){
+					$nbParent++;
+					echo "<tr><td style=\"width: 110px;\">";
+					if ($res['valid_parent1']==$resParent['id'] || $res['valid_parent2']==$resParent['id']){
+						echo "<img src=\"graphs/icons/ok.png\" title=\"Contrat validé\">&nbsp;";
+					}else{
+						echo "<img src=\"graphs/icons/nok.png\" title=\"Ce contrat n'a pas encore était validé\">&nbsp;";
+					}
+					if ($resParent['id']==$_COOKIE['ID_UTILISATEUR']){
+						$valid="valid_parent".$nbParent;
+					}
+					echo "Parent $nbParent</td><td>:&nbsp;$resParent[prenom] $resParent[nom]</td></tr>";
+				}
+				echo "<tr><td style=\"width: 130px;\">";
+				if ($res['valid_asm']==$res['id_asm']){
+					echo "<img src=\"graphs/icons/ok.png\" title=\"Contrat validé\">&nbsp;";
+				}else{
+					echo "<img src=\"graphs/icons/nok.png\" title=\"Ce contrat n'a pas encore était validé\">&nbsp;";
+				}
+				if ($res['id_asm']==$_COOKIE['ID_UTILISATEUR']){
+						$valid="valid_asm";$disable=" readonly";
+					}
+				echo "Assistante maternelle</td><td>:&nbsp;$res[prenom_asm] $res[nom_asm]</td></tr>";
+				echo "<tr><td colspan=2 style=\"font-style: italic;text-align: right;\">Dernière modification le $res[date_modif_contrat_fr]</td></tr>";														
+				echo "</table>";				
+				echo "<div id=\"contrat$res[id]\" style=\"display: none;\">";
+				echo "<form method=\"post\" class=\"editForm\" action=\"#\">";
+				echo "<input type =\"hidden\" name=\"id\" value=\"$res[id]\">";
+				echo "<input type =\"hidden\" name=\"validName\" value=\"$valid\">";
+				echo "<table width=\"100%\">";
+				echo "<tr><td style=\"width: 150px;\">Intitulé du poste</td><td>:&nbsp;<input $disable size=50 name=\"emploi\" value=\"$res[emploi]\"></td></tr>";
+				/*echo "<tr><td>Type </td><td>:&nbsp;<input $disable size=5 name=\"contrat\" value=\"$res[contrat]\"></td></tr>";*/
+				echo "<tr><td>Jour de reglement</td><td>:&nbsp;<select name=\"jour_reglement\"><option></option>";
+				for ($i=1;$i<=31;$i++){
+					echo "<option value=\"$i\"";
+					if ($i==$res['jour_reglement']){
+						echo " selected";
+					}
+					echo ">$i</option>";
+				}
+				echo "</select></td></tr>";
+				echo "<tr><td>Heures hebdomadaires (en h)</td><td>:&nbsp;<input $disable size=5 name=\"heures_gardes\" value=\"$res[heures_gardes]\"></td></tr>";
+				echo "<tr><td>Semaines travaillées (par an)</td><td>:&nbsp;<input $disable size=5 name=\"nb_sem_travail\" value=\"$res[nb_sem_travail]\"></td></tr>";
+				echo "<tr><td>Jours hebdomadaires</td><td>:&nbsp;<input $disable size=5 name=\"nb_jour_sem\" value=\"$res[nb_jour_sem]\"></td></tr>";
+				echo "<tr><td>Taux horaire brut</td><td>:&nbsp;<input $disable size=5 name=\"salaire_horaire_brut\" value=\"$res[salaire_horaire_brut]\"></td></tr>";
+				echo "<tr><td>Taux horaire net</td><td>:&nbsp;<input$disable size=5 name=\"salaire_horaire_net\" value=\"$res[salaire_horaire_net]\"></td></tr>";
+				echo "<tr><td>Taux heure complémentaire</td><td>:&nbsp;<input$disable size=5 name=\"salaire_heure_comp\" value=\"$res[salaire_heure_comp]\"></td></tr>";
+				echo "<tr><td>Heure complémentaire au delà de (en h)</td><td>:&nbsp;<input$disable size=5 name=\"declenchement_comp\" value=\"$res[declenchement_comp]\"></td></tr>";
+				echo "<tr><td>Taux heure supplémentaire</td><td>:&nbsp;<input$disable size=5 name=\"salaire_heure_supp\" value=\"$res[salaire_heure_supp]\"></td></tr>";
+				echo "<tr><td>Heure suplémentaire au delà de (en h)</td><td>:&nbsp;<input $disable size=5 name=\"declenchement_supp\" value=\"$res[declenchement_supp]\"></td></tr>";				
+				echo "<tr><td>Indemnité d'entretien</td><td>:&nbsp;<input $disable size=5 name=\"indemnite_entretien\" value=\"$res[indemnite_entretien]\"></td></tr>";
+				echo "<tr><td>Indemnité de repas</td><td>:&nbsp;<input $disable size=5 name=\"indemnite_repas\" value=\"$res[indemnite_repas]\"></td></tr>";
+				echo "<tr><td>Repas journaliers</td><td>:&nbsp;<select name=\"nb_repas\">";
+				for ($i=0;$i<=4;$i++){
+					echo "<option value=\"$i\"";
+					if ($i==$res['nb_repas']){echo " selected";}
+					echo ">$i</option>";
+				}
+				echo "</select></td></tr>";
+				echo "<tr><td>Indemnité kilométrique</td><td>:&nbsp;<input $disable size=5 name=\"indemnite_kilometrique\" value=\"$res[indemnite_kilometrique]\"></td></tr>";
+				echo "<tr><td>Le contrat débute le</td><td>:&nbsp;";
+				echo '<input '.$disable.' style="vertical-align: middle;" readonly type="text" size=8 name="date_contrat" id="data1" value="'.$res['date_contrat'].'">
+				<img src="graphs/icons/cal.png" id="f_trigger_a"
+				style="text-align: left;cursor: pointer; vertical-align: middle; margin: 0;pading: 0;"
+				title="Choisissez une date"
+				onmouseover="this.style.background=\'blue\';"
+				onmouseout="this.style.background=\'\'"/>
+				<script type="text/javascript">
+				Calendar.setup({
+					inputField     :    "data1",
+					ifFormat       :    "%Y-%m-%d",
+					button         :    "f_trigger_a",
+					singleClick    :    true
+				});
+				</script>
+				</td></tr>';
+				echo "<tr><td>Le contrat termine le</td><td>:&nbsp;";
+				echo '<input '.$disable.' style="vertical-align: middle;" readonly type="text" size=8 name="date_fin_contrat" id="data2" value="'.$res['date_fin_contrat'].'">
+				<img src="graphs/icons/cal.png" id="f_trigger_b"
+				style="text-align: left;cursor: pointer; vertical-align: middle; margin: 0;pading: 0;"
+				title="Choisissez une date"
+				onmouseover="this.style.background=\'blue\';"
+				onmouseout="this.style.background=\'\'"/>
+				<script type="text/javascript">
+				Calendar.setup({
+				inputField     :    "data2",
+				ifFormat       :    "%Y-%m-%d",
+				button         :    "f_trigger_b",
+				singleClick    :    true
+				});
+				</script>
+				</td></tr>';
+				echo "<tr><td>Paiement congés payés</td><td>:&nbsp;<select name=\"conges_payes\" $disable>";
+				if (empty($disable)){
+					echo "<option></option>";				
+					echo "<option value=\"1\"";
+					if ($res['conges_payes']=='1'){echo " selected";}
+					echo ">10% mensuel</option>
+					<option value=\"2\"";
+					if ($res['conges_payes']=='2'){echo " selected";}
+					echo ">En une seule fois au mois de juin</option>";
+					echo "<option value=\"3\"";
+					if ($res['conges_payes']=='3'){echo " selected";}
+					echo ">Lors de la prise des congés</option>";
+				}else{
+					echo "<option value=\"$res[type_contrat]\">$res[type_contrat]</option>";
+				}	
+				echo "</select></td></tr>";
+				echo "<tr><td>Type de contrat</td><td>:&nbsp;<select name=\"type_contrat\" $disable>";
+				if (empty($disable)){
+					echo "<option></option>";				
+					echo "<option value=\"CDD\"";
+					if ($res['type_contrat']=='CDD'){echo " selected";}
+					echo ">CDD</option>
+					<option value=\"CDI\"";
+					if ($res['type_contrat']=='CDI'){echo " selected";}
+					echo ">CDI</option>";
+				}else{
+					echo "<option value=\"$res[type_contrat]\">$res[type_contrat]</option>";
+				}	
+				echo "</select></td></tr>";
+				echo "<tr><td>Je valide ce contrat ?</td><td><input type=\"checkbox\" value=\"$_COOKIE[ID_UTILISATEUR]\" name=\"validId\"";
+				if ($_COOKIE['ID_UTILISATEUR']==$res['valid_asm'] || $_COOKIE['ID_UTILISATEUR']==$res['valid_parent1'] || $_COOKIE['ID_UTILISATEUR']==$res['valid_parent2']){
+					echo " checked=\"checked\"";
+				}
+				echo "></td></tr>";
+				echo "</table>";
+				echo "<p><button type=\"submit\" name=\"valid\" value=\"Valider\" style=\"cursor: pointer;\">Valider</button></p>";
+				echo"</form>";
+				echo "</div>";
+			}
+			?>
+		</div>
+		<!-- <div class="formLeft">
+			<table>
+			<tr><td></td><td></td></tr>		
+			</table>
+		</div>
+		<div class="formRight">
+			<table>
+			<tr><td></td><td></td></tr>		
+			</table>
+		</div> -->		
+	</div>
+</div>
+</body>
+</html>

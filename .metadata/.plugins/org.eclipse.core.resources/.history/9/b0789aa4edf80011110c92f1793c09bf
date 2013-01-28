@@ -1,0 +1,103 @@
+<?PHP
+session_start();
+$page="garde.php";
+$script="scripts/update_garde.php";
+$titre="Mes enfants gardés";
+$pageDescription="Liste des enfants dont j'ai la garde";
+$pageHelp="";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");
+include_once("../include/protect_var.php");
+//Variables
+$nbEnfant=0;
+$tabGenre=array("Inconnu","Fille","Garçon");
+connectSQL();
+//entete_page($GLOBALS['params']['appli']['title_appli']." - ".$titre,'');
+?>
+<!-- Calendrier -->      
+<link rel="stylesheet" type="text/css" href="content/calendar/calendar-blue2.css">
+<script type="text/javascript" src="content/calendar/calendar.js"></script>
+<script type="text/javascript" src="content/calendar/lang/calendar-fr.js"></script>
+<script type="text/javascript" src="content/calendar/calendar-setup.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("input").focus(function() {
+		jQuery("#mess").hide();
+	});
+	jQuery("input").focus(function() {
+		jQuery("#mess2").hide();
+	});
+	
+});
+</script>
+</head>
+<body>
+<div class="highslide-html-content" id="highslide-html2<?php echo $page;?>">
+	<div class="highslide-header">	
+	</div>
+	<div class="highslide-body">
+		<?php echo $pageHelp;?>			
+	</div>
+    <div class="highslide-footer">
+        <div>
+            <span class="highslide-resize" title="Resize">
+                <span></span>
+            </span>
+        </div>
+    </div>
+</div>
+<div id="container2">
+	<h1><?php  echo $titre;?></h1>
+		<h2><?php  echo $pageDescription;?></h2>	
+		<div id="mess" style="display: none;"></div>
+		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html2<?php echo $page;?>',headingText: 'Aide',preserveContent: false } );"></a></div>
+	<div class="content">
+		<?php 		
+		$nbEnfant=0;		
+		$req="SELECT * FROM enfant a, contrat b WHERE b.id_asm=$_COOKIE[ID_UTILISATEUR] ORDER BY date_naissance;";	
+		$rec=@mysql_query($req);				
+		?>						
+		<div id="majEnfant">	
+		<table style="width: 100%" style="margin: 0;padding:0;" cellspacing=0 cellpadding=0><tr>
+			<th class="barreTitre">Genre</th>							
+			<th class="barreTitre">Prénom</th>
+			<th width="10px" class="barreTitre">Nom</th>
+			<th class="barreTitre">Né le </th>
+			<th class="barreTitre">Fin de contrat</th>			
+			<th colspan=3 width="48px">&nbsp;</th></tr>		
+			<?php 			
+			while ($res=@mysql_fetch_array($rec)){				
+				$nbEnfant++;				
+				$idForCal=rawurlencode(chiffre("$res[id]", "$_COOKIE[UNIQID]"));
+				$typeForCal=rawurlencode(chiffre("enfant", "$_COOKIE[UNIQID]"));
+				echo "<table style=\"width: 100%;\">";		
+				echo"<tr>";
+				echo "<td>".$tabGenre[$res[genre]]."</td>";
+				echo "<td>$res[prenom]</td>";
+				echo "<td>$res[nom]</td>";
+				echo "<td>$res[date_naissance]</td>";
+				echo "<td>$res[date_fin_contrat]</td>";
+				echo "<td></td>";
+				echo "<td><img style=\"cursor: pointer;\" src=\"graphs/icons/agenda.png\" title=\"Agenda\" onclick=\"return hs.htmlExpand(this, { src: 'content/wdCalendar/wdCalendar/calendar.php?awq=$idForCal&zxs=$typeForCal',objectType: 'iframe', headingText: 'Agenda de $res[prenom] $res[nom]',width: 640,preserveContent: false });\"></td>";
+				echo "<td><form method=\"post\" class=\"myFormDelete\" action=\"#\" style=\"display: inline\">";
+				echo "<input type =\"hidden\" name=\"id\" value=\"$res[id]\">";
+				echo "<input type=\"submit\" name=\"del\" value=\"\" style=\"background-image: url(graphs/icons/supp.png);
+				background-repeat:no-repeat;
+				background-color: transparent;border: none;
+				cursor: pointer;\" title=\"Supprimer cet enfant\" onclick=\"
+				return(confirm('Voulez-vous vraiment supprimer cet enfant ?'));
+				\">&nbsp;&nbsp;&nbsp;";
+				echo "</form></td>";
+				echo "</tr>";										
+			}
+			?>
+			</table>						
+		</div>						
+	</div>
+</div>
+</body>
+</html>

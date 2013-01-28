@@ -263,7 +263,7 @@ jQuery(document).ready(function() {
             ?>
             </div>
 	<h1><?php  echo $titre;?></h1>            
-            <h2><?php  echo $pageDescription;?></h2>                
+            <!--<h2><?php  echo $pageDescription;?></h2>                -->
             <div id="mess" style="display: none;"></div>
 		<!--<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html<?php echo $page;?>',headingText: 'Aide',preserveContent: false } )"></a></div>-->
 	<!--<div class="content">-->

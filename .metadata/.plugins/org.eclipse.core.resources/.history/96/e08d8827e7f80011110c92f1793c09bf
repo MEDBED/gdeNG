@@ -1,0 +1,7 @@
+<?php
+include('header.inc.php');
+$db=@mysql_connect($GLOBALS['params']['bdd']['db_host'],$GLOBALS['params']['bdd']['db_user'],$GLOBALS['params']['bdd']['db_pass']);
+@mysql_select_db($GLOBALS['params']['bdd']['db_name'],$db);
+@mysql_query("SET NAMES 'utf8'");
+return $db;
+?>

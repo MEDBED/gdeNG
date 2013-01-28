@@ -1,0 +1,117 @@
+<?php
+setcookie("MESSAGE", "", time() - 1, "/");
+// Redirige l'utilisateur s'il est déjà identifié
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+      header("Location: ../index.php");
+}else{		
+	include_once("../header.inc.php");
+	include_once("../include/functions.php");	
+	/*require_once('../include/phpmailer/class.phpmailer.php');*/         
+     // Une fois le formulaire envoyé
+     $tabChampObli=array("nom","prenom","adresse","cp","ville");
+     foreach ($tabChampObli as $champ){
+     	if (!isset($_POST[$champ])){
+     		echo "Le champ $champ est obligatoire";     		
+			exit;
+     	}
+     }    
+     if(isset($_POST["valid"])){     	
+          // Vérification de la validité des champs
+          if ((!filter_var($_POST["mail1"], FILTER_VALIDATE_EMAIL) && !empty($_POST["mail1"])) || (!filter_var($_POST["mail2"], FILTER_VALIDATE_EMAIL) && !empty($_POST["mail2"]))){
+               echo "Erreur de saisie sur la ou les adresses mail !";               
+          }else{   	          	
+	          	//echo "*$_POST[num_urssaf]*";exit;
+	          	$urssaf=encrypt(trim($_POST[num_urssaf]));
+	          	$secu=encrypt(trim($_POST[num_secu]));
+               // Connexion à la base de données
+          	   connectSQL();          	
+          	   include_once("../include/protect_var.php");
+          	   //Vérification du pseudo          	   
+          	   if (!empty($_POST['pseudo'])){	
+          	   	$req="SELECT id,password FROM user WHERE pseudo='$_POST[pseudo]' AND id!='$_COOKIE[ID_UTILISATEUR]';" ;
+          	   	$rec=mysql_query($req);
+	          	   if (mysql_num_rows($rec)>0){
+	          	   	echo "Le pseudo choisi est déjà utilisé";
+	          	   	exit;
+	          	   }       
+          	   }    
+          	   $req="SELECT id,password FROM user WHERE pseudo='$_POST[pseudo]' AND id='$_COOKIE[ID_UTILISATEUR]';" ;
+          	   $rec=mysql_query($req);
+          	   $res=mysql_fetch_array($rec) ;                                                                                                  
+               // Modification de la table
+               $req="
+				UPDATE user SET
+                                  nom='$_POST[nom]',
+                                   prenom='$_POST[prenom]',
+                                   pseudo='$_POST[pseudo]',
+                                   adresse='$_POST[adresse]',
+                                   cp='$_POST[cp]',
+                                   ville='$_POST[ville]',
+                                   tel1='$_POST[tel1]',
+                                   tel2='$_POST[tel]',
+                                   tel_por1='$_POST[tel_por1]',
+                                   tel_por2='$_POST[tel_por2]',
+                                   mail1='$_POST[mail1]',
+                                   mail2='$_POST[mail2]',
+                                   genre='$_POST[genre]'";
+               if ($_POST['change_password']==1){                     	
+               	if (md5($_POST['old_password'])==$res['password']){
+               		if (preg_match("/^[A-Za-z0-9]{8,}$/", $_POST['new_password'])){
+	               		if ($_POST['new_password']==$_POST['new_password2'] && !empty($_POST['new_password'])){
+	               			$password=md5($_POST['new_password']);
+	               			$req.=",password='$password'";
+	               		}else{
+	               			echo "Le mot des passe n'a pas été correctement confirmé !";
+	               			exit;
+	               		}
+               		}else{
+               			 echo "Votre mot de passe doit comporter au moins 8 caractères";   
+               			exit;
+               		}
+               	}else{
+               		echo "Votre anicen mot de passe est incorrect !";
+               		exit;
+               	}              	
+               }
+               $req.=" WHERE id=$_COOKIE[ID_UTILISATEUR];";                                                 
+				$result = mysql_query($req);
+                if ($_POST['parent']=='on'){
+                	
+                	$reqTest="SELECT id FROM parent WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+                	$recTest=mysql_query($reqTest);
+                	if (mysql_num_rows($recTest)==0){
+                   		$req="INSERT INTO parent(id_user) VALUES('$_COOKIE[ID_UTILISATEUR]');";
+                   		mysql_query($req);
+                	}
+                	$req="UPDATE parent SET num_urssaf='$urssaf' WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";                	
+                   	mysql_query($req);                         
+                }else{  
+                	$req="DELETE FROM parent WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+                	mysql_query($req);
+                }
+                if ($_POST['asm']=='on'){                	                	
+                	$reqTest="SELECT id FROM asm WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+                	$recTest=mysql_query($reqTest);
+                	if (mysql_num_rows($recTest)==0){
+                		$req="INSERT INTO asm(id_user) VALUES('$_COOKIE[ID_UTILISATEUR]');";
+                		mysql_query($req);
+                	}
+                	$req="UPDATE asm SET agrement='$_POST[agrement]',num_secu='$secu',CB='$_POST[CB]',CHQ='$_POST[CHQ]',VIR='$_POST[VIR]',ESP='$_POST[ESP]',CESU='$_POST[CESU]',permis='$_POST[permis]',agrement_fin='$_POST[agrement_fin]' WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";                	
+                	mysql_query($req);
+                }else{  
+                	$req="DELETE FROM asm WHERE id_user='$_COOKIE[ID_UTILISATEUR]';";
+                	mysql_query($req);
+                }               
+                // Si une erreur survient
+                if(!$result){                              
+                	echo "Erreur d'accès à la base de données";
+                }else{                                                                                        
+					//Message de confirmation                                                
+                    echo "Votre compte a été modifié";
+                }                                                                     
+               // Fermeture de la connexion à la base de données
+               mysql_close();
+          }                             
+     }     
+}
+?>

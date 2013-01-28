@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body >
+<p style="width: 100%; text-align: center; color: #000;font-weight: bold; dont-size: large;">Mentions Légales</p>
+Le présent document a pour objet de définir les modalités et conditions dans lesquelles d’une part,  <?php echo $GLOBALS['params']['appli']['title_appli'];?> , ci-après dénommé l’EDITEUR, met à la disposition de ses utilisateurs le site, et les services disponibles sur le site et d’autre part, la manière par laquelle l’utilisateur accède au site et utilise ses services.
+
+Toute connexion au site est subordonnée au respect des présentes conditions.
+
+Pour l’utilisateur, le simple accès au site de l’EDITEUR à l’adresse URL suivante <?php echo $GLOBALS['params']['appli']['url'];?>  implique l’acceptation de l’ensemble des conditions décrites ci-après.
+
+<br/><br/><b>Personne n’agissant pas à titre professionnel</b><br/>
+<br/><br/><b>Informatique et libertés</b><br/>
+
+Le site  <?php echo $GLOBALS['params']['appli']['title_appli'];?> peut contenir des liens hypertextes vers d’autres sites présents sur le réseau Internet. Les liens vers ces autres ressources vous font quitter le site <?php echo $GLOBALS['params']['appli']['title_appli'];?>
+
+Il est possible de créer un lien vers la page de présentation de ce site sans autorisation expresse de l’EDITEUR. Aucune autorisation ou demande d’information préalable ne peut être exigée par l’éditeur à l’égard d’un site qui souhaite établir un lien vers le site de l’éditeur. Il convient toutefois d’afficher ce site dans une nouvelle fenêtre du navigateur. Cependant, l’EDITEUR se réserve le droit de demander la suppression d’un lien qu’il estime non conforme à l’objet du site <?php echo $GLOBALS['params']['appli']['title_appli'];?>
+
+<br/><br/><b> Limitation de responsabilité</b><br/>
+
+Les contenus de ce site (structure, design, texte, image, animation, logo) sont la propriété exclusive de "<?php echo $GLOBALS['params']['appli']['title_appli'];?>". Toute représentation totale ou partielle de ce site est soumise à l’autorisation préalable, écrite et expresse de l'auteur.
+
+<br/><br/><b>Accès au site</b><br/>
+
+Ce site ne saurait être tenu pour responsable des erreurs rencontrées sur le site, problèmes techniques, interprétation des informations publiée et conséquences de leur utilisation. En conséquence, l’utilisateur reconnaît utiliser ces informations sous sa responsabilité exclusive.
+<?php echo $GLOBALS['params']['appli']['exp_mail'];?>
+</body>
+</html>

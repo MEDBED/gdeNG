@@ -1,0 +1,120 @@
+<?PHP
+session_start();
+$page="event.php";
+$script="scripts/update_event.php";
+$titre="Titre page";
+$pageDescription="Description page";
+$pageHelp="";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");
+include_once("../include/protect_var.php");
+$idForCal=bin2hex(chiffre("$idForCal", "$_SESSION[UNIQID]"));
+$typeForCal=bin2hex(chiffre("$typeForCal", "$_SESSION[UNIQID]"));
+?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("input").focus(function() {
+		jQuery("#mess").hide();
+	});
+	jQuery("#myForm").validate({
+		debug: false,
+		rules: {
+			nom: "required",
+			prenom: "required",
+			adresse: "required",
+			cp: "required",
+			ville: "required",
+			mail1: {
+				required: true,
+				email: true
+			},
+			mail2: {
+				required: false,
+				email: true
+			}
+		},
+		messages: {
+			nom: "Le nom est obligatoire",
+			prenom: "Le prenom est obligatoire",
+			adresse: "L'adresse est obligatoire",
+			cp: "Le code postal est obligatoire",
+			ville: "La ville est obligatoire",
+			mail1: "Une adresse mail valide est obligatoire",
+			mail2: "Cette adresse mail n'est pas valide"
+		},
+		submitHandler: function(form) {
+			// do other stuff for a valid form
+			/*jQuery.post('<?php echo $script;?>', jQuery("#myForm").serialize(), function(data) {
+				jQuery('#mess').html(data);
+			});*/	
+			var datas = jQuery("#myForm").serialize();		
+            jQuery.ajax({
+                cache: false,
+                type: 'POST',
+                data: datas,
+                url : '<?php echo $script;?>',
+                success: function (response) {                    
+                    jQuery("#mess").attr('class','mess');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html(response);
+                },
+                error: function(data, textStatus, jqXHR) {
+                	jQuery("#mess").attr('class','messErr');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html("data");                	
+                }
+            })
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div class="highslide-html-content" id="highslide-html<?php echo $page;?>">
+	<div class="highslide-header">	
+	</div>
+	<div class="highslide-body">
+		<?php echo $pageHelp;?>			
+	</div>
+    <div class="highslide-footer">
+        <div>
+            <span class="highslide-resize" title="Resize">
+                <span></span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div id="container2">
+	<h1><?php  echo $titre;?></h1>
+		<h2><?php  echo $pageDescription;?></h2>	
+		<div id="mess" style="display: none;"></div>
+		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html<?php echo $page;?>',headingText: 'Aide',preserveContent: false } )"></a></div>
+	<div class="content">
+		<?php 
+		connectSQL();
+		$req="SELECT * FROM user WHERE id=$_COOKIE[ID_UTILISATEUR];";
+		$res=@mysql_fetch_array(@mysql_query($req)); 		
+		?>
+		<form method="post" id="myForm" action="#">
+		<input type="hidden" name="page" value="<?php echo $page;?>">
+		<div class="formLeft">
+			<table>
+			<tr><td></td><td></td></tr>		
+			</table>
+		</div>
+		<div class="formRight">
+			<table>
+			<tr><td></td><td></td></tr>		
+			</table>
+		</div>
+		<p id="validButton"><button type="submit" id="submitButton" name="valid" value="Valider" style="cursor: pointer;">Valider</button></p>
+		</form>
+	</div>
+</div>
+</body>
+</html>

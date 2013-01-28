@@ -1,0 +1,107 @@
+<?PHP
+session_start();
+$page="event.php";
+$script="scripts/update_event.php";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");;
+$idForCal=trim(dechiffre(hex2bin("$_GET[awq]"), "$_SESSION[UNIQID]"));
+$typeForCal=trim(dechiffre(hex2bin("$_GET[zxs]"), "$_SESSION[UNIQID]"));
+//echo "$_GET[awq] ** $idForCal ** $typeForCal ** $_SESSION[UNIQID]";
+entete_page('',$GLOBALS['params']['appli']['root_folder']);
+
+?>
+<script type="text/javascript" src="../content/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery("input").focus(function() {
+		jQuery("#mess").hide();
+	});
+	jQuery("#myForm").validate({
+		debug: false,
+		rules: {
+			event: "required",			
+			mail1: {
+				required: true,
+				email: true
+			}
+		},
+		messages: {
+			event: "Ce champ est obligatoire",			
+			mail1: "Une adresse mail valide est obligatoire",
+		},
+		submitHandler: function(form) {
+			// do other stuff for a valid form
+			/*jQuery.post('<?php echo $script;?>', jQuery("#myForm").serialize(), function(data) {
+				jQuery('#mess').html(data);
+			});*/	
+			var datas = jQuery("#myForm").serialize();		
+            jQuery.ajax({
+                cache: false,
+                type: 'POST',
+                data: datas,
+                url : '<?php echo $script;?>',
+                success: function (response) {                    
+                    jQuery("#mess").attr('class','mess');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html(response);
+                },
+                error: function(data, textStatus, jqXHR) {
+                	jQuery("#mess").attr('class','messErr');
+                    jQuery("#mess").show(1500);
+                    jQuery("#mess").html("data");                	
+                }
+            })
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div id="container2" style="width:450px;">	
+		<div id="mess" style="display: none;"></div>
+		<!-- <div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html<?php echo $page;?>',headingText: 'Aide',preserveContent: false } )"></a></div> -->
+	<div class="content">
+		<?php 
+		connectSQL();		
+		$req="SELECT a.*,date_format(a.date_naissance, '%d-%m-%Y') as date_age,b.date_fin_contrat FROM enfant a, contrat b WHERE b.id_asm=$_COOKIE[ID_UTILISATEUR] and a.id=b.id_enfant AND a.id!=$idForCal ORDER BY date_naissance;";			
+		$req="select * from enfant";
+		$rec=@mysql_query($req);
+		$nbEnfant=mysql_num_rows($rec);	
+		?>
+		<form method="post" id="myForm" action="#">
+		<input type="hidden" name="page" value="<?php echo $page;?>">
+		<table cellspacing=0 cellpadding=0 border=1>
+		<tr><td>Evénement</td><td colspan=2>: 
+			<select name="event">
+				<option></option>
+				<option>Repas</option>
+				<option>Sortie </option>
+			</select></td></tr>
+		<tr><td style="width: 30px;">Début</td><td>: <input name="date_debut" size=5></td><td style="text-align: left;"><select name="heure_debut"></select></td></tr>
+		<tr><td>Fin </td><td>: <input name="date_fin" size=5></td><td><select name="heure_debut"></select></td></tr>
+		<tr><td>Description</td><td colspan=2><textarea name="description" cols=50 rows=8></textarea></td></tr>
+		<?php if ($nbEnfant>0){
+			echo '<tr><td colspan=3>Dupliquer cet événement ? <input type="checkbox" name="dupliq" onclick="jQuery(\'#dupliqEvent\').toggle();"></td></tr>
+			<tr id="dupliqEvent" style="display: none;">
+				<td colspan=3>
+					<select name="dupliqId" multiple>';
+					while ($res=mysql_fetch_array(($rec))){
+						echo "<option value=\"$res[id]\">$res[prenom] $res[nom]</option>";
+					}
+					echo '</select>
+				</td>
+			</tr>';
+		}
+		?>
+		</table>
+		<p id="validButton"><button type="submit" id="submitButton" name="valid" value="Valider" style="cursor: pointer;">Valider</button></p>
+		</form>
+	</div>
+</div>
+</body>
+</html>

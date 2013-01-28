@@ -1,0 +1,78 @@
+<?php
+session_start();
+// Redirige l'utilisateur s'il est déjà identifié
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+      header("Location: ../index.php");
+}else{
+	include_once("../header.inc.php");
+	include_once("../include/functions.php");	
+	/*require_once('../include/phpmailer/class.phpmailer.php');*/         
+     // Une fois le formulaire envoyé
+     $tabChampObli=array('');  
+     $tabChampObli=array("event","date_debut","heure_debut","date_fin","heure_fin","description");
+     foreach ($tabChampObli as $champ){
+     	if (!isset($_POST[$champ])){
+     		echo "Le champ $champ est obligatoire";
+     		exit;
+     	}
+     	}    
+     if(isset($_POST["add"])){                          
+     	if (!empty($_POST['event']) && !empty($_POST['date_debut'])){              
+               // Connexion à la base de données
+          	   connectSQL();          	
+          	   include_once("../include/protect_var.php");                          
+          	   // Vérification de l'unicité          	   
+          	   $result = mysql_query("SELECT id FROM enfant WHERE nom='$_POST[nom]' AND prenom='$_POST[prenom]' AND (id_parent1='$_COOKIE[ID_UTILISATEUR]' OR id_parent2='$_COOKIE[ID_UTILISATEUR]');");
+          	   // Si une erreur survient
+          	   if (@mysql_num_rows($result)>0){
+          	   	echo "Cet enfant existe déjà !";
+          	   }else{
+          	   		 $uniqId=uniqid();
+                     // Création
+                     $req="INSERT INTO enfant(nom,prenom,genre,date_naissance,date_fete,id_parent1,uniqId) VALUES('$_POST[nom]','$_POST[prenom]','$_POST[genre]','$_POST[date_naissance]','$_POST[date_fete]','$_COOKIE[ID_UTILISATEUR]','$uniqId')";                       
+                     $result = @mysql_query($req);                         
+                     // Si une erreur survient
+                     if(!$result){
+                     	echo "Erreur d'accès à la base de données";
+                     }else{                                                                                        
+					 	//Message de confirmation
+                        echo "Enregistrement effectué";                                                                                                                  
+                     }                                                                                         
+               // Fermeture de la connexion à la base de données
+          	   }              
+     	}else{echo "le nom et le prénom sont obligatoire !" ;
+     	}                     
+     }elseif(isset($_POST["valid"])){                                  
+               // Connexion à la base de données
+          	   connectSQL();          	
+          	   include_once("../include/protect_var.php");          	             	  
+          	   	if (!empty($_POST['nom']) &&! empty($_POST['prenom'])){
+	               // Vérification de l'unicité
+	               $result = mysql_query("SELECT id FROM enfant WHERE nom='$_POST[nom]' AND prenom='$_POST[prenom]' AND (id_parent1='$_COOKIE[ID_UTILISATEUR]' OR id_parent2='$_COOKIE[ID_UTILISATEUR]');");             
+	               // Si une erreur survient
+	               if(mysql_num_rows($result)>0){
+	                     // Mise à jour
+	               		 $res=mysql_fetch_array($result);
+	                     $req="UPDATE enfant SET nom='$_POST[nom]',prenom='$_POST[prenom]',genre='$_POST[genre]',date_naissance='$_POST[date_naissance]',date_fete='$_POST[date_fete]' WHERE id='$res[id]'";                     
+	                     $result = mysql_query($req);
+	               }else{                    
+	               		echo "Cet enfant existe déjà !";
+	               } 
+          	   	} else { echo "Le nom et le prénom sont obligatoire";}            
+               // Fermeture de la connexion à la base de données
+               mysql_close();                       
+     }elseif (isset($_POST["del"])){  
+     	// Connexion à la base de données     	
+     	connectSQL();
+     	include_once("../include/protect_var.php");     	   
+     	$req="DELETE FROM enfant WHERE id='$_POST[id]'";
+     	$result = @mysql_query($req);
+     	if(!$result){
+			echo "Erreur d'accès à la base de données";
+        }else{                                                                                        
+			//Message de confirmation
+            echo "Suppression effectuée";                                                                                                                  
+        } 
+     }      
+}
+?>

@@ -108,7 +108,7 @@ jQuery(document).ready(function(){
 function affTab(tab){
 	jQuery("#"+tab).toggle();
 }
-jQuery(document).ready( function() {
+/*jQuery(document).ready( function() {
     jQuery("img[title]").tooltip({
 		// tweak the position
         offset: [0, 0],
@@ -117,7 +117,7 @@ jQuery(document).ready( function() {
         effect: 'slide'              
         // add dynamic plugin with optional configuration for bottom edge
     }).dynamic({ bottom: { direction: 'down', bounce: true } });    
-});
+});*/
 </script>
 </head>
 <body>
@@ -148,7 +148,7 @@ jQuery(document).ready( function() {
 </div>
 <div id="container2">
 	<h1><?php  echo $titre;?></h1>
-		<h2><?php  echo $pageDescription;?></h2>	
+		<!--<h2><?php  echo $pageDescription;?></h2>	-->
 		<div id="mess" style="display: none;"></div>	
 		<div id="help" title="Aide"><a href="#" onclick="return hs.htmlExpand(this, { contentId: 'highslide-html2',headingText: 'Aide',preserveContent: false } )"></a></div>
 	<div class="content">		

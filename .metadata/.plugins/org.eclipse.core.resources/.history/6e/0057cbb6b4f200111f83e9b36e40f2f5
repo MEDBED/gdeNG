@@ -1,0 +1,95 @@
+<?php
+$page="pdf.php";
+if(!isset($_COOKIE["ID_UTILISATEUR"])){
+	header("Location: ../index.php");
+	exit;
+}
+include_once("../header.inc.php");
+include_once("../include/functions.php");
+include_once("../include/protect_var.php");
+
+require('../content/fpdf/fpdf.php');
+
+connectSQL();
+$req="SELECT a.*,a.id as id_s,b.*,b.id as id_c,c.nom as nom_asm,c.prenom as prenom_asm,d.nom as prenom_enfant,d.prenom as prenom_enfant,d.id_parent1,d.id_parent2 
+FROM contrat a, salaire b, user c, enfant d 
+WHERE a.id='$_POST[id_contrat]' AND b.id='$_POST[id_salaire]' AND a.id_asm=c.id AND a.id_enfant=d.id";
+$res=mysql_fetch_array(mysql_query($req));
+class PDF extends FPDF
+{
+	// Page header
+	function Header()
+	{
+		// Logo
+		//$this->Image('logo.png',10,6,30);
+		// Arial bold 15
+		$this->SetFont('Arial','B',15);
+		// Move to the right
+		$this->Cell(1);
+		// Title
+		$this->SetFillColor(165,211,255);
+		$this->Cell(0,10,"Bulletin de paie\n",1,1,'C',1);
+		$this->SetFont('Arial','I',6);		
+		$this->Cell(0,3,'(a conserver sans limite de durée)',0,1,'R');
+		// Line break
+		//$this->Ln();
+		$this->SetFont('Arial','I',8);
+		$this->Cell(0,3,'Convention Collective des Assistants Maternels du Particulier Employeur code NAF 88.91A',0,1,'C');
+	}
+
+	// Page footer
+	function Footer()
+	{
+		// Position at 1.5 cm from bottom
+		$this->SetY(-15);
+		// Arial italic 8
+		$this->SetFont('Arial','I',8);
+		// Page number
+		$this->Cell(0,10,'Document créé le '.date('d-m-Y'),0,0,'C');
+	}
+}
+
+// Instanciation of inherited class
+$pdf = new PDF();
+$pdf->AliasNbPages();
+$pdf->AddPage();
+$pdf->SetFont('Times','',8);
+$pdf->SetFillColor(224,224,224);
+$pdf->Cell(95,5,'Employeur ',1,0,'C',1);
+$pdf->Cell(95,5,'Salarié ',1,1,'C',1);
+$pdf->SetFont('Times','I',8);
+$ligne_depart = $pdf->GetY();
+$pdf->Cell(47,5,'Nom Prénom ',0,0);
+$pdf->SetFont('Times','',8);
+$reqParent="SELECT nom, prenom FROM user WHERE id='$res[id_parent1]' OR id='$res[id_parent2]'";
+$recParent=mysql_query($reqParent);
+$nbParent=mysql_num_rows($recParent);
+$parent=1;
+$parents='';
+while ($resParent=mysql_fetch_array($recParent)){
+	$parents.=$resParent['nom'].' '.$resParent['prenom'];
+	if ($nbParent>1 && $parent!=$nbParent){
+		$parents.="\n";
+	}
+	$parent++;
+}
+$pdf->MultiCell(48,5,$parents,1,'L');
+$pdf->SetXY(105,$ligne_depart);
+$pdf->SetFont('Times','I',8);
+$pdf->Cell(47,5,'Nom Prénom ',0,0);
+$pdf->SetFont('Times','',8);
+$pdf->Cell(48,5,$res['nom_asm'].' '.$res['prenom_asm'],0,1,'L');
+$pdf->Ln(5);
+$pdf->MultiCell(0,10,$reqParent.'-'.$nbParent);
+$pdf->Output();
+// enregistre le document test.PDF dans le répertoire local du serveur.
+//$PDF->Output("test.PDF", "F");
+
+// affiche le document test.PDF dans une iframe.
+/*echo '
+<iframe src="test.PDF" width="100%" height="100%">
+[Your browser does <em>not</em> support <code>iframe</code>,
+or has been configured not to display inline frames.
+You can access <a href="./test.PDF">the document</a>
+via a link though.]</iframe>';*/
+?>
