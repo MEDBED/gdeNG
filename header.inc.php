@@ -21,12 +21,12 @@ $GLOBALS['params']['appli'] = array(
 		'root_folder' => '/gdeNG',
                 'document_folder' => '/usr/share/gdeNG',
 		'proto'	=> 'https',
-		'exp_mail' => '',
+		'exp_mail' => 'smtp.in.ac-dijon.fr',
 		'exp_name' => 'GDE',
-		'smtp_host' => '',
-		'url' => ''	,
+		'smtp_host' => 'https://10.71.111.155/gdeNG',
+                'url' => ''	,
 		'key' => 'sdfsd879PlçIkdlf8744s',
-		'ldap_host' => '',
+		'ldap_host' => '172.30.96.90',
 		'ldap_port' => '389',
 		'ldap_basedn' => 'ou=ac-dijon,ou=education,o=gouv,c=fr'	,
                 //Pensez à modifier le fichier content/jtable/validationEngine/jquery.validationEngine-fr pour la correspondance des extensions autorisées 
@@ -36,9 +36,9 @@ $GLOBALS['params']['appli'] = array(
 $GLOBALS['ocs'][0]['bdd']= array(                
                 'db_host' => 'localhost',
                 'db_port' => '3306',
-		'db_name' => 'ocsweb',
-		'db_user' => 'ocsweb',
-		'db_pass' => 'ocsweb',
+		'db_name' => 'ocsweb_admin',
+		'db_user' => 'gdeNG',
+		'db_pass' => 'gdeNG',
 		'db_type' => 'mysql',                   
 );
 $GLOBALS['ocs'][0]['tag']= array(                
