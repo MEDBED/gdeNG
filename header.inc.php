@@ -38,7 +38,7 @@ $GLOBALS['ocs'][0]['bdd']= array(
                 'db_port' => '3306',
 		'db_name' => 'ocsweb_admin',
 		'db_user' => 'gdeNG',
-		'db_pass' => 'gdeNG',
+		'db_pass' => 'gde',
 		'db_type' => 'mysql',                   
 );
 $GLOBALS['ocs'][0]['tag']= array(                

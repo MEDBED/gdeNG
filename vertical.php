@@ -599,7 +599,7 @@ function closeTooltip() {
           <li><a href="#" class="entete">Outils</a><span class="nv1"></span>
             <div class="mainDiv">
               <ul>
-                   <li><a href="#" title="Mon compte" onclick="javascript:SwitchToContent('ocs.php');" class="ligne">Mise à jour OCS</a><div class="imageMenu"><img src="graphs/icons/ocs-24.png"></div></li>
+                   <li><a href="#" title="Mettre à jour les données à partir d'OCS" onclick="javascript:SwitchToContent('ocs.php');" class="ligne">Mise à jour OCS</a><div class="imageMenu"><img src="graphs/icons/ocs-24.png"></div></li>
                     						
                     <li class="sub"><a href="#" title="Agenda" onclick="return hs.htmlExpand(this, { src: 'content/wdCalendar/wdCalendar/calendar.php?awq=<?php echo $idForCal;?>&amp;zxs=<?php echo $typeForCal;?>',objectType: 'iframe', headingText: 'Mon agenda',width: 640,preserveContent: false });" class="ligne">Mon agenda</a><div class="imageMenu"><img src="graphs/icons/calendar-24.png"></div></li>
                     <li class="sub"><a href="#" title="Calculatrice" onclick="return hs.htmlExpand(this, { src: 'content/calc/index.html',objectType: 'iframe', headingText: 'Calculatrice',width: 330,preserveContent: false });"class="ligne">Calculatrice</a><div class="imageMenu"><img src="graphs/icons/cal-24.png"></div></li>										               

@@ -199,8 +199,8 @@ $time=$timeend-$timestart;
 $page_load_time = number_format($time, 3);
 if (!empty($_SESSION['alias_entite'])){ 
     echo '<div id="container2">
-            <h1>OCS</h1>
-                <h2>Résultats de l\'importation</h2>	
+            <h1>OCS, importation des données</h1>
+                <!--<h2>Résultats de l\'importation</h2>	-->
 		<div id="mess" style="display: none;"></div>			
 	<div class="content">';
     echo '<table class="tbl" align="center"><tr><th>Donnée</th><th style="text-align: right">Ajout(s)</th><th style="text-align: right">Mise(s) à jour</th><th style="text-align: right">Temps d\'exécution (en sec)</th></tr>';
